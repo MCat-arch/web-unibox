@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { ContactContent } from "./contact-content";
 
 export const metadata: Metadata = {
-  title: "Kontak Unibox — Diskusikan Kebutuhan Anda",
-  description: "Hubungi Unibox untuk konsultasi solusi penyimpanan ikan dan kemitraan.",
+  title: "Kontak & Workshop — Unibox",
+  description: "Pusat informasi dan workshop perakitan teknologi pendingin perikanan Unibox di Margomulyo, Surabaya.",
   openGraph: {
-    title: "Kontak Unibox",
-    description: "Diskusikan kebutuhan solusi penyimpanan ikan bersama Unibox.",
+    title: "Kontak & Workshop — Unibox",
+    description: "Pusat informasi dan workshop perakitan teknologi pendingin perikanan Unibox di Margomulyo, Surabaya.",
     type: "website",
   },
 };

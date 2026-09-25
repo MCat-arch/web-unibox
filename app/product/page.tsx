@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { ProductContent } from "./product-content";
 
 export const metadata: Metadata = {
-  title: "Produk Unibox — Solusi Cold-Chain Modular",
-  description: "Jelajahi rancangan sistem penyimpanan dingin modular Unibox.",
+  title: "Produk & Teknologi Unibox — Sistem Pendingin & Elektrifikasi Perahu Nelayan",
+  description:
+    "Jelajahi 5 teknologi terintegrasi Unibox: Flywheel Generator mandiri, Pendingin Refrigerant R32, Coolbox 100 Liter, Sonar Ultrasonik 100m, dan Lampu LED Maritim Tahan Air.",
   openGraph: {
-    title: "Produk Unibox",
-    description: "Solusi penyimpanan dingin modular untuk industri perikanan.",
+    title: "Produk & Teknologi Unibox",
+    description:
+      "Sistem pendingin dan elektrifikasi terpadu untuk perahu nelayan Indonesia.",
     type: "website",
   },
 };

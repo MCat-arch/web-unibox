@@ -9,21 +9,23 @@ import { useLanguage } from "@/context/language-context";
 
 const activities = [
   {
+    slug: "demo-coolbox-flywheel-pelabuhan-brondong",
     image: "/images/unibox-port-cold-storage.jpg",
-    category: { id: "Uji Lapangan Nelayan", en: "Fisher Field Trial" },
-    date: { id: "Maret 2026", en: "March 2026" },
+    category: { id: "Event · Demo Lapangan", en: "Event · Field Demo" },
+    date: { id: "15 April 2026", en: "April 15, 2026" },
     title: {
-      id: "Uji Coba Pendingin R32 & Kestabilan Suhu Ikan di Perahu Nelayan",
-      en: "R32 Refrigeration Field Trial & Fish Temperature Stability Aboard Boats",
+      id: "Demo Pemasangan Modular Cool Box 100L & Flywheel di Pelabuhan Brondong",
+      en: "100L Cool Box & Flywheel Mounting Demonstration at Brondong Port",
     },
   },
   {
-    image: "/images/unibox-harbor-aerial.jpg",
-    category: { id: "Kemitraan Pesisir", en: "Coastal Workshop" },
-    date: { id: "Februari 2026", en: "February 2026" },
+    slug: "uji-coba-pendingin-r32-perahu-nelayan",
+    image: "/images/unibox-product-detail.jpg",
+    category: { id: "Blog · Teknologi Rantai Dingin", en: "Blog · Cold Chain Tech" },
+    date: { id: "25 Maret 2026", en: "March 25, 2026" },
     title: {
-      id: "Sosialisasi Elektrifikasi Flywheel dan Cool Box 100L di Pelabuhan",
-      en: "Flywheel Electrification & 100L Cool Box Workshop at Harbor",
+      id: "Uji Coba Pendingin R32 & Kestabilan Suhu Ikan di Perahu Nelayan",
+      en: "R32 Refrigeration Field Trial & Fish Temperature Stability Aboard Boats",
     },
   },
 ];
@@ -69,14 +71,17 @@ export function NewsPreviewSection() {
                 </span>
               </div>
 
-              <div className="flex min-h-36 items-center gap-5 rounded-2xl bg-[#092644] p-4 text-white sm:p-5 shadow-lg shadow-blue-950/15 border border-blue-900/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-[#0c3156]">
+              <Link
+                href={`/news/${item.slug}`}
+                className="flex min-h-36 items-center gap-5 rounded-2xl bg-[#092644] p-4 text-white sm:p-5 shadow-lg shadow-blue-950/15 border border-blue-900/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-[#0c3156] group cursor-pointer"
+              >
                 <div className="relative aspect-[4/3] w-32 shrink-0 sm:w-40 overflow-hidden rounded-xl bg-slate-800">
                   <Image
                     src={item.image}
                     alt={item.title[language]}
                     fill
                     loading="lazy"
-                    className="object-cover"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="160px"
                   />
                 </div>
@@ -84,11 +89,11 @@ export function NewsPreviewSection() {
                   <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-sky-400 bg-sky-950/60 px-2 py-0.5 rounded border border-sky-800/50 mb-2">
                     <Text>{{ id: "Dokumentasi", en: "Documentation" }}</Text>
                   </span>
-                  <h3 className="font-display text-sm sm:text-base font-bold leading-snug text-white line-clamp-2">
+                  <h3 className="font-display text-sm sm:text-base font-bold leading-snug text-white line-clamp-2 group-hover:text-sky-300 transition-colors">
                     {item.title[language]}
                   </h3>
                 </div>
-              </div>
+              </Link>
             </article>
           ))}
         </div>

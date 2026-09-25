@@ -89,7 +89,7 @@ export function Footer() {
   const { language } = useLanguage();
 
   return (
-    <footer className="relative overflow-hidden bg-slate-50 pt-16 pb-12 text-slate-800 border-t border-slate-200/90">
+    <footer className="relative overflow-hidden bg-slate-100 pt-16 pb-12 text-slate-800 border-t-2 border-slate-200">
       <div className="mx-auto max-w-7xl px-5 lg:px-8 text-center">
         {/* Logo Unibox (Konten & Logo Gelap) */}
         <Link href="/" className="inline-flex items-center gap-3">
