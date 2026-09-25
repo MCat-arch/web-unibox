@@ -53,7 +53,10 @@ export function HeroSection() {
   const slide = slides[activeSlide] ?? slides[0];
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden flex flex-col justify-end">
+    <section
+      id="hero-section"
+      className="relative min-h-screen w-full overflow-hidden flex flex-col justify-end"
+    >
       {/* Background slide images */}
       {slides.map((s, index) => (
         <div
@@ -78,42 +81,43 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/40" />
 
       {/* Main hero content — positioned at bottom left matching Aruna reference */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pb-16 pt-36">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-          {/* Left: Big clean headline + Orange rounded pill CTA */}
-          <div className="max-w-3xl">
-            <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.12] drop-shadow-md">
-              <Text>{slide.headline}</Text>
-            </h1>
-            <div className="mt-8 flex items-center gap-4">
-              <Button
-                asChild
-                className="rounded-full bg-[#f15a24] text-white hover:bg-[#d94e1e] font-semibold px-8 py-6 text-base sm:text-lg shadow-xl shadow-orange-950/30 transition-transform active:scale-95"
-              >
-                <Link href={slide.href}>
-                  <Text>{slide.cta}</Text>
-                </Link>
-              </Button>
-            </div>
-          </div>
-
-          {/* Right: Minimalist horizontal slide indicators matching Aruna */}
-          <div className="flex items-center gap-3 self-start lg:self-end pb-2">
-            {slides.map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => setActiveSlide(idx)}
-                className={`h-1.5 transition-all duration-300 rounded-full ${
-                  idx === activeSlide
-                    ? "w-12 bg-white"
-                    : "w-6 bg-white/40 hover:bg-white/70"
-                }`}
-                aria-label={`Slide ${idx + 1}`}
-              />
-            ))}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pb-20 pt-36">
+        <div className="max-w-2xl">
+          {/* Responsive headline */}
+          <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.2] drop-shadow-md">
+            <Text>{slide.headline}</Text>
+          </h1>
+          <div className="mt-7 flex items-center gap-4">
+            <Button
+              asChild
+              className="rounded-full bg-[#0f3d6b] hover:bg-[#0a2847] text-white font-semibold px-8 py-6 text-sm sm:text-base shadow-xl shadow-blue-950/50 border border-blue-400/25 transition-all hover:scale-105 active:scale-95"
+            >
+              <Link href={slide.href}>
+                <Text>{slide.cta}</Text>
+              </Link>
+            </Button>
           </div>
         </div>
+      </div>
+
+      {/* Center Slide Indicator: Subtle circular dots (tidak terlalu terlihat, posisi di tengah) */}
+      <div
+        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center gap-2.5"
+        aria-label="Slide indicators"
+      >
+        {slides.map((_, idx) => (
+          <button
+            key={idx}
+            type="button"
+            onClick={() => setActiveSlide(idx)}
+            className={`rounded-full transition-all duration-300 cursor-pointer ${
+              idx === activeSlide
+                ? "size-1.5 bg-white shadow-xs scale-110"
+                : "size-1 bg-white/40 hover:bg-white/70 hover:scale-110"
+            }`}
+            aria-label={`Slide ${idx + 1}`}
+          />
+        ))}
       </div>
     </section>
   );

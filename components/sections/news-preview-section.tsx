@@ -2,26 +2,28 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/text";
 import { useLanguage } from "@/context/language-context";
 
-const latestNews = [
+const activities = [
   {
     image: "/images/unibox-port-cold-storage.jpg",
-    category: { id: "Proyek terbaru", en: "Latest project" },
+    category: { id: "Uji Lapangan Nelayan", en: "Fisher Field Trial" },
+    date: { id: "Maret 2026", en: "March 2026" },
     title: {
-      id: "Menjaga mutu ikan sejak proses pendaratan",
-      en: "Protecting fish quality from the moment it lands",
+      id: "Uji Coba Pendingin R32 & Kestabilan Suhu Ikan di Perahu Nelayan",
+      en: "R32 Refrigeration Field Trial & Fish Temperature Stability Aboard Boats",
     },
   },
   {
     image: "/images/unibox-harbor-aerial.jpg",
-    category: { id: "Agenda berikutnya", en: "Next agenda" },
+    category: { id: "Kemitraan Pesisir", en: "Coastal Workshop" },
+    date: { id: "Februari 2026", en: "February 2026" },
     title: {
-      id: "Kolaborasi untuk rantai dingin pesisir",
-      en: "Collaboration for the coastal cold chain",
+      id: "Sosialisasi Elektrifikasi Flywheel dan Cool Box 100L di Pelabuhan",
+      en: "Flywheel Electrification & 100L Cool Box Workshop at Harbor",
     },
   },
 ];
@@ -30,56 +32,60 @@ export function NewsPreviewSection() {
   const { language } = useLanguage();
 
   return (
-    <section className="bg-background py-16 sm:py-24">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="text-center">
-          <p className="section-label">
-            <Text>{{ id: "Berita terbaru", en: "Latest news" }}</Text>
-          </p>
-          <h2 className="mt-3 font-display text-3xl text-navy sm:text-5xl">
-            <Text>{{ id: "Tetap terinformasi", en: "Stay informed" }}</Text>
+    <section className="bg-slate-50 py-16 sm:py-24 border-t border-slate-200/80">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+        {/* Header: Vertical Blue Accent Bar + Breadcrumb */}
+        <div className="text-center max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-2.5 mb-3">
+            <span className="h-5 w-1 rounded-full bg-blue-600 shadow-sm shadow-blue-600/40" />
+            <span className="text-xs font-bold tracking-wider uppercase text-blue-700">
+              <Text>{{ id: "Aktivitas & Agenda", en: "Activities & Events" }}</Text>
+            </span>
+          </div>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
+            <Text>{{ id: "Aktivitas Lapangan & Kemitraan Pesisir", en: "Field Activities & Coastal Partnerships" }}</Text>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
+          <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-600">
             <Text>
               {{
-                id: "Ikuti kabar proyek, wawasan operasional, dan perkembangan terbaru dari Unibox.",
-                en: "Follow project updates, operational insights, and the latest developments from Unibox.",
+                id: "Dokumentasi uji coba teknologi rantai dingin, pelatihan operasional nelayan, dan perakitan cold box langsung di sentra perikanan.",
+                en: "Documentation of cold-chain field trials, fisher operational training, and on-site cold box assembly in fisheries hubs.",
               }}
             </Text>
           </p>
         </div>
-        <p className="mt-5 text-center text-xs text-muted-foreground">
-          <Text>
-            {{
-              id: "Contoh konten — menunggu materi resmi",
-              en: "Sample content — awaiting official materials",
-            }}
-          </Text>
-        </p>
 
-        <div className="mt-10 grid gap-8 md:grid-cols-2">
-          {latestNews.map((article) => (
-            <article key={article.title.id}>
-              <p className="mb-4 font-display text-lg text-navy">
-                {article.category[language]}
-              </p>
-              <div className="flex min-h-32 items-center gap-5 rounded-lg bg-navy p-4 text-ice sm:p-5">
-                <div className="relative aspect-[4/3] w-28 shrink-0 sm:w-36">
+        {/* 2 Horizontal Activity Cards (Retaining User's Preferred Layout) */}
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          {activities.map((item) => (
+            <article key={item.title.id} className="flex flex-col">
+              <div className="flex items-center justify-between mb-3 px-1">
+                <span className="font-display text-xs sm:text-sm font-bold uppercase tracking-wider text-blue-700">
+                  {item.category[language]}
+                </span>
+                <span className="inline-flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+                  <Calendar className="size-3.5 text-slate-400" />
+                  {item.date[language]}
+                </span>
+              </div>
+
+              <div className="flex min-h-36 items-center gap-5 rounded-2xl bg-[#092644] p-4 text-white sm:p-5 shadow-lg shadow-blue-950/15 border border-blue-900/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-[#0c3156]">
+                <div className="relative aspect-[4/3] w-32 shrink-0 sm:w-40 overflow-hidden rounded-xl bg-slate-800">
                   <Image
-                    src={article.image}
-                    alt={article.title[language]}
+                    src={item.image}
+                    alt={item.title[language]}
                     fill
                     loading="lazy"
-                    className="rounded-md object-cover"
-                    sizes="144px"
+                    className="object-cover"
+                    sizes="160px"
                   />
                 </div>
-                <div>
-                  <p className="text-[10px] font-semibold uppercase text-brand-soft">
-                    <Text>{{ id: "Contoh artikel", en: "Sample article" }}</Text>
-                  </p>
-                  <h3 className="mt-2 font-display text-base leading-snug sm:text-lg">
-                    {article.title[language]}
+                <div className="min-w-0 flex-1">
+                  <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-sky-400 bg-sky-950/60 px-2 py-0.5 rounded border border-sky-800/50 mb-2">
+                    <Text>{{ id: "Dokumentasi", en: "Documentation" }}</Text>
+                  </span>
+                  <h3 className="font-display text-sm sm:text-base font-bold leading-snug text-white line-clamp-2">
+                    {item.title[language]}
                   </h3>
                 </div>
               </div>
@@ -87,11 +93,16 @@ export function NewsPreviewSection() {
           ))}
         </div>
 
-        <div className="mt-8 flex justify-center">
-          <Button asChild variant="outline" className="rounded-full">
+        {/* Bottom CTA Button */}
+        <div className="mt-10 flex justify-center">
+          <Button
+            asChild
+            variant="outline"
+            className="rounded-full border-blue-200 bg-white text-blue-900 hover:bg-blue-50 font-bold px-7 py-2.5 shadow-sm transition-all"
+          >
             <Link href="/news">
-              <Text>{{ id: "Lihat semua berita", en: "View all news" }}</Text>
-              <ArrowRight />
+              <Text>{{ id: "Lihat Semua Aktivitas", en: "View All Activities" }}</Text>
+              <ArrowRight className="size-4 ml-1.5" />
             </Link>
           </Button>
         </div>

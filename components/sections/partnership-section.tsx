@@ -11,28 +11,28 @@ const partnershipSteps = [
   {
     number: "01",
     image: "/images/unibox-fishermen.jpg",
-    title: { id: "Ceritakan kebutuhan", en: "Share your requirements" },
+    title: { id: "Ceritakan Kebutuhan", en: "Share Your Requirements" },
     description: {
-      id: "Sampaikan lokasi, kapasitas, dan tantangan operasional Anda.",
-      en: "Tell us about your site, capacity, and operational challenges.",
+      id: "Sampaikan lokasi perahu, kapasitas muatan ikan harian, dan tantangan operasional Anda di laut.",
+      en: "Tell us about your vessel location, daily fish volume, and ocean operational challenges.",
     },
   },
   {
     number: "02",
     image: "/images/unibox-harbor-aerial.jpg",
-    title: { id: "Survei & perancangan", en: "Survey & design" },
+    title: { id: "Survei & Perancangan", en: "Survey & Configuration" },
     description: {
-      id: "Tim kami memetakan kondisi lapangan dan menyusun konfigurasi.",
-      en: "Our team maps field conditions and develops the configuration.",
+      id: "Tim ahli Unibox memetakan tipe mesin perahu, kelistrikan flywheel, dan menyiapkan unit bodi 100L.",
+      en: "Unibox engineers evaluate boat engine specs, flywheel wiring, and prepare the 100L cooling unit.",
     },
   },
   {
     number: "03",
     image: "/images/unibox-port-cold-storage.jpg",
-    title: { id: "Implementasi & dukungan", en: "Implementation & support" },
+    title: { id: "Implementasi & Pendampingan", en: "Deployment & Training" },
     description: {
-      id: "Sistem dipasang, diuji, dan didampingi hingga siap beroperasi.",
-      en: "The system is installed, tested, and supported until operational.",
+      id: "Sistem dipasang langsung di perahu nelayan, diuji dingin R32, dan didampingi hingga siap berlayar.",
+      en: "Installed directly on your vessel, R32 temperature tested, and supported through field voyages.",
     },
   },
 ];
@@ -41,55 +41,64 @@ export function PartnershipSection() {
   const { language } = useLanguage();
 
   return (
-    <section className="overflow-hidden bg-primary py-16 text-primary-foreground sm:py-24">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#0e4877] via-[#0b3c63] to-[#093254] py-16 sm:py-24 text-white">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+        {/* Header: Vertical Sky Accent Bar + Breadcrumb */}
+        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <div>
-            <p className="text-xs font-semibold uppercase text-primary-foreground/70">
-              <Text>{{ id: "Keunggulan & Cara Pemesanan", en: "Key Advantages & How to Partner" }}</Text>
-            </p>
-            <h2 className="mt-4 max-w-xl font-display text-3xl leading-tight sm:text-5xl">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="h-6 w-1 rounded-full bg-sky-400 shadow-sm shadow-sky-400/50" />
+              <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-sky-200">
+                <Text>{{ id: "Keunggulan & Cara Pemesanan", en: "Key Advantages & How to Order" }}</Text>
+              </span>
+            </div>
+            <h2 className="font-display text-3xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-[1.2]">
               <Text>
                 {{
-                  id: "Mulai dari kebutuhan nyata di lapangan.",
-                  en: "Start with real needs in the field.",
+                  id: "Mulai dari Kebutuhan Nyata di Perahu Anda.",
+                  en: "Built Around the Real Needs Aboard Your Vessel.",
                 }}
               </Text>
             </h2>
           </div>
-          <p className="max-w-2xl text-sm leading-7 text-primary-foreground/75 lg:justify-self-end lg:text-base">
+          <p className="text-sm sm:text-base leading-relaxed text-sky-100/90 lg:justify-self-end max-w-2xl font-normal">
             <Text>
               {{
-                id: "Kesempatan kemitraan terbuka bagi nelayan, pemilik kapal, pengelola gudang, dan pelaku industri yang ingin memperkuat rantai dingin perikanan.",
-                en: "Partnership opportunities are open to fishers, vessel owners, warehouse operators, and industry players strengthening the fisheries cold chain.",
+                id: "Kesempatan kemitraan dan pemesanan terbuka bagi nelayan tradisional, pemilik armada kapal, koperasi pesisir, dan pengelola gudang hasil laut untuk memodernisasi rantai dingin ikan.",
+                en: "Partnership and orders are open for traditional fishers, vessel fleet owners, coastal cooperatives, and seafood facility operators modernizing the marine cold chain.",
               }}
             </Text>
           </p>
         </div>
 
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
+        {/* 3 Step Cards: White Cards on Medium Ocean Blue */}
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
           {partnershipSteps.map((step) => (
             <article
               key={step.number}
-              className="group overflow-hidden rounded-lg border border-primary-foreground/20 bg-primary-foreground/10"
+              className="group overflow-hidden rounded-2xl bg-white shadow-xl shadow-blue-950/25 border-4 border-white/20"
             >
-              <div className="relative aspect-[4/3] overflow-hidden">
+              {/* Photo Header */}
+              <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                 <Image
                   src={step.image}
                   alt={step.title[language]}
                   fill
-                  className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(min-width: 768px) 33vw, 100vw"
                 />
-                <span className="absolute left-4 top-4 grid size-10 place-items-center rounded-md bg-background font-display text-xs text-primary">
+                {/* Step Pill */}
+                <span className="absolute left-4 top-4 grid size-9 place-items-center rounded-xl bg-blue-600 font-display text-xs font-extrabold text-white shadow-md shadow-blue-900/40">
                   {step.number}
                 </span>
               </div>
-              <div className="p-5 sm:p-6">
-                <h3 className="font-display text-xl leading-tight">
+
+              {/* Card Body */}
+              <div className="p-6">
+                <h3 className="font-display text-lg sm:text-xl font-bold text-slate-900 leading-snug">
                   {step.title[language]}
                 </h3>
-                <p className="mt-3 text-sm leading-6 text-primary-foreground/70">
+                <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600">
                   {step.description[language]}
                 </p>
               </div>
@@ -97,23 +106,24 @@ export function PartnershipSection() {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col items-start justify-between gap-6 border-t border-primary-foreground/20 pt-8 sm:flex-row sm:items-center">
-          <p className="max-w-2xl font-display text-xl leading-snug sm:text-2xl">
+        {/* Bottom CTA Bar */}
+        <div className="mt-12 flex flex-col items-start justify-between gap-6 rounded-2xl bg-white/10 p-6 sm:p-8 backdrop-blur-sm border border-white/15 sm:flex-row sm:items-center">
+          <p className="max-w-2xl font-display text-lg sm:text-xl font-bold leading-snug text-white">
             <Text>
               {{
-                id: "Buka percakapan pertama untuk menemukan konfigurasi yang tepat.",
-                en: "Start the first conversation to find the right configuration.",
+                id: "Buka percakapan pertama untuk menemukan konfigurasi Unibox yang tepat bagi perahu Anda.",
+                en: "Start the conversation to discover the optimal Unibox configuration for your boat.",
               }}
             </Text>
           </p>
           <Button
             asChild
             size="lg"
-            className="shrink-0 bg-white text-blue-900 hover:bg-blue-50 font-bold shadow-lg shadow-blue-950/20"
+            className="shrink-0 bg-white text-blue-900 hover:bg-sky-50 font-bold shadow-xl shadow-blue-950/30"
           >
             <Link href="/contact">
-              <Text>{{ id: "Buka kemitraan", en: "Start a partnership" }}</Text>
-              <ArrowRight />
+              <Text>{{ id: "Buka Pemesanan", en: "Start Order" }}</Text>
+              <ArrowRight className="size-4 ml-1" />
             </Link>
           </Button>
         </div>

@@ -51,19 +51,19 @@ function FacebookIcon({ className }: { className?: string }) {
 }
 
 const offices = [
-  {
-    icon: Building2,
-    badge: { id: "Kantor Pusat & Rekayasa", en: "Head Office & Engineering" },
-    title: { id: "Jakarta Office", en: "Jakarta Office" },
-    address: {
-      id: "Kawasan Industri Maritim, Jl. Danau Sunter Barat No. 88, Tanjung Priok, Jakarta Utara, DKI Jakarta 14350",
-      en: "Maritime Industrial Estate, Jl. Danau Sunter Barat No. 88, Tanjung Priok, North Jakarta, 14350",
-    },
-    hours: { id: "Senin – Jumat: 08.30 – 17.00 WIB", en: "Monday – Friday: 08:30 – 17:00 WIB" },
-    phone: "+62 21 8092 1122",
-    email: "halo@unibox.id",
-    mapsUrl: "https://maps.google.com/?q=Tanjung+Priok+Jakarta",
-  },
+  // {
+  //   icon: Building2,
+  //   badge: { id: "Kantor Pusat & Rekayasa", en: "Head Office & Engineering" },
+  //   title: { id: "Jakarta Office", en: "Jakarta Office" },
+  //   address: {
+  //     id: "Kawasan Industri Maritim, Jl. Danau Sunter Barat No. 88, Tanjung Priok, Jakarta Utara, DKI Jakarta 14350",
+  //     en: "Maritime Industrial Estate, Jl. Danau Sunter Barat No. 88, Tanjung Priok, North Jakarta, 14350",
+  //   },
+  //   hours: { id: "Senin – Jumat: 08.30 – 17.00 WIB", en: "Monday – Friday: 08:30 – 17:00 WIB" },
+  //   phone: "+62 21 8092 1122",
+  //   email: "halo@unibox.id",
+  //   mapsUrl: "https://maps.google.com/?q=Tanjung+Priok+Jakarta",
+  // },
   {
     icon: Warehouse,
     badge: { id: "Pusat Perakitan & Layanan", en: "Assembly & Service Hub" },
@@ -84,172 +84,150 @@ const socialMediaIcons = [
     name: "LinkedIn",
     icon: LinkedinIcon,
     url: "https://linkedin.com",
-    hoverClass: "text-slate-600 hover:text-[#0a66c2] hover:border-[#0a66c2]/40 hover:bg-[#0a66c2]/5",
+    label: "LinkedIn Unibox",
   },
   {
     name: "Instagram",
     icon: InstagramIcon,
-    url: "https://instagram.com",
-    hoverClass: "text-slate-600 hover:text-[#e4405f] hover:border-[#e4405f]/40 hover:bg-[#e4405f]/5",
+    url: "https://instagram.com/unibox_id",
+    label: "Instagram @unibox_id",
   },
   {
     name: "YouTube",
     icon: YoutubeIcon,
     url: "https://youtube.com",
-    hoverClass: "text-slate-600 hover:text-[#ff0000] hover:border-[#ff0000]/40 hover:bg-[#ff0000]/5",
+    label: "YouTube Unibox",
   },
   {
-    name: "WhatsApp Business",
+    name: "WhatsApp",
     icon: MessageCircle,
-    url: "https://wa.me/6281198765432",
-    hoverClass: "text-slate-600 hover:text-[#25d366] hover:border-[#25d366]/40 hover:bg-[#25d366]/5",
+    url: "https://wa.me/6281280921122",
+    label: "WhatsApp Resmi",
   },
   {
     name: "Facebook",
     icon: FacebookIcon,
     url: "https://facebook.com",
-    hoverClass: "text-slate-600 hover:text-[#1877f2] hover:border-[#1877f2]/40 hover:bg-[#1877f2]/5",
+    label: "Facebook Unibox",
   },
 ];
 
 export function LocationSocialSection() {
   return (
-    <section className="bg-ice py-16 sm:py-24 border-t border-blue-100">
+    <section className="bg-gradient-to-b from-[#031120] to-[#020b16] py-16 sm:py-24 text-white border-t border-sky-950/80">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/90 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-700 shadow-xs">
-            <MapPin className="size-3.5 text-blue-600" />
-            <Text>{{ id: "LOKASI & KANAL DIGITAL", en: "OFFICES & DIGITAL CHANNELS" }}</Text>
+        <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end mb-12">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="h-6 w-1 rounded-full bg-sky-400 shadow-sm shadow-sky-400/50" />
+              <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-sky-300">
+                <Text>{{ id: "Lokasi & Media Sosial", en: "Locations & Social Media" }}</Text>
+              </span>
+            </div>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+              <Text>
+                {{
+                  id: "Hub Operasional & Pusat Layanan Kami",
+                  en: "Our Operational Hubs & Service Centers",
+                }}
+              </Text>
+            </h2>
           </div>
-          <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-navy leading-tight">
+          <p className="text-xs sm:text-sm text-sky-100/70 max-w-sm sm:text-right">
             <Text>
               {{
-                id: "Kunjungi Kantor Kami & Terhubung Bersama Kami",
-                en: "Visit Our Offices & Connect With Us",
-              }}
-            </Text>
-          </h2>
-          <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-600">
-            <Text>
-              {{
-                id: "Kami siap menyambut Anda untuk diskusi teknis langsung di pusat operasional kami, maupun melalui saluran komunikasi resmi Unibox.",
-                en: "We welcome you for in-person technical discussions at our operating hubs, as well as through our official digital channels.",
+                id: "Kunjungi workshop perakitan atau jangkau tim kami melalui berbagai saluran resmi",
+                en: "Visit our assembly workshops or reach our team via official maritime channels",
               }}
             </Text>
           </p>
         </div>
 
-        {/* Office Location Cards (2 Columns) */}
-        <div className="grid gap-6 lg:grid-cols-2 mb-12">
-          {offices.map((office, idx) => {
-            const Icon = office.icon;
+        {/* 2 White Office Cards */}
+        <div className="grid gap-6 md:grid-cols-2">
+          {offices.map((office) => {
+            const OfficeIcon = office.icon;
             return (
               <div
-                key={idx}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-blue-100/90 bg-white p-7 sm:p-8 shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-blue-900/10 hover:border-blue-300"
+                key={office.title.id}
+                className="group relative flex flex-col justify-between rounded-2xl bg-white p-6 sm:p-8 text-slate-900 shadow-2xl shadow-blue-950/50 border border-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
               >
                 <div>
                   <div className="flex items-center justify-between gap-4 mb-5">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700 border border-blue-200">
+                      <OfficeIcon className="size-3.5" />
                       <Text>{office.badge}</Text>
                     </span>
-                    <span className="grid size-10 place-items-center rounded-xl bg-blue-50 text-blue-600 transition-transform group-hover:scale-105">
-                      <Icon className="size-5" />
-                    </span>
+                    <a
+                      href={office.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors"
+                    >
+                      <MapPin className="size-3.5" />
+                      <Text>{{ id: "Buka Peta", en: "Open Maps" }}</Text>
+                      <ExternalLink className="size-3" />
+                    </a>
                   </div>
 
-                  <h3 className="font-display text-2xl font-bold text-navy group-hover:text-blue-600 transition-colors">
+                  <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900 mb-3">
                     <Text>{office.title}</Text>
                   </h3>
 
-                  <div className="mt-5 space-y-3.5 text-sm text-slate-700">
-                    <div className="flex items-start gap-3">
-                      <MapPin className="size-4 shrink-0 text-blue-600 mt-1" />
-                      <p className="leading-relaxed">
-                        <Text>{office.address}</Text>
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-3 text-slate-500">
-                      <Clock className="size-4 shrink-0 text-blue-600" />
-                      <span>
-                        <Text>{office.hours}</Text>
-                      </span>
-                    </div>
-
-                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-2 text-xs sm:text-sm">
-                      <a
-                        href={`tel:${office.phone.replace(/[^0-9+]/g, "")}`}
-                        className="flex items-center gap-2 hover:text-blue-600 transition-colors"
-                      >
-                        <Phone className="size-4 text-blue-600" />
-                        <span className="font-medium">{office.phone}</span>
-                      </a>
-                      <a
-                        href={`mailto:${office.email}`}
-                        className="flex items-center gap-2 hover:text-blue-600 transition-colors"
-                      >
-                        <Mail className="size-4 text-blue-600" />
-                        <span className="font-medium">{office.email}</span>
-                      </a>
-                    </div>
-                  </div>
+                  <p className="text-xs sm:text-sm leading-relaxed text-slate-600 mb-6">
+                    <Text>{office.address}</Text>
+                  </p>
                 </div>
 
-                <div className="mt-8 border-t border-slate-100 pt-5">
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="w-full sm:w-auto rounded-xl gap-2 font-semibold border-blue-200 text-blue-700 bg-blue-50/40 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all shadow-xs"
-                  >
-                    <a href={office.mapsUrl} target="_blank" rel="noopener noreferrer">
-                      <Text>{{ id: "Buka di Google Maps", en: "Open in Google Maps" }}</Text>
-                      <ExternalLink className="size-3.5" />
-                    </a>
-                  </Button>
+                <div className="border-t border-slate-100 pt-4 space-y-2.5 text-xs sm:text-sm text-slate-600">
+                  <div className="flex items-center gap-3">
+                    <Clock className="size-4 text-blue-600 shrink-0" />
+                    <span><Text>{office.hours}</Text></span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Phone className="size-4 text-blue-600 shrink-0" />
+                    <span className="font-semibold text-slate-800">{office.phone}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Mail className="size-4 text-blue-600 shrink-0" />
+                    <span className="font-semibold text-slate-800">{office.email}</span>
+                  </div>
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* Social Media: Compact Icon-Only Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-2xl border border-blue-100/90 bg-white p-6 sm:p-8 shadow-sm">
-          <div className="text-center sm:text-left">
-            <h3 className="font-display text-lg sm:text-xl font-bold text-navy">
-              <Text>
-                {{
-                  id: "Media Sosial & Saluran Komunikasi",
-                  en: "Social Media & Communication Channels",
-                }}
-              </Text>
+        {/* Social Media Channels (Icon-only with clean label tooltip) */}
+        <div className="mt-12 rounded-2xl bg-white/5 p-6 sm:p-8 backdrop-blur-sm border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <h3 className="font-display text-lg font-bold text-white">
+              <Text>{{ id: "Terhubung di Media Sosial", en: "Connect on Social Media" }}</Text>
             </h3>
-            <p className="mt-1 text-xs sm:text-sm text-slate-500">
+            <p className="text-xs sm:text-sm text-sky-100/70 mt-1">
               <Text>
                 {{
-                  id: "Ikuti perkembangan teknologi dan dokumentasi instalasi lapangan kami",
-                  en: "Follow our technology updates and field installation documentations",
+                  id: "Dapatkan pembaruan visual terbaru dari pelabuhan dan kegiatan nelayan",
+                  en: "Get latest visual updates from harbors and fishing activities",
                 }}
               </Text>
             </p>
           </div>
 
-          {/* Social Icons Only with Consistent Blue Theme */}
-          <div className="flex items-center gap-3 sm:gap-4 flex-wrap justify-center">
-            {socialMediaIcons.map((soc) => {
-              const Icon = soc.icon;
+          <div className="flex items-center gap-3">
+            {socialMediaIcons.map((item) => {
+              const Icon = item.icon;
               return (
                 <a
-                  key={soc.name}
-                  href={soc.url}
+                  key={item.name}
+                  href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  title={soc.name}
-                  aria-label={soc.name}
-                  className="group grid size-12 sm:size-14 place-items-center rounded-2xl border border-blue-100 bg-blue-50/50 text-blue-700 shadow-xs transition-all duration-300 hover:scale-110 hover:bg-blue-600 hover:text-white hover:border-blue-600 hover:shadow-lg hover:shadow-blue-500/25 active:scale-95"
+                  aria-label={item.label}
+                  className="grid size-11 place-items-center rounded-xl bg-white text-blue-900 border border-white/20 shadow-md transition-all duration-200 hover:scale-110 hover:bg-sky-400 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-sky-400"
                 >
-                  <Icon className="size-5 sm:size-6 transition-transform duration-300 group-hover:scale-110" />
+                  <Icon className="size-5" />
                 </a>
               );
             })}

@@ -2,356 +2,301 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import {
-  CheckCircle2,
-  Cpu,
-  Factory,
-  Layers,
-  Ship,
-  Snowflake,
-  Truck,
-  Warehouse,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Minus, Plus } from "lucide-react";
 import { Text } from "@/components/text";
 import { useLanguage } from "@/context/language-context";
 
-interface SolutionItem {
-  id: string;
-  tabLabel: { id: string; en: string };
-  title: { id: string; en: string };
-  highlight: { id: string; en: string };
-  description: { id: string; en: string };
-  image: string;
-  correspondingProducts: { id: string; en: string }[];
+function SonarRadarVisual() {
+  return (
+    <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-[#081827] flex items-center justify-center border border-sky-900/60 shadow-inner">
+      {/* Radar grid circles */}
+      <div className="absolute size-52 rounded-full border border-sky-500/25" />
+      <div className="absolute size-36 rounded-full border border-sky-500/35" />
+      <div className="absolute size-20 rounded-full border border-sky-500/45" />
+      <div className="absolute h-full w-px bg-sky-500/25" />
+      <div className="absolute w-full h-px bg-sky-500/25" />
+
+      {/* Rotating scanner beam */}
+      <div
+        className="absolute inset-0 origin-center animate-spin"
+        style={{
+          animationDuration: "6s",
+          background:
+            "conic-gradient(from 0deg, transparent 0deg, transparent 300deg, rgba(56, 189, 248, 0.25) 360deg)",
+        }}
+      />
+
+      {/* Fish blips */}
+      <div className="absolute top-1/4 left-1/3 flex items-center gap-1.5 animate-pulse">
+        <span className="size-2 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400" />
+        <span className="text-[10px] font-mono text-emerald-300">Target 45m</span>
+      </div>
+      <div className="absolute bottom-1/3 right-1/4 flex items-center gap-1.5 animate-pulse">
+        <span className="size-2 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400" />
+        <span className="text-[10px] font-mono text-emerald-300">Cluster 82m</span>
+      </div>
+
+      <div className="absolute bottom-3 left-4 rounded-md bg-black/60 px-2.5 py-1 text-[11px] font-mono text-sky-300 backdrop-blur-sm border border-sky-500/20">
+        Sonar Ultrasonik Range: 100m Active
+      </div>
+    </div>
+  );
 }
 
-const solutionsData: SolutionItem[] = [
+const features = [
   {
-    id: "automated-production",
-    tabLabel: {
-      id: "Solusi Jalur Produksi Es Otomatis",
-      en: "Automated Ice Production Line Solutions",
-    },
+    number: "01",
     title: {
-      id: "Solusi Jalur Produksi Es Otomatis",
-      en: "Automated Ice Production Line Solutions",
-    },
-    highlight: {
-      id: "Produksi es berkapasitas tinggi membutuhkan sistem terotomatisasi untuk memaksimalkan efisiensi dan menekan biaya tenaga kerja.",
-      en: "High-volume ice production requires automated, unmanned systems to maximize efficiency and reduce labor costs.",
+      id: "Sumber Energi Mandiri di Perahu",
+      en: "Self-Sustaining Energy Source Onboard",
     },
     description: {
-      id: "Kami menghadirkan lini produksi es terintegrasi penuh, mulai dari pembuatan es kristal/serpih, penyimpanan dingin terkontrol, hingga pengemasan otomatis dengan sistem pemantauan jarak jauh.",
-      en: "We deliver fully integrated ice production lines, from ice making to storage, packaging, and delivery, with remote monitoring, automated control, and minimal manual intervention.",
+      id: "Unibox bisa menghasilkan listrik sendiri dengan mengubah putaran flywheel mesin perahu menjadi energi listrik. Nelayan tidak lagi bergantung pada accu motor yang boros biaya dan mudah rusak.",
+      en: "Unibox generates its own electricity by converting the rotation of the boat engine's flywheel into electrical power. Fishers no longer depend on expensive and fragile motorcycle batteries.",
     },
-    image: "/images/unibox-product-detail.jpg",
-    correspondingProducts: [
-      {
-        id: "Containerized Flake Ice Machine and Auto Ice Raker System",
-        en: "Containerized Flake Ice Machine and Auto Ice Raker System",
-      },
-      {
-        id: "Automatic Edible Ice Production Line",
-        en: "Automatic Edible Ice Production Line",
-      },
-      {
-        id: "Direct-cooling Ice Block Machine",
-        en: "Direct-cooling Ice Block Machine",
-      },
-    ],
-  },
-  {
-    id: "complete-ice-plant",
-    tabLabel: {
-      id: "Solusi Pabrik Es Terpadu",
-      en: "Complete Ice Plant Solutions",
-    },
-    title: {
-      id: "Solusi Pabrik Es Terpadu Skala Pelabuhan",
-      en: "Complete Ice Plant Solutions for Harbors",
-    },
-    highlight: {
-      id: "Infrastruktur pabrik es modular siap pakai untuk memenuhi pasokan harian kapal nelayan dan pelelangan ikan.",
-      en: "Turnkey modular ice plant infrastructure designed to reliably supply daily needs of fishing fleets and auctions.",
-    },
-    description: {
-      id: "Solusi rancang-bangun fasilitas es menyeluruh yang tahan terhadap korosi air laut, hemat energi, serta dilengkapi dengan genset atau panel surya hibrida untuk daerah pesisir kepulauan.",
-      en: "Comprehensive facility design resilient against maritime corrosion, energy-optimized, and compatible with hybrid solar power for remote archipelagic coastal zones.",
-    },
-    image: "/images/unibox-port-cold-storage.jpg",
-    correspondingProducts: [
-      {
-        id: "Modular Flake & Tube Ice Processing Units",
-        en: "Modular Flake & Tube Ice Processing Units",
-      },
-      {
-        id: "Overhead Ice Conveying & Dispensing System",
-        en: "Overhead Ice Conveying & Dispensing System",
-      },
-      {
-        id: "Integrated Blast Freezing Cold Storage",
-        en: "Integrated Blast Freezing Cold Storage",
-      },
-    ],
-  },
-  {
-    id: "modular-cold-room",
-    tabLabel: {
-      id: "Penyimpanan Dingin Modular Surya",
-      en: "Solar Modular Cold Storage Solutions",
-    },
-    title: {
-      id: "Penyimpanan Dingin Modular Surya Terdesentralisasi",
-      en: "Decentralized Solar Modular Cold Storage",
-    },
-    highlight: {
-      id: "Menjaga kualitas tangkapan bernilai tinggi tetap segar sejak detik pertama kapal bersandar hingga distribusi.",
-      en: "Maintains top-tier grade quality of fresh seafood from the moment vessels dock until final consumer distribution.",
-    },
-    description: {
-      id: "Unit cold storage modular Unibox dengan insulasi isolasi ganda PUR berdensitas tinggi, kendali suhu otomatis berbasis IoT, serta sistem pelaporan status real-time melalui smartphone.",
-      en: "Unibox modular cold storage featuring high-density PUR insulation, IoT-enabled automated thermal management, and real-time smartphone telemetry reporting.",
-    },
-    image: "/images/unibox-harbor-aerial.jpg",
-    correspondingProducts: [
-      {
-        id: "Smart Solar-Powered Walk-in Cold Room",
-        en: "Smart Solar-Powered Walk-in Cold Room",
-      },
-      {
-        id: "IoT Remote Temperature & Humidity Sensor Hub",
-        en: "IoT Remote Temperature & Humidity Sensor Hub",
-      },
-      {
-        id: "Multi-temperature Mobile Reefer Modules",
-        en: "Multi-temperature Mobile Reefer Modules",
-      },
-    ],
-  },
-];
-
-const industries = [
-  {
-    icon: Ship,
-    name: { id: "Penangkapan Ikan Laut", en: "Fisheries Preservation" },
     image: "/images/unibox-fishermen.jpg",
-    desc: { id: "Preservasi mutu tangkapan di atas kapal", en: "Onboard catch quality preservation" },
+    customVisual: false,
   },
   {
-    icon: Warehouse,
-    name: { id: "Pelabuhan & Pelelangan", en: "Harbor & Fish Auction" },
-    image: "/images/unibox-harbor-aerial.jpg",
-    desc: { id: "Pasokan es harian dan hub penyimpanan", en: "Daily ice supply & local cold hub" },
-  },
-  {
-    icon: Factory,
-    name: { id: "Pabrik Pengolahan", en: "Seafood Processing" },
+    number: "02",
+    title: {
+      id: "Mengurangi Kerugian Akibat Ikan Busuk",
+      en: "Reducing Losses from Spoiled Catch",
+    },
+    description: {
+      id: "Dengan teknologi pendingin ramah lingkungan berbasis refrigerant R32, ikan bisa tetap segar tanpa harus bergantung pada es batu. Nelayan tidak perlu lagi membuang sebagian hasil tangkapan karena pembusukan.",
+      en: "Powered by eco-friendly R32 refrigerant cooling technology, fish stays fresh without relying on conventional ice blocks. Fishers no longer need to discard valuable catch due to spoilage.",
+    },
     image: "/images/unibox-product-detail.jpg",
-    desc: { id: "Lini pendinginan higienis skala pabrik", en: "Hygienic industrial chilling lines" },
+    customVisual: false,
   },
   {
-    icon: Truck,
-    name: { id: "Logistik Rantai Dingin", en: "Refrigerated Logistics" },
+    number: "03",
+    title: {
+      id: "Memiliki Kapasitas Pendingin Hingga 100 Liter",
+      en: "Cooling Capacity up to 100 Liters",
+    },
+    description: {
+      id: "Dirancang dengan kotak berinsulasi rapat ganda bervolume hingga 100 liter. Menjaga suhu stabil selama hari-hari melaut, bodi kokoh tahan ombak, dan sangat praktis ditempatkan di perahu nelayan.",
+      en: "Engineered with a dual high-density insulated box holding up to 100 liters. Maintains thermal stability during long fishing trips, rugged against ocean conditions, and easily fits aboard fishing boats.",
+    },
     image: "/images/unibox-port-cold-storage.jpg",
-    desc: { id: "Distribusi terkontrol antar pulau", en: "Inter-island temperature-controlled transit" },
+    customVisual: false,
+  },
+  {
+    number: "04",
+    title: {
+      id: "Pencarian Ikan Lebih Cepat dan Efisien",
+      en: "Faster & More Efficient Fish Finding",
+    },
+    description: {
+      id: "Dilengkapi dengan radar sonar ultrasonik yang bisa mendeteksi lokasi sebaran ikan hingga 100 meter. Hemat waktu, hemat bahan bakar, dan lebih ramah lingkungan karena mengurangi emisi polusi.",
+      en: "Equipped with ultrasonic sonar radar capable of detecting fish school locations up to 100 meters. Saves time, conserves fuel, and protects the marine environment by reducing carbon emissions.",
+    },
+    image: "",
+    customVisual: true,
+  },
+  {
+    number: "05",
+    title: {
+      id: "Sistem Penerangan Perahu yang Aman dan Efisien",
+      en: "Safe & Efficient Boat Lighting System",
+    },
+    description: {
+      id: "Menggunakan teknologi Light Emitting Diode (LED) yang rendah daya, terang, dan tahan lama, serta pemberian pelindung tahan air membuat proses penerangan pada perahu menjadi lebih optimal, murah, tahan lama, dan efisien.",
+      en: "Utilizing low-power, high-brightness, and long-lasting Light Emitting Diode (LED) technology with waterproof marine enclosures, making nighttime boat illumination optimal, affordable, and durable.",
+    },
+    image: "/images/unibox-harbor-aerial.jpg",
+    customVisual: false,
   },
 ];
 
 export function SolutionsSection() {
-  const [activeTab, setActiveTab] = useState(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(0); // Default open first item
   const { language } = useLanguage();
-  const currentSolution = solutionsData[activeTab] ?? solutionsData[0];
+
+  const toggleStep = (idx: number) => {
+    setOpenIndex(openIndex === idx ? null : idx);
+  };
 
   return (
-    <section className="bg-slate-50 py-16 sm:py-24">
+    <section className="bg-slate-50 py-16 sm:py-24 border-b border-slate-200/80">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-        {/* Section Header (Attachment 1 reference) */}
-        <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:items-end mb-12 sm:mb-16">
-          <div>
-            {/* Pill Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-700 shadow-sm">
-              <Cpu className="size-3.5 text-blue-600 animate-pulse" />
-              <Text>{{ id: "SOLUSI SPESIFIKASI KHUSUS", en: "CUSTOMIZED SOLUTION" }}</Text>
+        <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
+          {/* Left Column: Authentic Unibox Value Proposition */}
+          <div className="lg:col-span-5 flex flex-col justify-between">
+            <div>
+              {/* Header: Vertical Blue Accent Bar + Breadcrumb */}
+              <div className="flex items-center gap-3 mb-6 sm:mb-8">
+                <span className="h-6 w-1 rounded-full bg-sky-500 shadow-sm shadow-sky-500/50" />
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-blue-700">
+                  <Text>{{ id: "Kenapa Unibox", en: "Why Unibox" }}</Text>
+                </span>
+              </div>
+
+              {/* Main Headline */}
+              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 leading-[1.25]">
+                <Text>
+                  {{
+                    id: "Smart Fish Cooling System untuk Nelayan",
+                    en: "Smart Fish Cooling System for Fishers",
+                  }}
+                </Text>
+              </h2>
+
+              {/* Official Caption from Unibox Instagram */}
+              <p className="mt-5 text-sm sm:text-base leading-relaxed text-slate-700 font-medium">
+                <Text>
+                  {{
+                    id: "Unibox dirancang dengan sistem pendingin efisien, insulasi rapat, serta sensor suhu presisi. Hasilnya? Ikan lebih awet, kualitas terjaga, dan potensi kehilangan hasil tangkapan bisa ditekan.",
+                    en: "Unibox is engineered with an efficient cooling system, tight insulation, and precision temperature sensors. The result? Fresher fish, protected quality, and minimized catch loss.",
+                  }}
+                </Text>
+              </p>
+
+              <p className="mt-3.5 text-sm sm:text-base leading-relaxed text-slate-600">
+                <Text>
+                  {{
+                    id: "Sebuah ekosistem terpadu di atas perahu nelayan: mengubah putaran mesin perahu menjadi sumber listrik mandiri, pendinginan bebas es batu konvensional, sonar pendeteksi ikan, serta penerangan LED maritim hemat energi.",
+                    en: "A unified system aboard fishing vessels: converting engine rotation into self-sufficient power, ice-free refrigeration, fish-finding sonar, and energy-saving marine LED lighting.",
+                  }}
+                </Text>
+              </p>
             </div>
 
-            {/* Main Title */}
-            <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-[1.2]">
-              <Text>
-                {{
-                  id: "Solusi Mesin Es & Cold Chain End-to-End untuk Berbagai Industri",
-                  en: "End to End Ice Machine Solutions for Diverse Industries",
-                }}
-              </Text>
-            </h2>
-          </div>
-
-          {/* Right Lead Paragraph */}
-          <div className="lg:pl-6">
-            <p className="text-sm sm:text-base leading-relaxed text-slate-600">
-              <Text>
-                {{
-                  id: "Sebagai pelopor teknologi pendingin maritim, Unibox menghadirkan solusi pembuatan es dan cold storage modular terpadu untuk pengawetan hasil tangkapan laut, fasilitas pelabuhan, pemrosesan pangan, hingga logistik rantai dingin.",
-                  en: "As a leading ice machine and cold-chain innovator, Unibox provides customized ice making solutions for a wide range of applications, including fisheries preservation, food processing, harbor storage, and distribution.",
-                }}
-              </Text>
-            </p>
-          </div>
-        </div>
-
-        {/* Main Showcase Split Card Container (Attachment 1 reference) */}
-        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-200/50">
-          <div className="grid lg:grid-cols-[1.3fr_1fr]">
-            {/* Left Blueprint / Schematic Panel */}
-            <div className="relative min-h-[420px] sm:min-h-[500px] flex flex-col justify-between overflow-hidden bg-[#0d2a4a] p-6 sm:p-8">
-              {/* Technical cyan blueprint grid background */}
-              <div
-                className="absolute inset-0 opacity-20 pointer-events-none"
-                style={{
-                  backgroundImage: `radial-gradient(#38bdf8 1px, transparent 1px), linear-gradient(to right, rgba(56, 189, 248, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(56, 189, 248, 0.1) 1px, transparent 1px)`,
-                  backgroundSize: "24px 24px, 48px 48px, 48px 48px",
-                }}
-              />
-
-              {/* Main Machine / Cold Storage Image */}
-              <div className="relative z-10 my-auto w-full aspect-[16/10] overflow-hidden rounded-xl border border-sky-400/20 shadow-2xl">
-                <Image
-                  src={currentSolution.image}
-                  alt={currentSolution.title[language]}
-                  fill
-                  className="object-cover transition-transform duration-700 hover:scale-105"
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent" />
+            {/* 4 Clean Typographic Spec Callouts (No cluttered icons) */}
+            <div className="mt-8 pt-6 border-t border-slate-200/80 grid grid-cols-2 gap-4">
+              <div className="rounded-xl border border-slate-200/90 bg-white p-4 shadow-xs">
+                <span className="block text-xl sm:text-2xl font-extrabold text-blue-700">100 L</span>
+                <span className="block text-xs font-bold text-slate-800 mt-1">
+                  <Text>{{ id: "Kapasitas Pendingin", en: "Cooling Capacity" }}</Text>
+                </span>
+                <span className="block text-[11px] text-slate-500 mt-0.5">
+                  <Text>{{ id: "Insulasi rapat ganda", en: "Dual tight insulation" }}</Text>
+                </span>
               </div>
 
-              {/* Corresponding Products Overlay Bar (Attachment 1 reference) */}
-              <div className="relative z-10 mt-6 rounded-xl border border-sky-400/30 bg-sky-950/60 p-4 sm:p-5 backdrop-blur-md">
-                <p className="text-xs font-bold uppercase tracking-wider text-sky-300">
-                  <Text>{{ id: "Produk Terkait", en: "Corresponding Products" }}</Text>
-                </p>
-                <div className="mt-3 flex flex-wrap gap-2.5">
-                  {currentSolution.correspondingProducts.map((prod, pIdx) => (
-                    <span
-                      key={pIdx}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-sky-300/30 bg-sky-900/50 px-3 py-1 text-xs font-medium text-sky-100"
-                    >
-                      <span className="text-sky-400 font-bold">✓</span>
-                      <span>{prod[language]}</span>
-                    </span>
-                  ))}
-                </div>
+              <div className="rounded-xl border border-slate-200/90 bg-white p-4 shadow-xs">
+                <span className="block text-xl sm:text-2xl font-extrabold text-blue-700">R32</span>
+                <span className="block text-xs font-bold text-slate-800 mt-1">
+                  <Text>{{ id: "Refrigerant Ramah", en: "Eco Refrigerant" }}</Text>
+                </span>
+                <span className="block text-[11px] text-slate-500 mt-0.5">
+                  <Text>{{ id: "Bebas es batu balok", en: "Ice-block free" }}</Text>
+                </span>
+              </div>
+
+              <div className="rounded-xl border border-slate-200/90 bg-white p-4 shadow-xs">
+                <span className="block text-xl sm:text-2xl font-extrabold text-blue-700">100 m</span>
+                <span className="block text-xs font-bold text-slate-800 mt-1">
+                  <Text>{{ id: "Jangkauan Sonar", en: "Sonar Range" }}</Text>
+                </span>
+                <span className="block text-[11px] text-slate-500 mt-0.5">
+                  <Text>{{ id: "Radar sebaran ikan", en: "Fish school radar" }}</Text>
+                </span>
+              </div>
+
+              <div className="rounded-xl border border-slate-200/90 bg-white p-4 shadow-xs">
+                <span className="block text-xl sm:text-2xl font-extrabold text-blue-700">Flywheel</span>
+                <span className="block text-xs font-bold text-slate-800 mt-1">
+                  <Text>{{ id: "Energi Mandiri", en: "Self-Sufficient Power" }}</Text>
+                </span>
+                <span className="block text-[11px] text-slate-500 mt-0.5">
+                  <Text>{{ id: "Putaran mesin perahu", en: "Boat engine conversion" }}</Text>
+                </span>
               </div>
             </div>
+          </div>
 
-            {/* Right Interactive Detail & Tab Switcher Panel */}
-            <div className="flex flex-col justify-between p-6 sm:p-10 bg-white">
-              <div>
-                {/* Active Solution Title */}
-                <h3 className="font-display text-2xl sm:text-3xl font-bold text-slate-900 leading-snug">
-                  {currentSolution.title[language]}
-                </h3>
-
-                {/* Highlight Point with Blue Bullet Icon */}
-                <div className="mt-5 flex items-start gap-3 rounded-xl bg-blue-50/80 p-4 border border-blue-200/80">
-                  <CheckCircle2 className="size-5 shrink-0 text-blue-600 mt-0.5" />
-                  <p className="text-xs sm:text-sm font-semibold text-slate-800 leading-relaxed">
-                    {currentSolution.highlight[language]}
-                  </p>
-                </div>
-
-                {/* Description */}
-                <p className="mt-5 text-sm sm:text-base leading-relaxed text-slate-600">
-                  {currentSolution.description[language]}
-                </p>
-              </div>
-
-              {/* Action Switcher Tabs (Attachment 1 style: Pill buttons) */}
-              <div className="mt-8 space-y-3 pt-6 border-t border-slate-100">
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                  <Text>{{ id: "Pilihan Solusi Tersedia", en: "Available Solution Modes" }}</Text>
-                </p>
-                {solutionsData.map((sol, index) => {
-                  const isActive = index === activeTab;
+          {/* Right Column: 5 Interactive Unibox Features (Accordion Style) */}
+          <div className="lg:col-span-7">
+            <div className="rounded-3xl border border-slate-200/80 bg-slate-100/60 p-4 sm:p-6">
+              <div className="space-y-3">
+                {features.map((item, idx) => {
+                  const isOpen = openIndex === idx;
                   return (
-                    <button
-                      key={sol.id}
-                      type="button"
-                      onClick={() => setActiveTab(index)}
-                      className={`w-full flex items-center justify-between gap-3 px-5 py-3.5 rounded-xl font-medium text-sm transition-all duration-200 ${
-                        isActive
-                          ? "bg-blue-600 text-white shadow-md shadow-blue-600/30 scale-[1.01]"
-                          : "bg-blue-50/40 text-slate-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 border border-blue-100/80"
+                    <div
+                      key={item.number}
+                      className={`overflow-hidden rounded-2xl transition-all duration-300 border ${
+                        isOpen
+                          ? "bg-white border-blue-200 shadow-md shadow-blue-900/5"
+                          : "bg-white/90 border-slate-200/70 shadow-xs"
                       }`}
                     >
-                      <div className="flex items-center gap-3 truncate">
-                        <Layers
-                          className={`size-4 shrink-0 ${
-                            isActive ? "text-white" : "text-blue-500"
-                          }`}
-                        />
-                        <span className="truncate">{sol.tabLabel[language]}</span>
-                      </div>
-                      <span
-                        className={`text-xs px-2 py-0.5 rounded-full ${
-                          isActive
-                            ? "bg-white/25 text-white"
-                            : "bg-blue-100/80 text-blue-700 font-semibold"
+                      {/* Button Header (Distinct button vs hover colors) */}
+                      <button
+                        type="button"
+                        onClick={() => toggleStep(idx)}
+                        className={`w-full flex items-center justify-between gap-4 px-5 py-4 sm:px-6 sm:py-4.5 text-left transition-colors duration-200 cursor-pointer ${
+                          isOpen
+                            ? "bg-white"
+                            : "hover:bg-slate-100/90 hover:border-slate-300"
                         }`}
+                        aria-expanded={isOpen}
                       >
-                        0{index + 1}
-                      </span>
-                    </button>
+                        <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+                          {/* Number badge */}
+                          <span
+                            className={`shrink-0 grid size-8 place-items-center rounded-full text-xs font-extrabold transition-colors ${
+                              isOpen
+                                ? "bg-blue-600 text-white shadow-xs"
+                                : "bg-blue-50 text-blue-700 border border-blue-200/60"
+                            }`}
+                          >
+                            {item.number}
+                          </span>
+                          <span
+                            className={`font-display text-sm sm:text-base font-bold truncate ${
+                              isOpen ? "text-blue-700" : "text-slate-800"
+                            }`}
+                          >
+                            {item.title[language]}
+                          </span>
+                        </div>
+
+                        {/* Functional Toggle Button */}
+                        <div
+                          className={`shrink-0 grid size-7 place-items-center rounded-full border transition-colors ${
+                            isOpen
+                              ? "border-blue-300 bg-blue-50 text-blue-600"
+                              : "border-slate-300 bg-slate-50 text-slate-500"
+                          }`}
+                        >
+                          {isOpen ? (
+                            <Minus className="size-4" />
+                          ) : (
+                            <Plus className="size-4" />
+                          )}
+                        </div>
+                      </button>
+
+                      {/* Expandable Explanation + Photo/Visual (Hidden until clicked) */}
+                      {isOpen && (
+                        <div className="px-5 pb-6 sm:px-6 sm:pb-6 pt-2 border-t border-slate-100">
+                          <p className="text-xs sm:text-sm leading-relaxed text-slate-600 mb-5">
+                            {item.description[language]}
+                          </p>
+
+                          {/* Photo / Visual */}
+                          {item.customVisual ? (
+                            <SonarRadarVisual />
+                          ) : (
+                            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-slate-200 shadow-sm bg-slate-100">
+                              <Image
+                                src={item.image}
+                                alt={item.title[language]}
+                                fill
+                                className="object-cover"
+                                sizes="(min-width: 1024px) 50vw, 100vw"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   );
                 })}
-
-                <div className="pt-2">
-                  <Button asChild className="w-full rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 shadow-md shadow-blue-500/20">
-                    <Link href="/product">
-                      <Text>{{ id: "Konsultasikan Kebutuhan Proyek", en: "Consult Project Requirements" }}</Text>
-                    </Link>
-                  </Button>
-                </div>
               </div>
-            </div>
-          </div>
-
-          {/* Bottom Horizontal Industry/Application Bar (Attachment 1 reference) */}
-          <div className="border-t border-slate-200 bg-slate-50/70 p-5 sm:p-8">
-            <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">
-              <Text>{{ id: "Penerapan di Berbagai Industri", en: "Applications Across Industries" }}</Text>
-            </p>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {industries.map((ind, iIdx) => {
-                const Icon = ind.icon;
-                return (
-                  <div
-                    key={iIdx}
-                    className="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white p-3.5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-blue-300"
-                  >
-                    <div className="relative mb-3 h-24 w-full overflow-hidden rounded-lg bg-slate-100">
-                      <Image
-                        src={ind.image}
-                        alt={ind.name[language]}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        sizes="(min-width: 640px) 25vw, 50vw"
-                      />
-                      <div className="absolute inset-0 bg-navy/20 group-hover:bg-transparent transition-colors" />
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Icon className="size-4 shrink-0 text-blue-600" />
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
-                        {ind.name[language]}
-                      </h4>
-                    </div>
-                    <p className="mt-1 text-[11px] text-slate-500 line-clamp-1">
-                      {ind.desc[language]}
-                    </p>
-                  </div>
-                );
-              })}
             </div>
           </div>
         </div>

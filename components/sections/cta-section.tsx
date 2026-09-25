@@ -1,121 +1,160 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowRight, Mail, Phone } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Clock, ExternalLink, Mail, MapPin, Phone, Warehouse } from "lucide-react";
 import { Text } from "@/components/text";
 
-export function ContactCtaSection() {
-  const [contactSent, setContactSent] = useState(false);
+const surabayaOffice = {
+  badge: { id: "Pusat Perakitan & Layanan", en: "Assembly & Marine Service Hub" },
+  title: { id: "Surabaya Marine Hub", en: "Surabaya Marine Hub" },
+  address: {
+    id: "Kawasan Pergudangan Perak Timur Blok C-4, Pabean Cantikan, Surabaya, Jawa Timur 60165",
+    en: "East Perak Warehousing Complex Block C-4, Pabean Cantikan, Surabaya, East Java 60165",
+  },
+  hours: { id: "Senin – Sabtu: 08.00 – 16.30 WIB", en: "Monday – Saturday: 08:00 – 16:30 WIB" },
+  phone: "+62 31 7490 8820",
+  email: "surabaya@unibox.id",
+  mapQuery: "Perak Timur, Pabean Cantikan, Surabaya, Indonesia",
+  mapsUrl: "https://maps.google.com/?q=Perak+Timur+Surabaya",
+};
 
+export function ContactCtaSection() {
   return (
-    <section className="overflow-hidden bg-ice py-16 sm:py-24">
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:px-8">
-        {/* Left: Info */}
-        <div>
-          <p className="section-label">
-            <Text>{{ id: "Hubungi kami", en: "Contact us" }}</Text>
-          </p>
-          <h2 className="mt-4 max-w-xl font-display text-3xl leading-tight text-navy sm:text-5xl">
-            <Text>
-              {{
-                id: "Mari diskusikan kebutuhan rantai dingin Anda.",
-                en: "Let's discuss your cold-chain needs.",
-              }}
-            </Text>
-          </h2>
-          <p className="mt-5 max-w-lg text-sm leading-7 text-muted-foreground">
-            <Text>
-              {{
-                id: "Ceritakan lokasi, kapasitas, dan tantangan operasional Anda. Kami akan membantu memetakan langkah berikutnya.",
-                en: "Tell us about your location, capacity, and operating challenges. We will help map the next step.",
-              }}
-            </Text>
-          </p>
-          <div className="mt-8 grid gap-5 border-t border-border pt-7 sm:grid-cols-2">
-            <div className="flex gap-3">
-              <Mail className="mt-0.5 size-5 shrink-0 text-primary" />
-              <div>
-                <p className="text-[10px] font-semibold uppercase text-muted-foreground">
-                  Email
-                </p>
-                <p className="mt-1 text-sm font-semibold">
-                  <Text>{{ id: "Segera tersedia", en: "Coming soon" }}</Text>
-                </p>
-              </div>
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#092644] via-[#071f38] to-[#05172a] py-16 sm:py-24 text-white">
+      <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:items-start lg:px-12">
+        {/* Left Column: Contact Info (Desain Sekarang Dipertahankan) */}
+        <div className="lg:col-span-5 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="h-6 w-1 rounded-full bg-sky-400 shadow-sm shadow-sky-400/50" />
+              <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-sky-300">
+                <Text>{{ id: "Hubungi Kami", en: "Contact Us" }}</Text>
+              </span>
             </div>
-            <div className="flex gap-3">
-              <Phone className="mt-0.5 size-5 shrink-0 text-primary" />
-              <div>
-                <p className="text-[10px] font-semibold uppercase text-muted-foreground">
-                  <Text>{{ id: "Telepon", en: "Phone" }}</Text>
-                </p>
-                <p className="mt-1 text-sm font-semibold">
-                  <Text>{{ id: "Segera tersedia", en: "Coming soon" }}</Text>
-                </p>
+
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-white">
+              <Text>
+                {{
+                  id: "Mari Diskusikan Kebutuhan Rantai Dingin Anda.",
+                  en: "Let's Discuss Your Cold-Chain Requirements.",
+                }}
+              </Text>
+            </h2>
+
+            <p className="mt-5 text-sm sm:text-base leading-relaxed text-sky-100/80">
+              <Text>
+                {{
+                  id: "Ceritakan lokasi perahu, kapasitas tangkapan, dan tantangan operasional Anda. Tim teknis Unibox siap membantu memetakan konfigurasi sistem pendingin dan kelistrikan perahu yang paling efisien.",
+                  en: "Tell us about your vessel location, catch volume, and operating challenges. Unibox engineering team is ready to map the most efficient refrigeration and boat electrification configuration.",
+                }}
+              </Text>
+            </p>
+
+            <div className="mt-8 space-y-4 border-t border-sky-800/60 pt-7">
+              <div className="flex items-center gap-4 rounded-xl bg-white/5 p-4 border border-white/10 backdrop-blur-sm">
+                <div className="grid size-11 place-items-center rounded-lg bg-sky-500/20 text-sky-300 shrink-0">
+                  <Mail className="size-5" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-sky-300">Email Resmi</p>
+                  <a href="mailto:halo@unibox.id" className="text-sm sm:text-base font-semibold text-white hover:text-sky-300 transition-colors">
+                    halo@unibox.id
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 rounded-xl bg-white/5 p-4 border border-white/10 backdrop-blur-sm">
+                <div className="grid size-11 place-items-center rounded-lg bg-sky-500/20 text-sky-300 shrink-0">
+                  <Phone className="size-5" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-sky-300">WhatsApp / Layanan Cepat</p>
+                  <a href="https://wa.me/6281280921122" target="_blank" rel="noopener noreferrer" className="text-sm sm:text-base font-semibold text-white hover:text-sky-300 transition-colors">
+                    +62 812-8092-1122
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right: Form */}
-        <form
-          className="rounded-lg border border-border bg-card p-6 shadow-lg sm:p-8"
-          onSubmit={(e) => {
-            e.preventDefault();
-            setContactSent(true);
-          }}
-        >
-          <h3 className="font-display text-xl text-navy">
-            <Text>{{ id: "Ceritakan kebutuhan Anda", en: "Tell us what you need" }}</Text>
-          </h3>
-          <div className="mt-6 grid gap-4">
-            <label className="text-xs font-semibold text-muted-foreground">
-              <Text>{{ id: "Nama", en: "Name" }}</Text>
-              <input
-                required
-                className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+        {/* Right Column: Single Office (Surabaya Marine Hub) + Google Maps Interactive Embed */}
+        <div className="lg:col-span-7">
+          <div className="rounded-2xl bg-white p-6 sm:p-8 text-slate-900 shadow-2xl shadow-blue-950/40 border border-slate-100">
+            {/* Header: Badge & Title (Tanpa Tab Switcher) */}
+            <div className="flex items-center justify-between gap-4 border-b border-slate-100 pb-5">
+              <div>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700 border border-blue-200 mb-2">
+                  <Warehouse className="size-3.5" />
+                  <Text>{surabayaOffice.badge}</Text>
+                </span>
+                <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900">
+                  <Text>{surabayaOffice.title}</Text>
+                </h3>
+              </div>
+
+              <a
+                href={surabayaOffice.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:inline-flex items-center gap-1.5 rounded-lg bg-blue-50 px-3.5 py-1.5 text-xs font-bold text-blue-700 border border-blue-200 hover:bg-blue-100 transition-colors"
+              >
+                <MapPin className="size-3.5" />
+                <Text>{{ id: "Buka Peta", en: "Open Maps" }}</Text>
+                <ExternalLink className="size-3" />
+              </a>
+            </div>
+
+            {/* Office Info Details */}
+            <div className="mt-5 space-y-3">
+              <div className="flex items-start gap-3">
+                <MapPin className="size-4 text-blue-600 shrink-0 mt-1" />
+                <div className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+                  <Text>{surabayaOffice.address}</Text>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-100 text-xs text-slate-600">
+                <div className="flex items-center gap-2">
+                  <Clock className="size-3.5 text-blue-600 shrink-0" />
+                  <span><Text>{surabayaOffice.hours}</Text></span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Phone className="size-3.5 text-blue-600 shrink-0" />
+                  <span className="font-semibold text-slate-800">{surabayaOffice.phone}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Google Maps Interactive Embed for Surabaya */}
+            <div className="relative mt-5 aspect-[16/9] w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-inner">
+              <iframe
+                title="Peta Lokasi Surabaya Marine Hub"
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(surabayaOffice.mapQuery)}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="size-full"
               />
-            </label>
-            <label className="text-xs font-semibold text-muted-foreground">
-              Email
-              <input
-                required
-                type="email"
-                className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-              />
-            </label>
-            <label className="text-xs font-semibold text-muted-foreground">
-              WhatsApp
-              <input
-                type="tel"
-                placeholder="+62"
-                className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-              />
-            </label>
-            <label className="text-xs font-semibold text-muted-foreground">
-              <Text>{{ id: "Pesan", en: "Message" }}</Text>
-              <textarea
-                required
-                className="mt-2 min-h-28 w-full resize-y rounded-md border border-input bg-background p-3 text-sm text-foreground outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-              />
-            </label>
+            </div>
+
+            {/* Open in Google Maps Mobile Button */}
+            <div className="mt-4 flex sm:hidden items-center justify-between pt-1">
+              <a
+                href={surabayaOffice.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg bg-blue-50 px-3.5 py-2 text-xs font-bold text-blue-700 border border-blue-200 hover:bg-blue-100 transition-colors"
+              >
+                <MapPin className="size-3.5" />
+                <Text>{{ id: "Buka Rute di Google Maps", en: "Open in Google Maps" }}</Text>
+                <ExternalLink className="size-3" />
+              </a>
+            </div>
           </div>
-          <Button type="submit" className="mt-5 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 shadow-md shadow-blue-500/20">
-            <Text>{{ id: "Kirim pertanyaan", en: "Send inquiry" }}</Text>
-            <ArrowRight />
-          </Button>
-          {contactSent && (
-            <p role="status" className="mt-4 text-xs leading-5 text-primary">
-              <Text>
-                {{
-                  id: "Terima kasih. Ini masih formulir contoh; pengiriman belum diaktifkan.",
-                  en: "Thank you. This is still a sample form; delivery is not enabled yet.",
-                }}
-              </Text>
-            </p>
-          )}
-        </form>
+        </div>
       </div>
     </section>
   );

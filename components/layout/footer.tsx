@@ -1,100 +1,154 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { useLanguage } from "@/context/language-context";
 import { Text } from "@/components/text";
-import { Button } from "@/components/ui/button";
 
 type Language = "id" | "en";
+
+function LinkedinIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect width="4" height="12" x="2" y="9" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
+function YoutubeIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+      <path d="m10 15 5-3-5-3z" />
+    </svg>
+  );
+}
+
+function FacebookIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  );
+}
 
 const navItems = [
   { href: "/", id: "Beranda", en: "Home" },
   { href: "/about", id: "Tentang", en: "About" },
   { href: "/product", id: "Produk", en: "Products" },
-  { href: "/news", id: "Berita", en: "News" },
+  { href: "/news", id: "Aktivitas", en: "Activities" },
   { href: "/contact", id: "Kontak", en: "Contact" },
+];
+
+const socialMediaLinks = [
+  {
+    name: "LinkedIn",
+    icon: LinkedinIcon,
+    url: "https://linkedin.com",
+    label: "LinkedIn Unibox",
+  },
+  {
+    name: "Instagram",
+    icon: InstagramIcon,
+    url: "https://instagram.com/unibox_id",
+    label: "Instagram @unibox_id",
+  },
+  {
+    name: "YouTube",
+    icon: YoutubeIcon,
+    url: "https://youtube.com",
+    label: "YouTube Unibox",
+  },
+  {
+    name: "WhatsApp",
+    icon: MessageCircle,
+    url: "https://wa.me/6281280921122",
+    label: "WhatsApp Resmi",
+  },
+  {
+    name: "Facebook",
+    icon: FacebookIcon,
+    url: "https://facebook.com",
+    label: "Facebook Unibox",
+  },
 ];
 
 export function Footer() {
   const { language } = useLanguage();
 
   return (
-    <footer className="relative overflow-hidden bg-navy pt-20 text-ice sm:pt-28">
-      {/* Curved ice arc at top */}
-      <div
-        className="absolute inset-x-0 top-0 h-16 bg-ice sm:h-20"
-        style={{ borderRadius: "0 0 50% 50% / 0 0 70% 70%" }}
-        aria-hidden="true"
-      />
-
-      <div className="mx-auto max-w-7xl px-5 pb-12 pt-6 text-center lg:px-8">
-        {/* Logo */}
+    <footer className="relative overflow-hidden bg-slate-50 pt-16 pb-12 text-slate-800 border-t border-slate-200/90">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8 text-center">
+        {/* Logo Unibox (Konten & Logo Gelap) */}
         <Link href="/" className="inline-flex items-center gap-3">
-          <span className="grid size-10 place-items-center rounded-md bg-ice font-body text-sm font-bold text-navy">
+          <span className="grid size-10 place-items-center rounded-xl bg-blue-600 font-display text-sm font-bold text-white shadow-md shadow-blue-600/30">
             U
           </span>
-          <span className="font-display text-xl uppercase">Unibox</span>
+          <span className="font-display text-2xl tracking-wider text-slate-900 font-bold uppercase">
+            Unibox
+          </span>
         </Link>
 
         {/* Tagline */}
-        <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-ice/70">
+        <p className="mx-auto mt-4 max-w-2xl text-xs sm:text-sm leading-relaxed text-slate-600">
           <Text>
             {{
-              id: "Teknologi rantai dingin untuk menjaga mutu hasil laut dan memperkuat industri perikanan Indonesia.",
-              en: "Cold-chain technology that protects seafood quality and strengthens Indonesia's fisheries industry.",
+              id: "Teknologi pendingin dan elektrifikasi perahu nelayan untuk menjaga mutu hasil laut serta meningkatkan kesejahteraan maritim Indonesia.",
+              en: "Fisher refrigeration and boat electrification technology protecting seafood quality and strengthening Indonesia's maritime livelihood.",
             }}
           </Text>
         </p>
 
         {/* Nav Links */}
         <nav
-          className="mt-8 flex flex-wrap justify-center gap-x-7 gap-y-3 text-sm text-ice/75"
+          className="mt-7 flex flex-wrap justify-center gap-x-8 gap-y-3 text-xs sm:text-sm font-semibold text-slate-700"
           aria-label="Footer navigation"
         >
           {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className="hover:text-ice">
+            <Link
+              key={item.href}
+              href={item.href}
+              className="hover:text-blue-700 transition-colors"
+            >
               {item[language as Language]}
             </Link>
           ))}
         </nav>
 
-        {/* CTA Banner */}
-        <div className="mx-auto mt-9 grid max-w-3xl gap-6 border-t border-ice/15 pt-8 text-left sm:grid-cols-[1fr_auto] sm:items-end">
-          <div>
-            <p className="text-xs font-semibold uppercase text-brand-soft">
-              <Text>{{ id: "Informasi terbaru", en: "Latest updates" }}</Text>
-            </p>
-            <p className="mt-2 text-sm text-ice/60">
-              <Text>
-                {{
-                  id: "Kanal berita dan kontak resmi segera tersedia.",
-                  en: "Official news and contact channels will be available soon.",
-                }}
-              </Text>
-            </p>
-          </div>
-          <Button asChild className="bg-ice text-navy hover:bg-ice/90">
-            <Link href="/contact">
-              <Text>{{ id: "Hubungi kami", en: "Contact us" }}</Text>
-              <ArrowRight />
-            </Link>
-          </Button>
+        {/* Social Media Icons (Dipindahkan ke Footer) */}
+        <div className="mt-8 flex items-center justify-center gap-3.5">
+          {socialMediaLinks.map((item) => {
+            const Icon = item.icon;
+            return (
+              <a
+                key={item.name}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={item.label}
+                className="grid size-10 place-items-center rounded-xl bg-white text-slate-700 border border-slate-200 shadow-xs transition-all duration-200 hover:scale-105 hover:text-blue-600 hover:border-blue-400 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <Icon className="size-4.5" />
+              </a>
+            );
+          })}
         </div>
-      </div>
 
-      {/* Copyright */}
-      <div className="border-t border-ice/10">
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-2 px-5 py-5 text-xs text-ice/50 sm:flex-row lg:px-8">
-          <span>© 2026 Unibox.</span>
-          <span>
-            <Text>
-              {{
-                id: "Teknologi untuk hasil laut yang lebih bernilai.",
-                en: "Technology for more valuable seafood.",
-              }}
-            </Text>
-          </span>
+        {/* Copyright */}
+        <div className="mt-10 border-t border-slate-200/80 pt-6 text-center text-xs text-slate-500">
+          <p>© {new Date().getFullYear()} Unibox Indonesia. All rights reserved.</p>
         </div>
       </div>
     </footer>
