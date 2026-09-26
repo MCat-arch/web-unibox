@@ -1,277 +1,225 @@
 "use client";
 
-import {
-  Clock,
-  ExternalLink,
-  Mail,
-  MapPin,
-  MessageCircle,
-  Phone,
-  Warehouse,
-  ChevronRight,
-  ShieldCheck,
-} from "lucide-react";
+import { Clock, ExternalLink, Mail, MapPin, Phone, Warehouse } from "lucide-react";
 import { Text } from "@/components/text";
 
-function LinkedinIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-      <rect width="4" height="12" x="2" y="9" />
-      <circle cx="4" cy="4" r="2" />
-    </svg>
-  );
-}
-
-function InstagramIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-    </svg>
-  );
-}
-
-function YoutubeIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
-      <path d="m10 15 5-3-5-3z" />
-    </svg>
-  );
-}
-
-function FacebookIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-    </svg>
-  );
-}
-
-const socialMediaIcons = [
-  { name: "LinkedIn", icon: LinkedinIcon, url: "https://linkedin.com", label: "LinkedIn Unibox" },
-  { name: "Instagram", icon: InstagramIcon, url: "https://instagram.com/unibox_id", label: "Instagram @unibox_id" },
-  { name: "YouTube", icon: YoutubeIcon, url: "https://youtube.com", label: "YouTube Unibox" },
-  { name: "WhatsApp", icon: MessageCircle, url: "https://wa.me/6281280921122", label: "WhatsApp Resmi" },
-  { name: "Facebook", icon: FacebookIcon, url: "https://facebook.com", label: "Facebook Unibox" },
-];
+const surabayaOffice = {
+  badge: { id: "Pusat Perakitan & Layanan", en: "Assembly & Marine Service Hub" },
+  title: { id: "Surabaya Marine Hub", en: "Surabaya Marine Hub" },
+  address: {
+    id: "Kawasan Pergudangan Perak Timur Blok C-4, Pabean Cantikan, Surabaya, Jawa Timur 60165",
+    en: "East Perak Warehousing Complex Block C-4, Pabean Cantikan, Surabaya, East Java 60165",
+  },
+  hours: { id: "Senin – Sabtu: 08.00 – 16.30 WIB", en: "Monday – Saturday: 08:00 – 16:30 WIB" },
+  phone: "+62 31 7490 8820",
+  mapsUrl: "https://maps.google.com/?q=Perak+Timur+Surabaya",
+};
 
 export function LocationSocialSection() {
   return (
-    <section className="bg-gradient-to-b from-[#031120] to-[#020b16] py-16 sm:py-24 text-white border-t border-sky-950/80">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-        {/* Section Header */}
-        <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end mb-12">
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#092644] via-[#071f38] to-[#05172a] py-16 sm:py-24 text-white">
+      <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:items-start lg:px-12">
+        {/* Kolom Kiri: Kontak Langsung (Clean List tanpa Card Container) */}
+        <div className="lg:col-span-5 flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-3">
               <span className="h-6 w-1 rounded-full bg-sky-400 shadow-sm shadow-sky-400/50" />
-              <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-sky-300">
-                <Text>{{ id: "Lokasi & Media Sosial", en: "Locations & Social Media" }}</Text>
+              <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-sky-200">
+                <Text>{{ id: "Hubungi Kami", en: "Contact Us" }}</Text>
               </span>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-[1.25]">
               <Text>
                 {{
-                  id: "Hub Operasional & Pusat Layanan Kami",
-                  en: "Our Operational Hubs & Service Centers",
+                  id: "Mari Diskusikan Kebutuhan Rantai Dingin Anda.",
+                  en: "Let's Discuss Your Cold-Chain Requirements.",
                 }}
               </Text>
             </h2>
-          </div>
-          <p className="text-xs sm:text-sm text-sky-100/70 max-w-sm sm:text-right">
-            <Text>
-              {{
-                id: "Kunjungi workshop perakitan atau hubungi tim teknis kami di Surabaya",
-                en: "Visit our assembly workshop or reach our technical engineers in Surabaya",
-              }}
-            </Text>
-          </p>
-        </div>
 
-        {/* 2-Column Layout: Office Info Card + Map Card (Screenshot Reference) */}
-        <div className="grid gap-8 lg:grid-cols-12 items-stretch">
-          {/* Sisi Kiri: Detail Kontak & Jam Kerja */}
-          <div className="lg:col-span-5 flex flex-col justify-between rounded-3xl bg-white p-6 sm:p-8 text-slate-900 shadow-2xl shadow-blue-950/50 border border-slate-100">
-            <div>
-              <div className="flex items-center justify-between gap-4 mb-5">
-                <span className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700 border border-blue-200">
-                  <Warehouse className="size-3.5" />
-                  <Text>{{ id: "Pusat Perakitan & Layanan", en: "Assembly & Service Hub" }}</Text>
-                </span>
-                <a
-                  href="https://maps.google.com/?q=Jl.+Margomulyo+Indah+V+No.1+Blok+C+Surabaya"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors"
-                >
-                  <MapPin className="size-3.5" />
-                  <Text>{{ id: "Buka Peta", en: "Open Maps" }}</Text>
-                  <ExternalLink className="size-3" />
-                </a>
-              </div>
-
-              <h3 className="font-display text-2xl font-bold text-slate-900 mb-3">
-                Surabaya Marine Hub
-              </h3>
-
-              <p className="text-xs sm:text-sm leading-relaxed text-slate-600 mb-6">
-                Jl. Margomulyo Indah V No.1 Blok C, Pabean Cantikan, Surabaya, Jawa Timur 60165
-              </p>
-            </div>
-
-            <div className="border-t border-slate-100 pt-5 space-y-3.5 text-xs sm:text-sm text-slate-600">
-              <div className="flex items-center gap-3">
-                <Clock className="size-4 text-blue-600 shrink-0" />
-                <span>
-                  <Text>{{ id: "Senin – Sabtu: 08.00 – 16.30 WIB", en: "Monday – Saturday: 08:00 – 16:30 WIB" }}</Text>
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Phone className="size-4 text-blue-600 shrink-0" />
-                <span className="font-semibold text-slate-800">+62 31 7490 8820</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Mail className="size-4 text-blue-600 shrink-0" />
-                <span className="font-semibold text-slate-800">surabaya@unibox.id</span>
-              </div>
-              <div className="pt-2">
-                <a
-                  href="https://wa.me/6281280921122"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 text-xs sm:text-sm shadow-sm transition-all"
-                >
-                  <MessageCircle className="size-4" />
-                  <span>
-                    <Text>{{ id: "Chat WhatsApp Resmi (+62 812-8092-1122)", en: "Official WhatsApp (+62 812-8092-1122)" }}</Text>
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Sisi Kanan: Map Card Sesuai Screenshot 1753 */}
-          <div className="lg:col-span-7">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-700/40 aspect-[16/11] sm:aspect-[16/10] w-full bg-[#E5ECF2]">
-              {/* Map Illustration Vector */}
-              <svg
-                className="absolute inset-0 size-full pointer-events-none"
-                viewBox="0 0 600 400"
-                preserveAspectRatio="xMidYMid slice"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                {/* Land Background */}
-                <rect width="600" height="400" fill="#E8EEF4" />
-
-                {/* Green Zone (Bottom Left) */}
-                <path d="M0 240 L160 260 L140 400 L0 400 Z" fill="#D6E8D6" />
-
-                {/* Buildings */}
-                <rect x="180" y="50" width="130" height="110" rx="6" fill="#D8E2EC" stroke="#C5D3E0" strokeWidth="2" />
-                <rect x="325" y="40" width="160" height="120" rx="6" fill="#D8E2EC" stroke="#C5D3E0" strokeWidth="2" />
-                <rect x="250" y="180" width="110" height="70" rx="8" fill="#D2DFEA" stroke="#B8CBDC" strokeWidth="2" />
-                <rect x="370" y="175" width="150" height="110" rx="6" fill="#D8E2EC" stroke="#C5D3E0" strokeWidth="2" />
-                <rect x="20" y="60" width="140" height="130" rx="6" fill="#D8E2EC" stroke="#C5D3E0" strokeWidth="2" />
-
-                {/* Mosque Landmark */}
-                <g transform="translate(480, 240)">
-                  <circle cx="12" cy="12" r="10" fill="#A4BBD0" />
-                  <path d="M12 6 C10 8 10 10 12 12 C14 10 14 8 12 6" fill="white" />
-                  <text x="12" y="32" fontSize="9" fontWeight="bold" fill="#6A829A" textAnchor="middle">
-                    Masjid Al-Falah
-                  </text>
-                </g>
-
-                {/* Roads */}
-                <path d="M-20 120 L230 220 L620 330" stroke="#FFFFFF" strokeWidth="32" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M-20 120 L230 220 L620 330" stroke="#C8D6E5" strokeWidth="32" strokeOpacity="0.4" fill="none" />
-                <path d="M175 40 L230 220 L200 410" stroke="#FFFFFF" strokeWidth="24" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M340 40 L370 270 L350 410" stroke="#FFFFFF" strokeWidth="20" strokeLinecap="round" />
-                <path d="M480 30 L500 280" stroke="#FFFFFF" strokeWidth="20" strokeLinecap="round" />
-
-                {/* Road Labels */}
-                <text x="245" y="262" fontSize="11" fontWeight="bold" fill="#4D6277" transform="rotate(13 245 262)">
-                  Jalan Margomulyo
-                </text>
-                <text x="430" y="125" fontSize="10" fontWeight="bold" fill="#4D6277" transform="rotate(-15 430 125)">
-                  Jalan Margomulyo Indah V
-                </text>
-
-                {/* Glowing Green Pin */}
-                <g transform="translate(305, 175)">
-                  <circle cx="0" cy="0" r="32" fill="#0F8259" fillOpacity="0.18" />
-                  <circle cx="0" cy="0" r="24" fill="#0F8259" fillOpacity="0.3" />
-                  <circle cx="0" cy="0" r="18" fill="white" />
-                  <circle cx="0" cy="0" r="15" fill="#0F8259" />
-                  <path d="M0 -7 C-3.5 -7 -6 -4.5 -6 -1 C-6 3.5 0 7 0 7 C0 7 6 3.5 6 -1 C6 -4.5 3.5 -7 0 -7 Z" fill="white" />
-                  <circle cx="0" cy="-1.5" r="1.8" fill="#0F8259" />
-                </g>
-              </svg>
-
-              {/* Floating Pill Card (Matches Screenshot 1753) */}
-              <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6">
-                <a
-                  href="https://maps.google.com/?q=Jl.+Margomulyo+Indah+V+No.1+Blok+C+Surabaya"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between gap-3 sm:gap-4 rounded-full bg-white/95 backdrop-blur-md px-4 py-3 sm:px-6 sm:py-4 shadow-xl shadow-slate-950/20 border border-slate-200/90 transition-all duration-300 hover:bg-white hover:scale-[1.01] hover:shadow-2xl group"
-                >
-                  <div className="size-10 sm:size-12 rounded-full bg-[#EAF5F0] text-[#0F8259] flex items-center justify-center shrink-0 border border-[#CDE7DC] shadow-xs group-hover:bg-[#0F8259] group-hover:text-white transition-colors">
-                    <MapPin className="size-5" />
-                  </div>
-
-                  <div className="min-w-0 flex-1">
-                    <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-[#0F8259] block">
-                      <Text>{{ id: "TITIK PENJEMPUTAN & WORKSHOP", en: "PICKUP POINT & WORKSHOP" }}</Text>
-                    </span>
-                    <p className="text-xs sm:text-sm font-bold text-slate-900 truncate">
-                      Jl. Margomulyo Indah V No.1 Blok C, Surabaya
-                    </p>
-                  </div>
-
-                  <div className="size-8 sm:size-9 rounded-full bg-slate-100 flex items-center justify-center shrink-0 text-slate-700 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                    <ChevronRight className="size-5" />
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Social Media Channels */}
-        <div className="mt-12 rounded-2xl bg-white/5 p-6 sm:p-8 backdrop-blur-sm border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div>
-            <h3 className="font-display text-lg font-bold text-white">
-              <Text>{{ id: "Terhubung di Media Sosial", en: "Connect on Social Media" }}</Text>
-            </h3>
-            <p className="text-xs sm:text-sm text-sky-100/70 mt-1">
+            <p className="mt-4 text-sm sm:text-base leading-relaxed text-sky-100/80 font-normal">
               <Text>
                 {{
-                  id: "Dapatkan pembaruan visual terbaru dari pelabuhan dan kegiatan nelayan",
-                  en: "Get latest visual updates from harbors and fishing activities",
+                  id: "Ceritakan lokasi perahu, kapasitas tangkapan, dan tantangan operasional Anda. Tim teknis Unibox siap membantu memetakan konfigurasi sistem pendingin dan kelistrikan perahu yang paling efisien.",
+                  en: "Tell us about your vessel location, catch volume, and operating challenges. Unibox engineering team is ready to map the most efficient refrigeration and boat electrification configuration.",
                 }}
               </Text>
             </p>
-          </div>
 
-          <div className="flex items-center gap-3">
-            {socialMediaIcons.map((item) => {
-              const Icon = item.icon;
-              return (
-                <a
-                  key={item.name}
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={item.label}
-                  className="grid size-11 place-items-center rounded-xl bg-white text-blue-900 border border-white/20 shadow-md transition-all duration-200 hover:scale-110 hover:bg-sky-400 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-sky-400"
-                >
-                  <Icon className="size-5" />
-                </a>
-              );
-            })}
+            {/* List Kontak Minimalis & Terbuka */}
+            <div className="mt-8 space-y-5 border-t border-sky-800/60 pt-7">
+              <div className="flex items-center gap-4">
+                <div className="grid size-12 place-items-center rounded-2xl bg-sky-500/15 text-sky-300 shrink-0 border border-sky-400/20">
+                  <Mail className="size-5" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-sky-300/80">
+                    <Text>{{ id: "Email Resmi", en: "Official Email" }}</Text>
+                  </p>
+                  <a
+                    href="mailto:halo@unibox.id"
+                    className="text-base sm:text-lg font-semibold text-white hover:text-sky-300 transition-colors"
+                  >
+                    halo@unibox.id
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <div className="grid size-12 place-items-center rounded-2xl bg-sky-500/15 text-sky-300 shrink-0 border border-sky-400/20">
+                  <Phone className="size-5" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-sky-300/80">
+                    <Text>{{ id: "WhatsApp / Layanan Cepat", en: "WhatsApp / Fast Response" }}</Text>
+                  </p>
+                  <a
+                    href="https://wa.me/6281280921122"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-base sm:text-lg font-semibold text-white hover:text-sky-300 transition-colors"
+                  >
+                    +62 812-8092-1122
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Kolom Kanan: Card Lengkap dengan Detail Informasi & Desain Peta Bersih */}
+        <div className="lg:col-span-7">
+          <div className="rounded-3xl bg-white p-6 sm:p-8 text-slate-900 shadow-2xl shadow-blue-950/40 border border-slate-100">
+            {/* Header Card: Badge, Title & Button Buka Peta */}
+            <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-5">
+              <div>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700 border border-blue-200 mb-2.5">
+                  <Warehouse className="size-3.5" />
+                  <Text>{surabayaOffice.badge}</Text>
+                </span>
+                <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900">
+                  <Text>{surabayaOffice.title}</Text>
+                </h3>
+              </div>
+
+              <a
+                href={surabayaOffice.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-blue-50 px-3.5 py-2 text-xs font-bold text-blue-700 border border-blue-200 hover:bg-blue-100 transition-colors shrink-0"
+              >
+                <MapPin className="size-3.5" />
+                <Text>{{ id: "Buka Peta", en: "Open Maps" }}</Text>
+                <ExternalLink className="size-3" />
+              </a>
+            </div>
+
+            {/* Office Info Details: Alamat, Jam Operasional & Telepon */}
+            <div className="mt-5 space-y-3.5">
+              <div className="flex items-start gap-3">
+                <MapPin className="size-4 text-blue-600 shrink-0 mt-0.5" />
+                <div className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+                  <Text>{surabayaOffice.address}</Text>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-slate-100 text-xs sm:text-sm text-slate-600">
+                <div className="flex items-center gap-2">
+                  <Clock className="size-4 text-blue-600 shrink-0" />
+                  <span>
+                    <Text>{surabayaOffice.hours}</Text>
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Phone className="size-4 text-blue-600 shrink-0" />
+                  <span className="font-semibold text-slate-800">{surabayaOffice.phone}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Clean, Informative Vector Map (Minimalis & Cepat Dimuat) */}
+            <div className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-slate-200 bg-[#EBF0F5] shadow-inner">
+              <svg
+                className="absolute inset-0 size-full"
+                viewBox="0 0 600 340"
+                preserveAspectRatio="xMidYMid slice"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                {/* Lahan Daratan */}
+                <rect width="600" height="340" fill="#E8EEF5" />
+
+                {/* Perairan / Selat Madura / Dermaga Perak (Sisi Kanan Atas) */}
+                <path d="M440 0 L600 0 L600 160 L500 130 Z" fill="#CFE4F6" />
+                <text x="545" y="60" fontSize="9" fontWeight="700" fill="#7FA4C4" letterSpacing="1" textAnchor="middle">
+                  SECTOR PELABUHAN
+                </text>
+
+                {/* Zona Kawasan Pergudangan & Logistik Perak */}
+                <rect x="30" y="30" width="160" height="90" rx="8" fill="#DDE6EF" opacity="0.8" />
+                <rect x="220" y="25" width="180" height="95" rx="8" fill="#D2DFEC" opacity="0.9" />
+                <rect x="40" y="190" width="220" height="120" rx="8" fill="#DDE6EF" opacity="0.8" />
+                <rect x="300" y="210" width="260" height="100" rx="8" fill="#DDE6EF" opacity="0.8" />
+
+                {/* Label Zona Pergudangan */}
+                <text x="310" y="65" fontSize="9" fontWeight="700" fill="#5E7892">
+                  Komp. Pergudangan Perak Timur
+                </text>
+
+                {/* Jalan Sekunder Lingkungan */}
+                <line x1="200" y1="0" x2="200" y2="340" stroke="#FFFFFF" strokeWidth="12" strokeLinecap="round" />
+                <line x1="0" y1="270" x2="600" y2="270" stroke="#FFFFFF" strokeWidth="10" strokeLinecap="round" />
+
+                {/* Jalan Utama: Jl. Perak Timur (Jalur Arteri Pelabuhan) */}
+                <path d="M-10 150 Q280 155 610 180" stroke="#FFFFFF" strokeWidth="24" strokeLinecap="round" />
+                <path
+                  d="M-10 150 Q280 155 610 180"
+                  stroke="#F2C335"
+                  strokeWidth="5"
+                  strokeDasharray="14 10"
+                  fill="none"
+                  opacity="0.85"
+                />
+
+                {/* Akses Masuk Blok Pergudangan */}
+                <line x1="310" y1="155" x2="310" y2="70" stroke="#FFFFFF" strokeWidth="14" strokeLinecap="round" />
+
+                {/* Label Jalan dengan Badge Putih agar Kontras */}
+                <rect x="50" y="132" width="115" height="18" rx="4" fill="#FFFFFF" opacity="0.92" />
+                <text x="107" y="145" fontSize="9" fontWeight="700" fill="#334155" textAnchor="middle">
+                  Jl. Perak Timur
+                </text>
+
+                {/* Pin Lokasi Utama: Unibox Blok C-4 */}
+                <g transform="translate(310, 75)">
+                  {/* Efek Radius / Pulse */}
+                  <circle cx="0" cy="0" r="26" fill="#0284C7" fillOpacity="0.15" />
+                  <circle cx="0" cy="0" r="16" fill="#0284C7" fillOpacity="0.25" />
+                  {/* Pin Head */}
+                  <circle cx="0" cy="-4" r="12" fill="#0284C7" stroke="#FFFFFF" strokeWidth="2.5" />
+                  <circle cx="0" cy="-4" r="3.5" fill="#FFFFFF" />
+                  {/* Callout Marker */}
+                  <rect x="18" y="-16" width="76" height="20" rx="5" fill="#0F172A" />
+                  <text x="56" y="-3" fontSize="8.5" fontWeight="700" fill="#FFFFFF" textAnchor="middle">
+                    Unibox Blok C-4
+                  </text>
+                </g>
+              </svg>
+            </div>
+
+            {/* Tombol Mobile Google Maps */}
+            <div className="mt-4 flex sm:hidden">
+              <a
+                href={surabayaOffice.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-1.5 rounded-xl bg-blue-50 px-4 py-2.5 text-xs font-bold text-blue-700 border border-blue-200 hover:bg-blue-100 transition-colors"
+              >
+                <MapPin className="size-3.5" />
+                <Text>{{ id: "Buka Rute di Google Maps", en: "Open in Google Maps" }}</Text>
+                <ExternalLink className="size-3" />
+              </a>
+            </div>
           </div>
         </div>
       </div>

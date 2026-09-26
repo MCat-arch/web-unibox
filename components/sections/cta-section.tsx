@@ -7,14 +7,14 @@ const surabayaOffice = {
   badge: { id: "Pusat Perakitan & Layanan", en: "Assembly & Marine Service Hub" },
   title: { id: "Surabaya Marine Hub", en: "Surabaya Marine Hub" },
   address: {
-    id: "Kawasan Pergudangan Perak Timur Blok C-4, Pabean Cantikan, Surabaya, Jawa Timur 60165",
-    en: "East Perak Warehousing Complex Block C-4, Pabean Cantikan, Surabaya, East Java 60165",
+    id: "Jl. Bendul Merisi Selatan VII No.57, Bendul Merisi, Kec. Wonocolo, Surabaya, Jawa Timur",
+    en: "Jl. Bendul Merisi Selatan VII No.57, Bendul Merisi, Kec. Wonocolo, Surabaya, Jawa Timur",
   },
   hours: { id: "Senin – Sabtu: 08.00 – 16.30 WIB", en: "Monday – Saturday: 08:00 – 16:30 WIB" },
   phone: "+62 31 7490 8820",
   email: "surabaya@unibox.id",
-  mapQuery: "Perak Timur, Pabean Cantikan, Surabaya, Indonesia",
-  mapsUrl: "https://maps.google.com/?q=Perak+Timur+Surabaya",
+  mapQuery: "Jl. Bendul Merisi Selatan VII No.57, Bendul Merisi, Kec. Wonocolo, Surabaya, Jawa Timur",
+  mapsUrl: "https://maps.app.goo.gl/WPcAtf1UWT4jv8HC8",
 };
 
 export function ContactCtaSection() {
@@ -31,7 +31,7 @@ export function ContactCtaSection() {
               </span>
             </div>
 
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-white">
+            <h2 className="mt-4 font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-[1.25]">
               <Text>
                 {{
                   id: "Mari Diskusikan Kebutuhan Rantai Dingin Anda.",
@@ -82,7 +82,7 @@ export function ContactCtaSection() {
           <div className="rounded-2xl bg-white p-6 sm:p-8 text-slate-900 shadow-2xl shadow-blue-950/40 border border-slate-100">
             {/* Header: Badge & Title (Tanpa Tab Switcher) */}
             <div className="flex items-center justify-between gap-4 border-b border-slate-100 pb-5">
-              <div>
+              {/* <div>
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700 border border-blue-200 mb-2">
                   <Warehouse className="size-3.5" />
                   <Text>{surabayaOffice.badge}</Text>
@@ -90,7 +90,7 @@ export function ContactCtaSection() {
                 <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900">
                   <Text>{surabayaOffice.title}</Text>
                 </h3>
-              </div>
+              </div> */}
 
               <a
                 href={surabayaOffice.mapsUrl}
@@ -98,7 +98,6 @@ export function ContactCtaSection() {
                 rel="noopener noreferrer"
                 className="hidden sm:inline-flex items-center gap-1.5 rounded-lg bg-blue-50 px-3.5 py-1.5 text-xs font-bold text-blue-700 border border-blue-200 hover:bg-blue-100 transition-colors"
               >
-                <MapPin className="size-3.5" />
                 <Text>{{ id: "Buka Peta", en: "Open Maps" }}</Text>
                 <ExternalLink className="size-3" />
               </a>
@@ -133,7 +132,7 @@ export function ContactCtaSection() {
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
-                allowFullScreen={false}
+                allowFullScreen={true}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="size-full"

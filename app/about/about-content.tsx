@@ -2,9 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Check, X } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  X,
+  ChevronRight,
+  ThermometerSnowflake,
+  Zap,
+  Compass,
+  ShieldCheck,
+  Activity,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PageIntro } from "@/components/page-intro";
 import { Text } from "@/components/text";
 import { useLanguage } from "@/context/language-context";
 
@@ -80,6 +89,7 @@ const coreAdvantages = [
 
 const comparisons = [
   {
+    icon: ThermometerSnowflake,
     feature: { id: "Sistem Pendingin", en: "Cooling Method" },
     conventional: {
       id: "Ketergantungan es batu balok yang cepat mencair dan memakan ruang muatan",
@@ -91,6 +101,7 @@ const comparisons = [
     },
   },
   {
+    icon: Zap,
     feature: { id: "Sumber Kelistrikan", en: "Electrical Power" },
     conventional: {
       id: "Menggunakan accu motor yang boros biaya cas dan mudah rusak korosi air asin",
@@ -102,6 +113,7 @@ const comparisons = [
     },
   },
   {
+    icon: Compass,
     feature: { id: "Pencarian Ikan", en: "Fish Finding" },
     conventional: {
       id: "Pencarian manual berdasarkan insting, boros waktu dan solar",
@@ -113,6 +125,7 @@ const comparisons = [
     },
   },
   {
+    icon: ShieldCheck,
     feature: { id: "Material & Ketahanan", en: "Material & Durability" },
     conventional: {
       id: "Boks gabus/plastik tipis mudah retak hantaman ombak dan sulit dibersihkan",
@@ -124,6 +137,7 @@ const comparisons = [
     },
   },
   {
+    icon: Activity,
     feature: { id: "Monitoring Suhu", en: "Temperature Monitoring" },
     conventional: {
       id: "Tanpa indikator suhu, risiko ikan membusuk tinggi tanpa disadari",
@@ -141,18 +155,48 @@ export function AboutContent() {
 
   return (
     <div className="bg-slate-50 min-h-screen">
-      {/* Page Intro with Official Definition */}
-      <PageIntro
-        eyebrow={{ id: "Tentang Unibox", en: "About Unibox" }}
-        title={{
-          id: "Inovasi Teknologi Kemaritiman untuk Efektivitas & Produktivitas Nelayan",
-          en: "Maritime Technology Innovation for Fisher Effectiveness & Productivity",
-        }}
-        description={{
-          id: "Unibox adalah inovasi teknologi kemaritiman yang dirancang untuk meningkatkan efektivitas dan produktivitas nelayan dalam mencari ikan serta menjaga kesegaran hasil tangkapan di laut.",
-          en: "Unibox is a maritime technology innovation engineered to enhance the effectiveness and productivity of fishers in locating fish while preserving the freshness of marine catches at sea.",
-        }}
-      />
+      {/* ========================================================
+          TOP SECTION: WHITE BACKGROUND with Breadcrumb and Friendly Header
+      ======================================================== */}
+      <section className="relative pt-28 pb-14 sm:pt-32 sm:pb-18 bg-white border-b border-slate-200/80">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          {/* Breadcrumb Navigation */}
+          <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-500 mb-6 sm:mb-8">
+            <Link href="/" className="hover:text-blue-600 transition-colors">
+              <Text>{{ id: "Beranda", en: "Home" }}</Text>
+            </Link>
+            <ChevronRight className="size-3.5 text-slate-400" />
+            <span className="font-semibold text-blue-900">
+              <Text>{{ id: "Tentang Kami", en: "About Us" }}</Text>
+            </span>
+          </nav>
+
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 mb-3">
+              <span className="h-5 w-1 rounded-full bg-blue-600 shadow-sm shadow-blue-600/40" />
+              <span className="text-xs font-bold tracking-wider uppercase text-blue-700">
+                <Text>{{ id: "Tentang Unibox", en: "About Unibox" }}</Text>
+              </span>
+            </div>
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+              <Text>
+                {{
+                  id: "Inovasi Teknologi Kemaritiman untuk Nelayan Indonesia",
+                  en: "Maritime Technology Innovation for Indonesian Fishers",
+                }}
+              </Text>
+            </h1>
+            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+              <Text>
+                {{
+                  id: "Unibox adalah inovasi teknologi kemaritiman yang dirancang untuk meningkatkan efektivitas dan produktivitas nelayan dalam mencari ikan serta menjaga kesegaran hasil tangkapan di laut.",
+                  en: "Unibox is a maritime technology innovation engineered to enhance the effectiveness and productivity of fishers in locating fish while preserving the freshness of marine catches at sea.",
+                }}
+              </Text>
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Engineering Philosophy: Konversi Energi & Konservasi Termal */}
       <section className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 py-16 sm:py-24">
@@ -239,7 +283,7 @@ export function AboutContent() {
             {keySpecs.map((spec, idx) => (
               <div
                 key={idx}
-                className="rounded-2xl border border-slate-200 bg-slate-50/70 p-5 sm:p-6 shadow-xs text-center transition-all duration-300 hover:shadow-md hover:bg-white hover:-translate-y-1"
+                className="rounded-2xl border border-slate-200/90 bg-slate-50/80 p-5 sm:p-6 shadow-xs text-center"
               >
                 <span className="block font-display text-3xl sm:text-4xl font-extrabold text-blue-700">
                   {spec.value}
@@ -282,7 +326,7 @@ export function AboutContent() {
           {coreAdvantages.map((adv) => (
             <div
               key={adv.number}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-blue-200"
+              className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-xs flex flex-col justify-between"
             >
               <div>
                 <span className="grid size-10 place-items-center rounded-xl bg-blue-600 font-display text-sm font-bold text-white shadow-md shadow-blue-600/30">
@@ -328,37 +372,118 @@ export function AboutContent() {
             </p>
           </div>
 
-          {/* Table / Card Comparison */}
-          <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
-            <div className="grid grid-cols-12 bg-slate-100/90 p-4 sm:p-5 text-xs sm:text-sm font-bold border-b border-slate-200">
-              <div className="col-span-3 text-slate-700">
+          {/* Desktop Comparison Table */}
+          <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-sm">
+            <div className="grid grid-cols-12 bg-slate-50 border-b border-slate-200/90 text-sm">
+              <div className="col-span-3 px-6 py-4 font-bold text-slate-700 flex items-center">
                 <Text>{{ id: "Aspek Operasional", en: "Operational Aspect" }}</Text>
               </div>
-              <div className="col-span-4 sm:col-span-4 text-rose-700">
-                <Text>{{ id: "Cara Konvensional", en: "Conventional Method" }}</Text>
+              <div className="col-span-4 px-6 py-4 border-l border-slate-200/80 bg-rose-50/30">
+                <div className="flex items-center gap-2">
+                  <span className="size-2 rounded-full bg-rose-500" />
+                  <span className="font-bold text-slate-800">
+                    <Text>{{ id: "Metode Konvensional", en: "Conventional Method" }}</Text>
+                  </span>
+                </div>
+                <span className="text-xs text-slate-500 font-normal">
+                  <Text>{{ id: "Es Balok & Aki Motor", en: "Ice Blocks & Motorcycle Battery" }}</Text>
+                </span>
               </div>
-              <div className="col-span-5 sm:col-span-5 text-blue-700">
-                <Text>{{ id: "Dengan Ekosistem Unibox", en: "With Unibox Ecosystem" }}</Text>
+              {/* Highlighted Ekosistem Unibox Column Header */}
+              <div className="col-span-5 px-6 py-4 border-l border-blue-700 bg-blue-700 text-white">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="size-2 rounded-full bg-sky-300" />
+                    <span className="font-bold text-white text-base">
+                      <Text>{{ id: "Ekosistem Unibox", en: "Unibox Ecosystem" }}</Text>
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-bold text-blue-900 bg-sky-100 px-2.5 py-0.5 rounded-full shadow-xs">
+                    <Text>{{ id: "Rekomendasi Modern", en: "Modern Recommendation" }}</Text>
+                  </span>
+                </div>
+                <span className="text-xs text-blue-100 font-normal">
+                  <Text>{{ id: "Inovasi Pendinginan & Konversi Energi", en: "Cooling & Energy Conversion Innovation" }}</Text>
+                </span>
               </div>
             </div>
 
-            <div className="divide-y divide-slate-100 bg-white">
-              {comparisons.map((c, idx) => (
-                <div key={idx} className="grid grid-cols-12 p-4 sm:p-5 items-start text-xs sm:text-sm">
-                  <div className="col-span-3 font-bold text-slate-900 pr-2">
-                    <Text>{c.feature}</Text>
+            <div className="divide-y divide-slate-100">
+              {comparisons.map((c, idx) => {
+                const Icon = c.icon;
+                return (
+                  <div key={idx} className="grid grid-cols-12 items-stretch text-sm">
+                    <div className="col-span-3 px-6 py-5 flex items-center gap-3 bg-white">
+                      <div className="size-9 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0 text-slate-600">
+                        <Icon className="size-4" />
+                      </div>
+                      <span className="font-semibold text-slate-900 leading-snug">
+                        <Text>{c.feature}</Text>
+                      </span>
+                    </div>
+
+                    <div className="col-span-4 px-6 py-5 border-l border-slate-100 bg-slate-50/40 flex items-start gap-3">
+                      <div className="size-5 rounded-full bg-rose-100/90 border border-rose-200 text-rose-600 flex items-center justify-center shrink-0 mt-0.5">
+                        <X className="size-3" />
+                      </div>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        <Text>{c.conventional}</Text>
+                      </p>
+                    </div>
+
+                    {/* Highlighted Ekosistem Unibox Row */}
+                    <div className="col-span-5 px-6 py-5 border-l border-blue-700 bg-blue-600 text-white flex items-start gap-3">
+                      <div className="size-5 rounded-full bg-white text-blue-700 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+                        <Check className="size-3.5 stroke-[3]" />
+                      </div>
+                      <p className="text-xs sm:text-sm font-medium text-white leading-relaxed">
+                        <Text>{c.unibox}</Text>
+                      </p>
+                    </div>
                   </div>
-                  <div className="col-span-4 sm:col-span-4 text-slate-600 pr-3 flex items-start gap-2">
-                    <X className="size-4 text-rose-500 shrink-0 mt-0.5" />
-                    <span><Text>{c.conventional}</Text></span>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Mobile Comparison Cards */}
+          <div className="space-y-4 md:hidden">
+            {comparisons.map((c, idx) => {
+              const Icon = c.icon;
+              return (
+                <div key={idx} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
+                  <div className="flex items-center gap-2.5 pb-3 border-b border-slate-100">
+                    <div className="size-8 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center shrink-0">
+                      <Icon className="size-4" />
+                    </div>
+                    <h3 className="font-bold text-slate-900 text-sm">
+                      <Text>{c.feature}</Text>
+                    </h3>
                   </div>
-                  <div className="col-span-5 sm:col-span-5 text-slate-800 font-medium flex items-start gap-2">
-                    <Check className="size-4 text-blue-600 shrink-0 mt-0.5" />
-                    <span><Text>{c.unibox}</Text></span>
+
+                  <div className="mt-3.5 rounded-xl bg-slate-50 p-3 border border-slate-200/80">
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-rose-600 mb-1">
+                      <X className="size-3.5" />
+                      <span><Text>{{ id: "Metode Konvensional", en: "Conventional Method" }}</Text></span>
+                    </div>
+                    <p className="text-xs text-slate-600 leading-relaxed pl-5">
+                      <Text>{c.conventional}</Text>
+                    </p>
+                  </div>
+
+                  {/* Highlighted Ekosistem Unibox Card */}
+                  <div className="mt-2.5 rounded-xl bg-blue-600 text-white p-3.5 shadow-sm">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-sky-200 mb-1">
+                      <Check className="size-3.5 text-sky-200 stroke-[3]" />
+                      <span><Text>{{ id: "Ekosistem Unibox", en: "Unibox Ecosystem" }}</Text></span>
+                    </div>
+                    <p className="text-xs font-medium text-white leading-relaxed pl-5">
+                      <Text>{c.unibox}</Text>
+                    </p>
                   </div>
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -388,7 +513,7 @@ export function AboutContent() {
           <Button
             asChild
             size="lg"
-            className="shrink-0 rounded-full bg-white text-blue-900 hover:bg-sky-50 font-bold px-8 py-6 text-sm sm:text-base shadow-xl transition-transform hover:scale-105"
+            className="shrink-0 rounded-full bg-white text-blue-900 font-bold px-8 py-6 text-sm sm:text-base shadow-xl"
           >
             <Link href="/contact">
               <Text>{{ id: "Hubungi Tim Kami", en: "Contact Our Team" }}</Text>

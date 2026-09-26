@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Quote } from "lucide-react";
+import { Quote, Star } from "lucide-react";
 import { Text } from "@/components/text";
 import { useLanguage } from "@/context/language-context";
 
@@ -42,34 +42,28 @@ export function TestimonialsSection() {
     <section className="relative w-full overflow-hidden bg-gradient-to-b from-[#093254] via-[#082a47] to-[#07243e] pt-16 sm:pt-24 text-white">
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         {/* Header: Vertical Sky Accent Bar + Breadcrumb */}
-        <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end mb-12">
+        <div className="flex flex-col gap-4 max-w-3xl mb-12">
           <div>
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-3">
               <span className="h-6 w-1 rounded-full bg-sky-400 shadow-sm shadow-sky-400/50" />
               <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-sky-200">
                 <Text>{{ id: "Cerita Mitra & Testimoni", en: "Partner Stories & Testimonials" }}</Text>
               </span>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+
+            {/* Ukuran heading disamakan dengan seksi kemitraan */}
+            <h2 className="mt-4 font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-[1.25]">
               <Text>
                 {{
-                  id: "Kepercayaan Dibangun dari Bukti Nyata di Laut",
-                  en: "Trust Built Through Proven Results at Sea",
+                  id: "Kepercayaan Dibangun dari Bukti Nyata",
+                  en: "Trust Built Through Proven Results ",
                 }}
               </Text>
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-sky-100/80 max-w-xs sm:text-right">
-            <Text>
-              {{
-                id: "Pengalaman langsung nelayan dan pengelola fasilitas maritim di berbagai pesisir Indonesia",
-                en: "First-hand experiences from fishers and maritime operators across coastal Indonesia",
-              }}
-            </Text>
-          </p>
         </div>
 
-        {/* Linear 3-column Cards with Profile Photos: White Cards on Ocean Blue (No Stars) */}
+        {/* Linear 3-column Cards with 5-Star Rating & Profile Photos */}
         <div className="grid gap-6 md:grid-cols-3 items-stretch">
           {testimonials.map((testimonial) => (
             <article
@@ -77,13 +71,23 @@ export function TestimonialsSection() {
               className="flex flex-col justify-between rounded-2xl bg-white p-7 text-slate-800 shadow-xl shadow-blue-950/25 border border-white/20 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
             >
               <div>
-                <div className="flex items-center justify-between gap-4 mb-6">
+                <div className="flex items-center justify-between gap-4 mb-4">
                   <span className="grid size-11 place-items-center rounded-xl bg-blue-50 text-blue-600 shadow-xs">
                     <Quote className="size-5" />
                   </span>
                   <span className="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full">
                     <Text>{{ id: "Mitra Nelayan", en: "Fisher Partner" }}</Text>
                   </span>
+                </div>
+
+                {/* 5-Star Rating Icon */}
+                <div className="flex items-center gap-1 mb-4" aria-label="Rating 5 dari 5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="size-4 fill-amber-400 text-amber-400"
+                    />
+                  ))}
                 </div>
 
                 <blockquote className="text-sm sm:text-base leading-relaxed text-slate-700">
@@ -116,7 +120,7 @@ export function TestimonialsSection() {
         </div>
       </div>
 
-      {/* Curved Wave Bottom Divider (Ombak Penutup Testimoni Menuju Seksi Aktivitas / Berita bg-slate-50) */}
+      {/* Curved Wave Bottom Divider */}
       <div className="relative z-10 w-full overflow-hidden leading-none text-slate-50 mt-14 sm:mt-20">
         <svg
           className="relative block w-full h-12 sm:h-20 lg:h-24 fill-slate-50"

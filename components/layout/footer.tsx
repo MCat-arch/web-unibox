@@ -112,7 +112,7 @@ export function Footer() {
         </p>
 
         {/* Nav Links */}
-        <nav
+        {/* <nav
           className="mt-7 flex flex-wrap justify-center gap-x-8 gap-y-3 text-xs sm:text-sm font-semibold text-slate-700"
           aria-label="Footer navigation"
         >
@@ -125,7 +125,7 @@ export function Footer() {
               {item[language as Language]}
             </Link>
           ))}
-        </nav>
+        </nav> */}
 
         {/* Social Media Icons (Dipindahkan ke Footer) */}
         <div className="mt-8 flex items-center justify-center gap-3.5">

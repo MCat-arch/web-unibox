@@ -50,11 +50,10 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-in-out ${
-        isTransparent
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-in-out ${isTransparent
           ? "bg-transparent border-b border-transparent text-white py-2"
           : "bg-white/95 border-b border-slate-200/80 shadow-md shadow-slate-900/5 backdrop-blur-xl text-slate-800 py-0"
-      }`}
+        }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
         {/* Logo */}
@@ -67,9 +66,8 @@ export function Navbar() {
             U
           </span>
           <span
-            className={`font-display text-lg uppercase tracking-wide transition-colors duration-500 ease-in-out ${
-              isTransparent ? "text-white drop-shadow-sm" : "text-slate-900 group-hover:text-blue-600"
-            }`}
+            className={`font-display text-lg uppercase tracking-wide transition-colors duration-500 ease-in-out ${isTransparent ? "text-white drop-shadow-sm" : "text-slate-900 group-hover:text-blue-600"
+              }`}
           >
             Unibox
           </span>
@@ -90,15 +88,14 @@ export function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-3.5 py-1.5 rounded-full text-xs lg:text-sm transition-all duration-500 ease-in-out ${
-                  isActive
+                className={`px-3.5 py-1.5 rounded-full text-xs lg:text-sm transition-all duration-500 ease-in-out ${isActive
                     ? isTransparent
                       ? "bg-white/20 text-white backdrop-blur-md shadow-inner"
                       : "bg-slate-900 text-white shadow-sm"
                     : isTransparent
-                    ? "text-white/85 hover:text-white hover:bg-white/10"
-                    : "text-slate-600 hover:text-blue-700 hover:bg-slate-100"
-                }`}
+                      ? "text-white/85 hover:text-white hover:bg-white/10"
+                      : "text-slate-600 hover:text-blue-700 hover:bg-slate-100"
+                  }`}
               >
                 {item[language as Language]}
               </Link>
@@ -110,11 +107,10 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-3.5">
           {/* Segmented Language Switcher Toggle */}
           <div
-            className={`flex items-center rounded-full border p-0.5 transition-all duration-500 ease-in-out ${
-              isTransparent
+            className={`flex items-center rounded-full border p-0.5 transition-all duration-500 ease-in-out ${isTransparent
                 ? "border-white/25 bg-white/10 backdrop-blur-md"
                 : "border-slate-200 bg-slate-100/90 shadow-xs"
-            }`}
+              }`}
             aria-label="Pilih Bahasa / Language selector"
           >
             {(["id", "en"] as const).map((code) => {
@@ -124,15 +120,14 @@ export function Navbar() {
                   key={code}
                   type="button"
                   onClick={() => setLanguage(code)}
-                  className={`h-7 rounded-full px-3 text-xs font-bold uppercase transition-all duration-300 cursor-pointer ${
-                    isActive
+                  className={`h-7 rounded-full px-3 text-xs font-bold uppercase transition-all duration-300 cursor-pointer ${isActive
                       ? isTransparent
                         ? "bg-white text-slate-900 shadow-sm"
                         : "bg-blue-600 text-white shadow-xs"
                       : isTransparent
-                      ? "text-white/80 hover:text-white hover:bg-white/10"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
-                  }`}
+                        ? "text-white/80 hover:text-white hover:bg-white/10"
+                        : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
+                    }`}
                 >
                   {code}
                 </button>
@@ -144,7 +139,7 @@ export function Navbar() {
           <Button
             asChild
             size="sm"
-            className="rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md shadow-blue-600/30 transition-all hover:scale-105"
+            className="rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold transition-all hover:scale-105"
           >
             <Link href="/contact">
               {language === "id" ? "Hubungi Kami" : "Contact Us"}
@@ -155,11 +150,10 @@ export function Navbar() {
         {/* Mobile Segmented Language Toggle & Hamburger Button */}
         <div className="flex md:hidden items-center gap-2.5">
           <div
-            className={`flex items-center rounded-full border p-0.5 transition-all duration-500 ${
-              isTransparent
+            className={`flex items-center rounded-full border p-0.5 transition-all duration-500 ${isTransparent
                 ? "border-white/25 bg-white/10 backdrop-blur-md"
                 : "border-slate-200 bg-slate-100"
-            }`}
+              }`}
             aria-label="Pilih Bahasa / Language selector"
           >
             {(["id", "en"] as const).map((code) => {
@@ -169,15 +163,14 @@ export function Navbar() {
                   key={code}
                   type="button"
                   onClick={() => setLanguage(code)}
-                  className={`h-6 rounded-full px-2 text-[11px] font-bold uppercase transition-all duration-300 cursor-pointer ${
-                    isActive
+                  className={`h-6 rounded-full px-2 text-[11px] font-bold uppercase transition-all duration-300 cursor-pointer ${isActive
                       ? isTransparent
                         ? "bg-white text-slate-900 shadow-sm"
                         : "bg-blue-600 text-white shadow-xs"
                       : isTransparent
-                      ? "text-white/80 hover:text-white"
-                      : "text-slate-600 hover:text-slate-900"
-                  }`}
+                        ? "text-white/80 hover:text-white"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
                 >
                   {code}
                 </button>
@@ -187,9 +180,8 @@ export function Navbar() {
 
           <button
             type="button"
-            className={`p-2 transition-colors duration-500 cursor-pointer ${
-              isTransparent ? "text-white" : "text-slate-800 hover:text-blue-600"
-            }`}
+            className={`p-2 transition-colors duration-500 cursor-pointer ${isTransparent ? "text-white" : "text-slate-800 hover:text-blue-600"
+              }`}
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Tutup menu" : "Buka menu"}
           >
@@ -212,11 +204,10 @@ export function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors ${
-                    isActive
+                  className={`rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors ${isActive
                       ? "bg-blue-600 text-white"
                       : "text-slate-800 hover:bg-slate-100"
-                  }`}
+                    }`}
                   onClick={() => setMenuOpen(false)}
                 >
                   {item[language as Language]}
