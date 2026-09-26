@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PageIntro } from "@/components/page-intro";
 import { Text } from "@/components/text";
 import { useLanguage } from "@/context/language-context";
 
@@ -208,18 +207,48 @@ export function ProductContent() {
 
   return (
     <div className="bg-slate-50 min-h-screen">
-      {/* Intro Header */}
-      <PageIntro
-        eyebrow={{ id: "Produk & Inovasi Teknologi", en: "Products & Technological Innovation" }}
-        title={{
-          id: "Ekosistem Pendingin & Elektrifikasi Terpadu untuk Perahu Nelayan",
-          en: "Integrated Cooling & Electrification Ecosystem for Fishing Boats",
-        }}
-        description={{
-          id: "Unibox dirancang dengan sistem pendingin efisien, insulasi rapat, serta sensor suhu presisi. Hasilnya? Ikan lebih awet, kualitas terjaga, dan potensi kehilangan hasil tangkapan bisa ditekan.",
-          en: "Unibox is engineered with an efficient cooling system, tight insulation, and precision temperature sensors. The result? Fresher fish, protected quality, and minimized catch loss.",
-        }}
-      />
+      {/* ========================================================
+          TOP SECTION: WHITE BACKGROUND with Breadcrumb and Friendly Header
+      ======================================================== */}
+      <section className="relative pt-28 pb-14 sm:pt-32 sm:pb-18 bg-white border-b border-slate-200/80">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          {/* Breadcrumb Navigation */}
+          <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-500 mb-6 sm:mb-8">
+            <Link href="/" className="hover:text-blue-600 transition-colors">
+              <Text>{{ id: "Beranda", en: "Home" }}</Text>
+            </Link>
+            <ChevronRight className="size-3.5 text-slate-400" />
+            <span className="font-semibold text-blue-900">
+              <Text>{{ id: "Produk ", en: "Products " }}</Text>
+            </span>
+          </nav>
+
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 mb-3">
+              <span className="h-5 w-1 rounded-full bg-blue-600 shadow-sm shadow-blue-600/40" />
+              <span className="text-xs font-bold tracking-wider uppercase text-blue-700">
+                <Text>{{ id: "Produk ", en: "Products" }}</Text>
+              </span>
+            </div>
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+              <Text>
+                {{
+                  id: "Ekosistem Pendingin & Elektrifikasi Terpadu untuk Perahu Nelayan",
+                  en: "Integrated Cooling & Electrification Ecosystem for Fishing Boats",
+                }}
+              </Text>
+            </h1>
+            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+              <Text>
+                {{
+                  id: "Unibox dirancang dengan sistem pendingin efisien, insulasi rapat, serta sensor suhu presisi. Hasilnya, ikan lebih awet, kualitas mutu terjaga, dan potensi kehilangan hasil tangkapan dapat ditekan secara optimal.",
+                  en: "Unibox is engineered with an efficient cooling system, tight insulation, and precision temperature sensors. Catches stay fresh, fish quality is preserved, and catch loss is significantly minimized.",
+                }}
+              </Text>
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* 5 Detailed Feature Modules (Alternating Layout) */}
       <section className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 py-16 sm:py-24 space-y-20 sm:space-y-28">
@@ -228,15 +257,13 @@ export function ProductContent() {
           return (
             <div
               key={item.number}
-              className={`grid gap-10 lg:gap-14 lg:grid-cols-12 items-center ${
-                isImageLeft ? "lg:grid-flow-dense" : ""
-              }`}
+              className={`grid gap-10 lg:gap-14 lg:grid-cols-12 items-center ${isImageLeft ? "lg:grid-flow-dense" : ""
+                }`}
             >
               {/* Text Information Column */}
               <div
-                className={`lg:col-span-6 flex flex-col justify-center ${
-                  isImageLeft ? "lg:col-start-7" : ""
-                }`}
+                className={`lg:col-span-6 flex flex-col justify-center ${isImageLeft ? "lg:col-start-7" : ""
+                  }`}
               >
                 {/* Badge & Number */}
                 <div className="flex items-center gap-3 mb-3">
@@ -281,9 +308,8 @@ export function ProductContent() {
 
               {/* Visual Column */}
               <div
-                className={`lg:col-span-6 ${
-                  isImageLeft ? "lg:col-start-1" : ""
-                }`}
+                className={`lg:col-span-6 ${isImageLeft ? "lg:col-start-1" : ""
+                  }`}
               >
                 {item.customVisual ? (
                   <SonarRadarVisual />
@@ -336,7 +362,7 @@ export function ProductContent() {
             {orderingSteps.map((step) => (
               <div
                 key={step.number}
-                className="rounded-2xl border border-slate-200 bg-slate-50/70 p-6 shadow-xs flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:bg-white hover:-translate-y-1"
+                className="rounded-2xl border border-slate-200 bg-slate-50/70 p-6 shadow-xs flex flex-col justify-between"
               >
                 <div>
                   <span className="font-display text-2xl font-black text-blue-600">
@@ -380,7 +406,7 @@ export function ProductContent() {
           <Button
             asChild
             size="lg"
-            className="shrink-0 rounded-full bg-white text-blue-900 hover:bg-sky-50 font-bold px-8 py-6 text-sm sm:text-base shadow-xl transition-transform hover:scale-105"
+            className="shrink-0 rounded-full bg-white text-blue-900 font-bold px-8 py-6 text-sm sm:text-base shadow-xl"
           >
             <Link href="/contact">
               <Text>{{ id: "Mulai Pemesanan & Konsultasi", en: "Start Order & Consultation" }}</Text>

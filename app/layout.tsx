@@ -24,13 +24,26 @@ export const metadata: Metadata = {
   },
   description:
     "Unibox menghadirkan solusi penyimpanan dingin dan sistem es terintegrasi untuk industri perikanan Indonesia.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   openGraph: {
     title: "Unibox — Solusi Rantai Dingin Perikanan",
     description:
       "Solusi penyimpanan dingin dan sistem es terintegrasi untuk menjaga mutu hasil laut.",
     type: "website",
+    images: [{ url: "/images/unibox-logo.png", width: 1024, height: 1024, alt: "Unibox Logo" }],
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/images/unibox-logo.png"],
+  },
 };
 
 export default function RootLayout({

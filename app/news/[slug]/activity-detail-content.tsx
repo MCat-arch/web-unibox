@@ -63,22 +63,8 @@ export function ActivityDetailContent({ activity }: { activity: ActivityItem }) 
           </div>
         </div>
 
-        {/* Article Header (Matches Attachment 2) */}
+        {/* Article Header */}
         <header className="mb-10 sm:mb-12">
-          {/* Category Badge */}
-          <div className="mb-4 flex items-center gap-2">
-            <span
-              className={`inline-flex items-center gap-1.5 text-xs sm:text-sm font-extrabold uppercase tracking-wider px-3 py-1 rounded-full border ${
-                isEvent
-                  ? "text-amber-700 bg-amber-50 border-amber-200"
-                  : "text-blue-700 bg-blue-50 border-blue-200"
-              }`}
-            >
-              {isEvent ? <Sparkles className="size-3.5" /> : <BookOpen className="size-3.5" />}
-              {activity.category[language]}
-            </span>
-          </div>
-
           {/* Title */}
           <h1 className="font-display text-2xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-[1.2] tracking-tight mb-6">
             {activity.title[language]}
@@ -174,11 +160,11 @@ export function ActivityDetailContent({ activity }: { activity: ActivityItem }) 
               sizes="(min-width: 1024px) 896px, 100vw"
             />
             {/* Subtle Brand Tag */}
-            <div className="absolute bottom-5 left-5 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-sm">
+            {/* <div className="absolute bottom-5 left-5 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-sm">
               <span className="text-xs font-black tracking-widest text-blue-900 uppercase">
                 UNIBOX
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -278,10 +264,6 @@ export function ActivityDetailContent({ activity }: { activity: ActivityItem }) 
         ======================================================== */}
         <section className="mt-16 sm:mt-24 pt-12 sm:pt-16 border-t-2 border-slate-100">
           <div className="mb-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider mb-2.5">
-              <Calendar className="size-3.5 text-blue-600" />
-              <Text>{{ id: "Informasi Kegiatan Lainnya", en: "Other Event Information" }}</Text>
-            </div>
             <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               <Text>{{ id: "Agenda & Informasi Kegiatan Mendatang", en: "Upcoming Event Agenda & Activities" }}</Text>
             </h3>
@@ -299,7 +281,7 @@ export function ActivityDetailContent({ activity }: { activity: ActivityItem }) 
             {upcomingEventsData.map((event) => (
               <div
                 key={event.id}
-                className="group rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-sm hover:border-blue-300 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-5"
+                className="group rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-5"
               >
                 <div className="flex items-start gap-4">
                   {/* Date Badge */}
@@ -312,11 +294,7 @@ export function ActivityDetailContent({ activity }: { activity: ActivityItem }) 
 
                   <div>
                     <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                      <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
-                        {event.tag[language]}
-                      </span>
-                      <span className="text-xs text-slate-400">·</span>
-                      <div className="flex items-center gap-1 text-xs text-slate-500 font-medium">
+                      <div className="flex items-center gap-1 text-xs text-slate-600 font-medium">
                         <MapPin className="size-3.5 text-blue-600 shrink-0" />
                         <span>{event.location[language]}</span>
                       </div>
@@ -331,7 +309,7 @@ export function ActivityDetailContent({ activity }: { activity: ActivityItem }) 
                       )}
                     </div>
 
-                    <h4 className="font-display text-base sm:text-lg font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
+                    <h4 className="font-display text-base sm:text-lg font-bold text-slate-900">
                       {event.title[language]}
                     </h4>
 
@@ -345,7 +323,7 @@ export function ActivityDetailContent({ activity }: { activity: ActivityItem }) 
                   {event.slug && (
                     <Link
                       href={`/news/${event.slug}`}
-                      className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-4 py-2 text-xs font-bold text-blue-900 hover:bg-blue-600 hover:text-white transition-all"
+                      className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-4 py-2 text-xs font-bold text-blue-900"
                     >
                       <span>
                         <Text>{{ id: "Lihat Detail", en: "View Details" }}</Text>

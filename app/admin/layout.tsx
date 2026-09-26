@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { getSession } from "@/lib/auth/session";
 import { AdminLogoutButton } from "@/components/admin/admin-logout-button";
@@ -22,15 +23,22 @@ export default async function AdminLayout({
       <aside className="w-full md:w-64 bg-[#07243e] text-white flex-shrink-0 flex flex-col border-r border-slate-800">
         {/* Brand Header */}
         <div className="p-6 border-b border-slate-800 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-[#0070ba] flex items-center justify-center font-bold text-white shadow-md">
-              UB
+          <div className="flex items-center gap-2.5">
+            <div className="relative w-9 h-9 shrink-0">
+              <Image
+                src="/images/unibox-emblem.png"
+                alt="Unibox Logo"
+                fill
+                className="object-contain"
+              />
             </div>
             <div>
-              <span className="font-extrabold text-base tracking-wider block text-white">
-                UNIBOX ADMIN
-              </span>
-              <span className="text-[11px] text-slate-400 font-medium flex items-center gap-1">
+              <div className="font-extrabold text-base tracking-wider block leading-none">
+                <span className="text-cyan-400 font-black">UNI</span>
+                <span className="text-white font-black">BOX</span>{" "}
+                <span className="text-slate-300 font-semibold text-xs tracking-normal">ADMIN</span>
+              </div>
+              <span className="text-[11px] text-slate-400 font-medium flex items-center gap-1 mt-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                 Security Hardened
               </span>

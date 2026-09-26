@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -59,17 +60,23 @@ export function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-3 group"
+          className="flex items-center gap-2.5 group"
           onClick={() => setMenuOpen(false)}
         >
-          <span className="grid size-9 place-items-center rounded-xl bg-blue-600 font-body text-sm font-bold text-white shadow-md shadow-blue-500/25 transition-transform group-hover:scale-105">
-            U
-          </span>
-          <span
-            className={`font-display text-lg uppercase tracking-wide transition-colors duration-500 ease-in-out ${isTransparent ? "text-white drop-shadow-sm" : "text-slate-900 group-hover:text-blue-600"
-              }`}
-          >
-            Unibox
+          <div className="relative size-9 sm:size-10 shrink-0">
+            <Image
+              src="/images/unibox-emblem.png"
+              alt="Unibox Logo"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+          <span className="font-display text-xl sm:text-2xl font-black tracking-wider transition-colors duration-500 ease-in-out select-none">
+            <span className="text-cyan-500">UNI</span>
+            <span className={isTransparent ? "text-white drop-shadow-sm" : "text-slate-900"}>
+              BOX
+            </span>
           </span>
         </Link>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle } from "lucide-react";
 import { useLanguage } from "@/context/language-context";
@@ -91,13 +92,19 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-slate-100 pt-16 pb-12 text-slate-800 border-t-2 border-slate-200">
       <div className="mx-auto max-w-7xl px-5 lg:px-8 text-center">
-        {/* Logo Unibox (Konten & Logo Gelap) */}
-        <Link href="/" className="inline-flex items-center gap-3">
-          <span className="grid size-10 place-items-center rounded-xl bg-blue-600 font-display text-sm font-bold text-white shadow-md shadow-blue-600/30">
-            U
-          </span>
-          <span className="font-display text-2xl tracking-wider text-slate-900 font-bold uppercase">
-            Unibox
+        {/* Logo Unibox */}
+        <Link href="/" className="inline-flex items-center gap-2.5">
+          <div className="relative size-11 shrink-0">
+            <Image
+              src="/images/unibox-emblem.png"
+              alt="Unibox Logo"
+              fill
+              className="object-contain"
+            />
+          </div>
+          <span className="font-display text-2xl font-black tracking-wider text-slate-900 select-none">
+            <span className="text-cyan-600">UNI</span>
+            <span className="text-slate-900">BOX</span>
           </span>
         </Link>
 

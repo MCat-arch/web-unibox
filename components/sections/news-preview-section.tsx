@@ -100,11 +100,11 @@ export function NewsPreviewSection() {
           ))}
         </div>
 
-        {/* Bottom CTA Button: Black background with white text & hover effect */}
+        {/* Bottom CTA Button: Clean button without hover jump */}
         <div className="mt-10 flex justify-center">
           <Button
             asChild
-            className="rounded-full bg-slate-950 hover:bg-slate-800 text-white font-semibold px-7 py-2.5 shadow-md transition-all duration-200 hover:scale-105"
+            className="rounded-full bg-slate-950 hover:bg-slate-800 text-white font-semibold px-7 py-2.5 shadow-md"
           >
             <Link href="/news" className="flex items-center gap-2">
               <Text>{{ id: "Lihat Semua Aktivitas", en: "View All Activities" }}</Text>

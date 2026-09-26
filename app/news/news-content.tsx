@@ -78,7 +78,7 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
             </Link>
             <ChevronRight className="size-3.5 text-slate-400" />
             <span className="font-semibold text-blue-900">
-              <Text>{{ id: "Event & Blog", en: "Events & Blog" }}</Text>
+              <Text>{{ id: "Aktivitas", en: "Events" }}</Text>
             </span>
           </nav>
 
@@ -93,7 +93,7 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
                     alt={featuredEvent.title[language]}
                     fill
                     priority
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="object-cover"
                     sizes="(min-width: 1024px) 50vw, 100vw"
                   />
                   {/* Badge Highlight */}
@@ -101,9 +101,9 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
                     <Text>{{ id: "Kegiatan Mendatang", en: "Upcoming Event" }}</Text>
                   </div>
                   <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-sm">
-                    <span className="text-xs font-black tracking-widest text-blue-900 uppercase">
+                    {/* <span className="text-xs font-black tracking-widest text-blue-900 uppercase">
                       UNIBOX
-                    </span>
+                    </span> */}
                   </div>
                 </div>
               </Link>
@@ -111,19 +111,12 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
 
             {/* Kanan: Informasi Event Utama */}
             <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center">
-              {/* Category */}
-              <div className="flex items-center gap-2 mb-3">
-                <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-extrabold uppercase tracking-wider text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200/60">
-                  <Sparkles className="size-3.5 text-amber-600" />
-                  {featuredEvent.category[language]}
-                </span>
-              </div>
 
               {/* Title */}
               <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-[1.2] tracking-tight">
                 <Link
                   href={`/news/${featuredEvent.slug}`}
-                  className="hover:text-blue-700 transition-colors"
+                  className="transition-colors"
                 >
                   {featuredEvent.title[language]}
                 </Link>
@@ -154,8 +147,8 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
                   <Info className="size-3.5 text-blue-600 shrink-0" />
                   <Text>
                     {{
-                      id: "Informasi terbuka bagi seluruh nelayan & mitra — Tanpa biaya atau pendaftaran.",
-                      en: "Open public information for fishers & partners — No registration needed.",
+                      id: "Informasi terbuka bagi seluruh nelayan & mitra. Tanpa biaya atau pendaftaran.",
+                      en: "Open public information for fishers & partners. No registration needed.",
                     }}
                   </Text>
                 </div>
@@ -175,12 +168,12 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
 
                 <Link
                   href={`/news/${featuredEvent.slug}`}
-                  className="group inline-flex items-center gap-2 text-sm sm:text-base font-bold text-blue-700 hover:text-blue-900 transition-colors"
+                  className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-blue-700"
                 >
-                  <span className="border-b-2 border-blue-700 group-hover:border-blue-900 pb-0.5 transition-colors">
+                  <span className="border-b-2 border-blue-700 pb-0.5">
                     <Text>{{ id: "Lihat Informasi Lengkap", en: "View Event Details" }}</Text>
                   </span>
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="size-4" />
                 </Link>
               </div>
             </div>
@@ -204,21 +197,18 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
             <div className="grid gap-6 md:grid-cols-2">
               {upcomingEventsData.map((item) => (
                 <article key={item.id} className="flex flex-col">
-                  {/* Category & Date Header */}
-                  <div className="flex items-center justify-between mb-2.5 px-1">
-                    <span className="font-display text-xs sm:text-sm font-bold uppercase tracking-wider text-blue-700">
-                      {item.tag[language]}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 text-xs text-slate-500 font-medium">
-                      <Calendar className="size-3.5 text-slate-400" />
+                  {/* Date Header (Hanya Tanggal, Tanpa Kategori) */}
+                  <div className="flex items-center gap-2 mb-2.5 px-1">
+                    <Calendar className="size-3.5 text-blue-600" />
+                    <span className="text-xs sm:text-sm font-bold text-slate-700">
                       {item.day} {item.monthYear}
                     </span>
                   </div>
 
-                  {/* Horizontal Card Box (Matches Landing Page News Preview) */}
+                  {/* Horizontal Card Box */}
                   <Link
                     href={`/news/${item.slug || featuredEvent.slug}`}
-                    className="flex min-h-36 items-center gap-5 rounded-2xl bg-[#092644] p-4 text-white sm:p-5 shadow-lg shadow-blue-950/15 border border-blue-900/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-[#0c3156] group cursor-pointer"
+                    className="flex min-h-36 items-center gap-5 rounded-2xl bg-[#092644] p-4 text-white sm:p-5 shadow-md shadow-blue-950/15 border border-blue-900/40 group cursor-pointer"
                   >
                     <div className="relative aspect-[4/3] w-32 shrink-0 sm:w-40 overflow-hidden rounded-xl bg-slate-800">
                       <Image
@@ -226,25 +216,21 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
                         alt={item.title[language]}
                         fill
                         loading="lazy"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="object-cover"
                         sizes="160px"
                       />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-sky-400 bg-sky-950/60 px-2 py-0.5 rounded border border-sky-800/50">
-                          <Text>{{ id: "Informasi Terbuka", en: "Open Info" }}</Text>
-                        </span>
-                        {item.time && (
-                          <span className="text-[11px] text-slate-400 font-medium">
-                            {item.time[language]}
-                          </span>
-                        )}
-                      </div>
-                      <h4 className="font-display text-sm sm:text-base font-bold leading-snug text-white line-clamp-2 group-hover:text-sky-300 transition-colors">
+                      {item.time && (
+                        <div className="flex items-center gap-1.5 text-[11px] text-sky-300 font-medium mb-1.5">
+                          <Clock className="size-3 text-sky-400" />
+                          <span>{item.time[language]}</span>
+                        </div>
+                      )}
+                      <h4 className="font-display text-sm sm:text-base font-bold leading-snug text-white line-clamp-2">
                         {item.title[language]}
                       </h4>
-                      <p className="mt-1.5 text-xs text-slate-300 flex items-center gap-1.5 truncate">
+                      <p className="mt-2 text-xs text-slate-300 flex items-center gap-1.5 truncate">
                         <MapPin className="size-3 text-red-400 shrink-0" />
                         <span className="truncate">{item.location[language]}</span>
                       </p>
@@ -270,14 +256,10 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
         </div>
 
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-          {/* Header Seksi Blog */}
+          {/* Header Seksi Blog / Wawasan */}
           <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-sky-100 text-xs font-bold uppercase tracking-wider mb-3">
-              <BookOpen className="size-3.5 text-sky-300" />
-              <Text>{{ id: "Kategori Blog", en: "Blog Category" }}</Text>
-            </div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
-              <Text>{{ id: "Blog & Wawasan Maritim", en: "Maritime Insights & Blog" }}</Text>
+              <Text>{{ id: "Wawasan Terkait Unibox", en: "Unibox Insights" }}</Text>
             </h2>
             <p className="mt-3 text-sky-100 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
               <Text>
@@ -294,7 +276,7 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
             {visibleBlogs.map((blog) => (
               <article
                 key={blog.slug}
-                className="group flex flex-col rounded-3xl bg-white p-5 sm:p-6 text-slate-900 shadow-xl shadow-blue-950/20 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+                className="group flex flex-col rounded-3xl bg-white p-5 sm:p-6 text-slate-900 shadow-xl shadow-blue-950/10"
               >
                 {/* Thumbnail Foto */}
                 <Link
@@ -306,14 +288,9 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
                     alt={blog.title[language]}
                     fill
                     loading="lazy"
-                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                    className="object-cover"
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   />
-                  <div className="absolute top-3 left-3 bg-blue-900/90 text-white backdrop-blur-xs px-2.5 py-1 rounded-md shadow-xs">
-                    <span className="text-[10px] font-bold uppercase tracking-wider">
-                      {blog.category[language]}
-                    </span>
-                  </div>
                 </Link>
 
                 {/* Konten Blog */}
@@ -323,7 +300,7 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
                     <span>{blog.date[language]}</span>
                   </div>
 
-                  <h3 className="font-display text-lg font-bold leading-snug text-slate-900 group-hover:text-blue-700 transition-colors line-clamp-2">
+                  <h3 className="font-display text-lg font-bold leading-snug text-slate-900 line-clamp-2">
                     <Link href={`/news/${blog.slug}`}>
                       {blog.title[language]}
                     </Link>
@@ -341,12 +318,12 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
 
                     <Link
                       href={`/news/${blog.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-700 group-hover:text-blue-900 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-700"
                     >
                       <span>
                         <Text>{{ id: "Baca Artikel", en: "Read Article" }}</Text>
                       </span>
-                      <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+                      <ArrowRight className="size-3.5" />
                     </Link>
                   </div>
                 </div>
@@ -360,7 +337,7 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
               <button
                 type="button"
                 onClick={() => setShowAllBlogs(!showAllBlogs)}
-                className="group inline-flex items-center gap-2.5 rounded-full bg-white text-blue-900 hover:bg-sky-50 px-7 py-3 text-xs sm:text-sm font-extrabold shadow-lg shadow-blue-950/20 hover:shadow-xl transition-all duration-300"
+                className="group inline-flex items-center gap-2.5 rounded-full bg-white text-blue-900 px-7 py-3 text-xs sm:text-sm font-extrabold shadow-lg shadow-blue-950/20"
               >
                 <span>
                   {showAllBlogs ? (
@@ -370,9 +347,8 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
                   )}
                 </span>
                 <ChevronDown
-                  className={`size-4 text-blue-700 transition-transform duration-300 ${
-                    showAllBlogs ? "rotate-180" : ""
-                  }`}
+                  className={`size-4 text-blue-700 transition-transform duration-300 ${showAllBlogs ? "rotate-180" : ""
+                    }`}
                 />
               </button>
             </div>
@@ -389,10 +365,6 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
           {/* Header Seksi Event Terlaksana */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-3 border border-emerald-200/70">
-                <CheckCircle2 className="size-3.5 text-emerald-600" />
-                <Text>{{ id: "Rekam Jejak & Dokumentasi", en: "Track Record & Documentation" }}</Text>
-              </div>
               <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
                 <Text>{{ id: "Kegiatan yang Telah Dilaksanakan", en: "Completed Field Events" }}</Text>
               </h2>
@@ -412,43 +384,35 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
             {pastEventsData.map((item) => (
               <article
                 key={item.id}
-                className="group flex flex-col rounded-3xl bg-slate-50/80 border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 hover:-translate-y-1.5"
+                className="group flex flex-col rounded-3xl bg-slate-50/80 border border-slate-200/90 overflow-hidden shadow-sm"
               >
-                {/* Thumbnail dengan Badges */}
+                {/* Thumbnail */}
                 <Link href={`/news/${item.slug}`} className="relative aspect-[16/10] w-full overflow-hidden block bg-slate-200">
                   <Image
                     src={item.image}
                     alt={item.title[language]}
                     fill
                     loading="lazy"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover"
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   />
-                  {/* Badge Telah Terlaksana */}
-                  <div className="absolute top-3 left-3 bg-emerald-700 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
-                    <CheckCircle2 className="size-3" />
-                    <Text>{{ id: "Telah Terlaksana", en: "Completed" }}</Text>
-                  </div>
-                  {/* Badge Tanggal */}
-                  <div className="absolute top-3 right-3 bg-slate-950/70 backdrop-blur-xs text-white text-[11px] font-medium px-2.5 py-1 rounded-full shadow-xs">
-                    {item.date[language]}
-                  </div>
                 </Link>
 
                 {/* Konten Card */}
                 <div className="flex flex-1 flex-col p-6">
-                  {/* Tag Kategori & Lokasi */}
+                  {/* Tanggal & Partisipan (Tanpa Kategori/Jenis) */}
                   <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
-                    <span className="font-bold uppercase tracking-wider text-blue-700">
-                      {item.tag[language]}
-                    </span>
+                    <div className="flex items-center gap-1.5 font-semibold text-slate-700">
+                      <Calendar className="size-3.5 text-blue-600" />
+                      <span>{item.date[language]}</span>
+                    </div>
                     <span className="flex items-center gap-1 font-medium text-slate-500">
                       <Users className="size-3 text-slate-400" />
                       {item.participantsCount[language]}
                     </span>
                   </div>
 
-                  <h3 className="font-display text-base sm:text-lg font-bold text-slate-900 leading-snug group-hover:text-blue-700 transition-colors line-clamp-2">
+                  <h3 className="font-display text-base sm:text-lg font-bold text-slate-900 leading-snug line-clamp-2">
                     <Link href={`/news/${item.slug}`}>
                       {item.title[language]}
                     </Link>
@@ -459,32 +423,20 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
                     <span className="truncate">{item.location[language]}</span>
                   </div>
 
-                  <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-2 flex-1">
+                  <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3 flex-1">
                     {item.summary[language]}
                   </p>
 
-                  {/* Highlight Capaian / Hasil Kegiatan */}
-                  <div className="mt-4 rounded-xl bg-blue-50/70 border border-blue-100/80 p-3 text-xs text-slate-700">
-                    <span className="font-bold text-blue-900 block mb-0.5">
-                      <Text>{{ id: "Capaian Lapangan:", en: "Field Outcome:" }}</Text>
-                    </span>
-                    <p className="text-slate-600 line-clamp-2">{item.outcome[language]}</p>
-                  </div>
-
                   {/* Card Bottom Link */}
-                  <div className="mt-5 pt-3 border-t border-slate-200/80 flex items-center justify-between">
-                    <span className="text-[11px] text-emerald-700 font-bold uppercase tracking-wider">
-                      <Text>{{ id: "Dokumentasi Sukses", en: "Success Report" }}</Text>
-                    </span>
-
+                  <div className="mt-5 pt-3 border-t border-slate-200/80 flex items-center justify-end">
                     <Link
                       href={`/news/${item.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-700 group-hover:text-blue-900 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-700"
                     >
                       <span>
                         <Text>{{ id: "Lihat Dokumentasi", en: "View Report" }}</Text>
                       </span>
-                      <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+                      <ArrowRight className="size-3.5" />
                     </Link>
                   </div>
                 </div>

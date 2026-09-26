@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useTransition } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { loginAdminAction } from "@/lib/actions/auth-actions";
 import { Lock, User, ShieldCheck, AlertCircle, ArrowRight } from "lucide-react";
@@ -36,14 +37,20 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md bg-slate-800/90 border border-slate-700/80 rounded-2xl shadow-2xl p-8 backdrop-blur-xl relative z-10">
         {/* Header Brand */}
         <div className="text-center mb-8">
-          <div className="w-14 h-14 mx-auto rounded-xl bg-gradient-to-br from-[#0070ba] to-[#054b7c] flex items-center justify-center text-white shadow-lg mb-4">
-            <Lock className="w-7 h-7" />
+          <div className="relative w-20 h-20 mx-auto mb-3">
+            <Image
+              src="/images/unibox-emblem.png"
+              alt="Unibox Logo"
+              fill
+              className="object-contain"
+              priority
+            />
           </div>
           <h1 className="text-2xl font-black text-white tracking-wide">
-            PORTAL ADMIN UNIBOX
+            PORTAL ADMIN <span className="text-cyan-400">UNI</span>BOX
           </h1>
           <p className="text-sm text-slate-400 mt-1">
-            Sistem Kelola Konten & Informasi Maritim
+            Sistem Kelola Konten & Informasi 
           </p>
           <div className="inline-flex items-center gap-1.5 mt-3 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
             <ShieldCheck className="w-3.5 h-3.5" />
