@@ -1,0 +1,76 @@
+// Prisma Schema untuk Unibox (PostgreSQL / Supabase via PrismaPg Driver Adapter)
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+model AdminUser {
+  id           String   @id @default(uuid())
+  username     String   @unique
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  name         String
+  role         String   @default("admin")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("admin_users")
+}
+
+model Activity {
+  id                String           @id @default(uuid())
+  slug              String           @unique
+  type              String           // "event" | "blog"
+  featured          Boolean          @default(false)
+  category_id       String
+  category_en       String
+  title_id          String
+  title_en          String
+  date_id           String
+  date_en           String
+  time_id           String?
+  time_en           String?
+  location_id       String?
+  location_en       String?
+  status_id         String?
+  status_en         String?
+  authorName        String           @map("author_name")
+  authorRole_id     String           @map("author_role_id")
+  authorRole_en     String           @map("author_role_en")
+  image             String
+  summary_id        String           @db.Text
+  summary_en        String           @db.Text
+  intro_id          String           @db.Text
+  intro_en          String           @db.Text
+  quoteText_id      String?          @map("quote_text_id") @db.Text
+  quoteText_en      String?          @map("quote_text_en") @db.Text
+  quoteAuthor       String?          @map("quote_author")
+  outcome_id        String?          @db.Text
+  outcome_en        String?          @db.Text
+  participantsCount String?          @map("participants_count")
+  isPublished       Boolean          @default(true) @map("is_published")
+  createdAt         DateTime         @default(now()) @map("created_at")
+  updatedAt         DateTime         @updatedAt @map("updated_at")
+  sections          ContentSection[]
+
+  @@map("activities")
+}
+
+model ContentSection {
+  id         String   @id @default(uuid())
+  activityId String   @map("activity_id")
+  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  heading_id String
+  heading_en String
+  body_id    String   @db.Text
+  body_en    String   @db.Text
+  orderIndex Int      @default(0) @map("order_index")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@map("content_sections")
+}

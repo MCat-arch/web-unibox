@@ -34,7 +34,7 @@ export function NewsPreviewSection() {
   const { language } = useLanguage();
 
   return (
-    <section className="bg-slate-50 py-16 sm:py-24 border-t border-slate-200/80">
+    <section className="bg-slate-50 pt-8 pb-16 sm:pt-12 sm:pb-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         {/* Header: Vertical Blue Accent Bar + Breadcrumb */}
         <div className="text-center max-w-2xl mx-auto">

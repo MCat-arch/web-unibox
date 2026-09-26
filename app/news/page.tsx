@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { NewsContent } from "./news-content";
+import { getPublicActivities } from "@/lib/activities-fetcher";
+
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: "Event & Blog Maritim — Unibox",
@@ -11,6 +14,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function NewsPage() {
-  return <NewsContent />;
+export default async function NewsPage() {
+  const activities = await getPublicActivities();
+  return <NewsContent initialActivities={activities} />;
 }
+

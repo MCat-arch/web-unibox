@@ -42,18 +42,22 @@ function ScalePattern({ className = "text-orange-400" }: { className?: string })
   );
 }
 
-export function NewsContent() {
+import type { ActivityItem } from "@/lib/activities-data";
+
+export function NewsContent({ initialActivities }: { initialActivities?: ActivityItem[] }) {
   const { language } = useLanguage();
   const [showAllBlogs, setShowAllBlogs] = useState(false);
 
+  const activities = initialActivities && initialActivities.length > 0 ? initialActivities : activitiesData;
+
   // Top main event (Featured latest event)
   const featuredEvent =
-    activitiesData.find((a) => a.type === "event" && a.featured) ||
-    activitiesData.find((a) => a.type === "event") ||
-    activitiesData[0];
+    activities.find((a) => a.type === "event" && a.featured) ||
+    activities.find((a) => a.type === "event") ||
+    activities[0];
 
   // All blog articles
-  const blogArticles = activitiesData.filter((a) => a.type === "blog");
+  const blogArticles = activities.filter((a) => a.type === "blog");
 
   // Displayed blog articles based on toggle
   const visibleBlogs = showAllBlogs ? blogArticles : blogArticles.slice(0, 3);

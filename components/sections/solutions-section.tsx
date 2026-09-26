@@ -60,15 +60,15 @@ const features = [
   {
     number: "02",
     title: {
-      id: "Mengurangi Kerugian Akibat Ikan Busuk",
-      en: "Reducing Losses from Spoiled Catch",
+      id: "Pencarian Ikan Lebih Cepat dan Efisien",
+      en: "Faster & More Efficient Fish Finding",
     },
     description: {
-      id: "Dengan teknologi pendingin ramah lingkungan berbasis refrigerant R32, ikan bisa tetap segar tanpa harus bergantung pada es batu. Nelayan tidak perlu lagi membuang sebagian hasil tangkapan karena pembusukan.",
-      en: "Powered by eco-friendly R32 refrigerant cooling technology, fish stays fresh without relying on conventional ice blocks. Fishers no longer need to discard valuable catch due to spoilage.",
+      id: "Dilengkapi dengan radar sonar ultrasonik yang bisa mendeteksi lokasi sebaran ikan hingga 100 meter. Hemat waktu, hemat bahan bakar, dan lebih ramah lingkungan karena mengurangi emisi polusi.",
+      en: "Equipped with ultrasonic sonar radar capable of detecting fish school locations up to 100 meters. Saves time, conserves fuel, and protects the marine environment by reducing carbon emissions.",
     },
-    image: "/images/unibox-product-detail.jpg",
-    customVisual: false,
+    image: "",
+    customVisual: true,
   },
   {
     number: "03",
@@ -86,15 +86,15 @@ const features = [
   {
     number: "04",
     title: {
-      id: "Pencarian Ikan Lebih Cepat dan Efisien",
-      en: "Faster & More Efficient Fish Finding",
+      id: "Mengurangi Kerugian Akibat Ikan Busuk",
+      en: "Reducing Losses from Spoiled Catch",
     },
     description: {
-      id: "Dilengkapi dengan radar sonar ultrasonik yang bisa mendeteksi lokasi sebaran ikan hingga 100 meter. Hemat waktu, hemat bahan bakar, dan lebih ramah lingkungan karena mengurangi emisi polusi.",
-      en: "Equipped with ultrasonic sonar radar capable of detecting fish school locations up to 100 meters. Saves time, conserves fuel, and protects the marine environment by reducing carbon emissions.",
+      id: "Dengan teknologi pendingin ramah lingkungan berbasis refrigerant R32, ikan bisa tetap segar tanpa harus bergantung pada es batu. Nelayan tidak perlu lagi membuang sebagian hasil tangkapan karena pembusukan.",
+      en: "Powered by eco-friendly R32 refrigerant cooling technology, fish stays fresh without relying on conventional ice blocks. Fishers no longer need to discard valuable catch due to spoilage.",
     },
-    image: "",
-    customVisual: true,
+    image: "/images/unibox-product-detail.jpg",
+    customVisual: false,
   },
   {
     number: "05",
@@ -112,7 +112,7 @@ const features = [
 ];
 
 export function SolutionsSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // Default open first item
+  const [openIndex, setOpenIndex] = useState<number | null>(1); // Default open first item
   const { language } = useLanguage();
 
   const toggleStep = (idx: number) => {
@@ -217,38 +217,34 @@ export function SolutionsSection() {
                   return (
                     <div
                       key={item.number}
-                      className={`overflow-hidden rounded-2xl transition-all duration-300 border ${
-                        isOpen
-                          ? "bg-white border-blue-200 shadow-md shadow-blue-900/5"
-                          : "bg-white/90 border-slate-200/70 shadow-xs"
-                      }`}
+                      className={`overflow-hidden rounded-2xl transition-all duration-300 border ${isOpen
+                        ? "bg-white border-blue-200 shadow-md shadow-blue-900/5"
+                        : "bg-white/90 border-slate-200/70 shadow-xs"
+                        }`}
                     >
                       {/* Button Header (Distinct button vs hover colors) */}
                       <button
                         type="button"
                         onClick={() => toggleStep(idx)}
-                        className={`w-full flex items-center justify-between gap-4 px-5 py-4 sm:px-6 sm:py-4.5 text-left transition-colors duration-200 cursor-pointer ${
-                          isOpen
-                            ? "bg-white"
-                            : "hover:bg-slate-100/90 hover:border-slate-300"
-                        }`}
+                        className={`w-full flex items-center justify-between gap-4 px-5 py-4 sm:px-6 sm:py-4.5 text-left transition-colors duration-200 cursor-pointer ${isOpen
+                          ? "bg-white"
+                          : "hover:bg-slate-100/90 hover:border-slate-300"
+                          }`}
                         aria-expanded={isOpen}
                       >
                         <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
                           {/* Number badge */}
                           <span
-                            className={`shrink-0 grid size-8 place-items-center rounded-full text-xs font-extrabold transition-colors ${
-                              isOpen
-                                ? "bg-blue-600 text-white shadow-xs"
-                                : "bg-blue-50 text-blue-700 border border-blue-200/60"
-                            }`}
+                            className={`shrink-0 grid size-8 place-items-center rounded-full text-xs font-extrabold transition-colors ${isOpen
+                              ? "bg-blue-600 text-white shadow-xs"
+                              : "bg-blue-50 text-blue-700 border border-blue-200/60"
+                              }`}
                           >
                             {item.number}
                           </span>
                           <span
-                            className={`font-display text-sm sm:text-base font-bold truncate ${
-                              isOpen ? "text-blue-700" : "text-slate-800"
-                            }`}
+                            className={`font-display text-sm sm:text-base font-bold truncate ${isOpen ? "text-blue-700" : "text-slate-800"
+                              }`}
                           >
                             {item.title[language]}
                           </span>
@@ -256,11 +252,10 @@ export function SolutionsSection() {
 
                         {/* Functional Toggle Button */}
                         <div
-                          className={`shrink-0 grid size-7 place-items-center rounded-full border transition-colors ${
-                            isOpen
-                              ? "border-blue-300 bg-blue-50 text-blue-600"
-                              : "border-slate-300 bg-slate-50 text-slate-500"
-                          }`}
+                          className={`shrink-0 grid size-7 place-items-center rounded-full border transition-colors ${isOpen
+                            ? "border-blue-300 bg-blue-50 text-blue-600"
+                            : "border-slate-300 bg-slate-50 text-slate-500"
+                            }`}
                         >
                           {isOpen ? (
                             <Minus className="size-4" />

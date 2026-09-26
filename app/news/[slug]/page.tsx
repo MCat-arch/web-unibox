@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { activitiesData } from "@/lib/activities-data";
+import { getPublicActivityBySlug } from "@/lib/activities-fetcher";
 import { ActivityDetailContent } from "./activity-detail-content";
+
+export const revalidate = 0;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -15,7 +18,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const activity = activitiesData.find((a) => a.slug === slug);
+  const activity = await getPublicActivityBySlug(slug);
 
   if (!activity) {
     return {
@@ -44,7 +47,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ActivityDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const activity = activitiesData.find((a) => a.slug === slug);
+  const activity = await getPublicActivityBySlug(slug);
 
   if (!activity) {
     notFound();
@@ -52,3 +55,4 @@ export default async function ActivityDetailPage({ params }: PageProps) {
 
   return <ActivityDetailContent activity={activity} />;
 }
+

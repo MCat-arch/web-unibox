@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Quote, Star } from "lucide-react";
+import { Quote } from "lucide-react";
 import { Text } from "@/components/text";
 import { useLanguage } from "@/context/language-context";
 
@@ -39,8 +39,8 @@ export function TestimonialsSection() {
   const { language } = useLanguage();
 
   return (
-    <section className="bg-gradient-to-b from-[#093254] via-[#082a47] to-[#07243e] py-16 sm:py-24 text-white">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+    <section className="relative w-full overflow-hidden bg-gradient-to-b from-[#093254] via-[#082a47] to-[#07243e] pt-16 sm:pt-24 text-white">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         {/* Header: Vertical Sky Accent Bar + Breadcrumb */}
         <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end mb-12">
           <div>
@@ -69,7 +69,7 @@ export function TestimonialsSection() {
           </p>
         </div>
 
-        {/* Linear 3-column Cards with Profile Photos: White Cards on Ocean Blue */}
+        {/* Linear 3-column Cards with Profile Photos: White Cards on Ocean Blue (No Stars) */}
         <div className="grid gap-6 md:grid-cols-3 items-stretch">
           {testimonials.map((testimonial) => (
             <article
@@ -78,18 +78,16 @@ export function TestimonialsSection() {
             >
               <div>
                 <div className="flex items-center justify-between gap-4 mb-6">
-                  <span className="grid size-10 place-items-center rounded-xl bg-blue-50 text-blue-600">
+                  <span className="grid size-11 place-items-center rounded-xl bg-blue-50 text-blue-600 shadow-xs">
                     <Quote className="size-5" />
                   </span>
-                  <div className="flex gap-1 text-amber-500" aria-label="5 stars">
-                    {Array.from({ length: 5 }).map((_, star) => (
-                      <Star key={star} className="size-4 fill-current" />
-                    ))}
-                  </div>
+                  <span className="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full">
+                    <Text>{{ id: "Mitra Nelayan", en: "Fisher Partner" }}</Text>
+                  </span>
                 </div>
 
                 <blockquote className="text-sm sm:text-base leading-relaxed text-slate-700">
-                  "{testimonial.quote[language]}"
+                  &ldquo;{testimonial.quote[language]}&rdquo;
                 </blockquote>
               </div>
 
@@ -116,6 +114,17 @@ export function TestimonialsSection() {
             </article>
           ))}
         </div>
+      </div>
+
+      {/* Curved Wave Bottom Divider (Ombak Penutup Testimoni Menuju Seksi Aktivitas / Berita bg-slate-50) */}
+      <div className="relative z-10 w-full overflow-hidden leading-none text-slate-50 mt-14 sm:mt-20">
+        <svg
+          className="relative block w-full h-12 sm:h-20 lg:h-24 fill-slate-50"
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+        >
+          <path d="M0,32L60,42.7C120,53,240,75,360,74.7C480,75,600,53,720,48C840,43,960,53,1080,64C1200,75,1320,85,1380,90.7L1440,96L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z" />
+        </svg>
       </div>
     </section>
   );
