@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
-import { getAdminSupabase } from "@/lib/supabase/server";
+import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth/session";
 import { DbActivity } from "@/lib/supabase/types";
 import { activitiesData } from "@/lib/activities-data";
@@ -22,6 +22,7 @@ const activitySchema = z.object({
   slug: z.string().min(3).regex(/^[a-z0-9-]+$/, "Slug hanya boleh huruf kecil, angka, dan strip (-)"),
   type: z.enum(["event", "blog"]),
   featured: z.boolean().default(false),
+  show_on_landing: z.boolean().default(false),
   category_id: z.string().min(1, "Kategori ID wajib diisi"),
   category_en: z.string().optional(),
   title_id: z.string().min(1, "Judul ID wajib diisi"),
@@ -54,7 +55,56 @@ const activitySchema = z.object({
 
 export type ActivityFormInput = z.infer<typeof activitySchema>;
 
-// Helper internal untuk memastikan semua teks terjemahan English terisi otomatis via Google Translate
+function mapToDbActivity(act: any): DbActivity {
+  return {
+    id: act.id,
+    slug: act.slug,
+    type: act.type as "event" | "blog",
+    featured: act.featured,
+    show_on_landing: act.showOnLanding ?? false,
+    category_id: act.category_id,
+    category_en: act.category_en,
+    title_id: act.title_id,
+    title_en: act.title_en,
+    date_id: act.date_id,
+    date_en: act.date_en,
+    time_id: act.time_id,
+    time_en: act.time_en,
+    location_id: act.location_id,
+    location_en: act.location_en,
+    status_id: act.status_id,
+    status_en: act.status_en,
+    author_name: act.authorName,
+    author_role_id: act.authorRole_id,
+    author_role_en: act.authorRole_en,
+    image: act.image,
+    summary_id: act.summary_id,
+    summary_en: act.summary_en,
+    intro_id: act.intro_id,
+    intro_en: act.intro_en,
+    quote_text_id: act.quoteText_id,
+    quote_text_en: act.quoteText_en,
+    quote_author: act.quoteAuthor,
+    outcome_id: act.outcome_id,
+    outcome_en: act.outcome_en,
+    participants_count: act.participantsCount,
+    is_published: act.isPublished,
+    created_at: act.createdAt instanceof Date ? act.createdAt.toISOString() : String(act.createdAt),
+    updated_at: act.updatedAt instanceof Date ? act.updatedAt.toISOString() : String(act.updatedAt),
+    sections: (act.sections || []).map((s: any) => ({
+      id: s.id,
+      activity_id: s.activityId,
+      heading_id: s.heading_id,
+      heading_en: s.heading_en,
+      body_id: s.body_id,
+      body_en: s.body_en,
+      order_index: s.orderIndex,
+      created_at: s.createdAt instanceof Date ? s.createdAt.toISOString() : String(s.createdAt),
+    })),
+  };
+}
+
+// Helper auto-translate
 async function fillTranslations(input: ActivityFormInput) {
   const [
     title_en,
@@ -97,6 +147,7 @@ async function fillTranslations(input: ActivityFormInput) {
       slug: input.slug,
       type: input.type,
       featured: input.featured,
+      show_on_landing: input.show_on_landing,
       category_id: input.category_id,
       category_en,
       title_id: input.title_id,
@@ -104,11 +155,11 @@ async function fillTranslations(input: ActivityFormInput) {
       date_id: input.date_id,
       date_en,
       time_id: input.time_id || null,
-      time_en,
+      time_en: time_en || null,
       location_id: input.location_id || null,
-      location_en,
+      location_en: location_en || null,
       status_id: input.status_id || null,
-      status_en,
+      status_en: status_en || null,
       author_name: input.author_name,
       author_role_id: input.author_role_id,
       author_role_en,
@@ -118,10 +169,10 @@ async function fillTranslations(input: ActivityFormInput) {
       intro_id: input.intro_id,
       intro_en,
       quote_text_id: input.quote_text_id || null,
-      quote_text_en,
+      quote_text_en: quote_text_en || null,
       quote_author: input.quote_author || null,
       outcome_id: input.outcome_id || null,
-      outcome_en,
+      outcome_en: outcome_en || null,
       participants_count: input.participants_count || null,
       is_published: input.is_published,
     },
@@ -134,16 +185,16 @@ export async function getAdminActivities(): Promise<DbActivity[]> {
   const session = await getSession();
   if (!session) return [];
 
-  const supabase = getAdminSupabase();
-  if (!supabase) return [];
-
-  const { data, error } = await supabase
-    .from("activities")
-    .select("*, sections:content_sections(*)")
-    .order("created_at", { ascending: false });
-
-  if (error || !data) return [];
-  return data as DbActivity[];
+  try {
+    const acts = await prisma.activity.findMany({
+      include: { sections: { orderBy: { orderIndex: "asc" } } },
+      orderBy: { createdAt: "desc" },
+    });
+    return acts.map(mapToDbActivity);
+  } catch (err) {
+    console.error("getAdminActivities error:", err);
+    return [];
+  }
 }
 
 // 2. Fetch satu aktivitas berdasarkan ID untuk Edit
@@ -151,20 +202,19 @@ export async function getAdminActivityById(id: string): Promise<DbActivity | nul
   const session = await getSession();
   if (!session) return null;
 
-  const supabase = getAdminSupabase();
-  if (!supabase) return null;
-
-  const { data, error } = await supabase
-    .from("activities")
-    .select("*, sections:content_sections(*)")
-    .eq("id", id)
-    .single();
-
-  if (error || !data) return null;
-  return data as DbActivity;
+  try {
+    const act = await prisma.activity.findUnique({
+      where: { id },
+      include: { sections: { orderBy: { orderIndex: "asc" } } },
+    });
+    return act ? mapToDbActivity(act) : null;
+  } catch (err) {
+    console.error("getAdminActivityById error:", err);
+    return null;
+  }
 }
 
-// 3. Simpan Aktivitas Baru (Dengan Auto-Translate Google Translate)
+// 3. Simpan Aktivitas Baru
 export async function createActivityAction(payload: ActivityFormInput): Promise<{ success: boolean; message?: string; id?: string }> {
   const session = await getSession();
   if (!session) {
@@ -176,47 +226,66 @@ export async function createActivityAction(payload: ActivityFormInput): Promise<
     return { success: false, message: validation.error.issues[0]?.message || "Input tidak valid" };
   }
 
-  const supabase = getAdminSupabase();
-  if (!supabase) {
-    return { success: false, message: "Koneksi database belum terkonfigurasi di .env.local." };
-  }
-
-  // Proses Auto-Translate teks ID ke EN via Google Translate
   const { activityData, sections } = await fillTranslations(validation.data);
 
-  // Insert tabel activities
-  const { data: newActivity, error: activityError } = await supabase
-    .from("activities")
-    .insert([activityData])
-    .select("id, slug")
-    .single();
+  try {
+    const newActivity = await prisma.activity.create({
+      data: {
+        slug: activityData.slug,
+        type: activityData.type,
+        featured: activityData.featured,
+        showOnLanding: activityData.show_on_landing,
+        category_id: activityData.category_id,
+        category_en: activityData.category_en,
+        title_id: activityData.title_id,
+        title_en: activityData.title_en,
+        date_id: activityData.date_id,
+        date_en: activityData.date_en,
+        time_id: activityData.time_id,
+        time_en: activityData.time_en,
+        location_id: activityData.location_id,
+        location_en: activityData.location_en,
+        status_id: activityData.status_id,
+        status_en: activityData.status_en,
+        authorName: activityData.author_name,
+        authorRole_id: activityData.author_role_id,
+        authorRole_en: activityData.author_role_en,
+        image: activityData.image,
+        summary_id: activityData.summary_id,
+        summary_en: activityData.summary_en,
+        intro_id: activityData.intro_id,
+        intro_en: activityData.intro_en,
+        quoteText_id: activityData.quote_text_id,
+        quoteText_en: activityData.quote_text_en,
+        quoteAuthor: activityData.quote_author,
+        outcome_id: activityData.outcome_id,
+        outcome_en: activityData.outcome_en,
+        participantsCount: activityData.participants_count,
+        isPublished: activityData.is_published,
+        sections: {
+          create: sections.map((sec) => ({
+            heading_id: sec.heading_id,
+            heading_en: sec.heading_en,
+            body_id: sec.body_id,
+            body_en: sec.body_en,
+            orderIndex: sec.order_index,
+          })),
+        },
+      },
+    });
 
-  if (activityError || !newActivity) {
-    return { success: false, message: `Gagal menyimpan aktivitas: ${activityError?.message || "Kesalahan database"}` };
+    revalidatePath("/news");
+    revalidatePath(`/news/${newActivity.slug}`);
+    revalidatePath("/admin/activities");
+
+    return { success: true, id: newActivity.id };
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : "Kesalahan database";
+    return { success: false, message: `Gagal menyimpan aktivitas: ${errorMsg}` };
   }
-
-  // Insert sections jika ada
-  if (sections && sections.length > 0) {
-    const formattedSections = sections.map((sec) => ({
-      activity_id: newActivity.id,
-      heading_id: sec.heading_id,
-      heading_en: sec.heading_en,
-      body_id: sec.body_id,
-      body_en: sec.body_en,
-      order_index: sec.order_index,
-    }));
-
-    await supabase.from("content_sections").insert(formattedSections);
-  }
-
-  revalidatePath("/news");
-  revalidatePath(`/news/${newActivity.slug}`);
-  revalidatePath("/admin/activities");
-
-  return { success: true, id: newActivity.id };
 }
 
-// 4. Update Aktivitas Eksisting (Dengan Auto-Translate Google Translate)
+// 4. Update Aktivitas Eksisting
 export async function updateActivityAction(id: string, payload: ActivityFormInput): Promise<{ success: boolean; message?: string }> {
   const session = await getSession();
   if (!session) {
@@ -228,45 +297,68 @@ export async function updateActivityAction(id: string, payload: ActivityFormInpu
     return { success: false, message: validation.error.issues[0]?.message || "Input tidak valid" };
   }
 
-  const supabase = getAdminSupabase();
-  if (!supabase) {
-    return { success: false, message: "Koneksi database belum terkonfigurasi di .env.local." };
-  }
-
-  // Proses Auto-Translate teks ID ke EN via Google Translate
   const { activityData, sections } = await fillTranslations(validation.data);
 
-  // Update tabel activities
-  const { error: updateError } = await supabase
-    .from("activities")
-    .update(activityData)
-    .eq("id", id);
+  try {
+    await prisma.$transaction([
+      prisma.contentSection.deleteMany({ where: { activityId: id } }),
+      prisma.activity.update({
+        where: { id },
+        data: {
+          slug: activityData.slug,
+          type: activityData.type,
+          featured: activityData.featured,
+          showOnLanding: activityData.show_on_landing,
+          category_id: activityData.category_id,
+          category_en: activityData.category_en,
+          title_id: activityData.title_id,
+          title_en: activityData.title_en,
+          date_id: activityData.date_id,
+          date_en: activityData.date_en,
+          time_id: activityData.time_id,
+          time_en: activityData.time_en,
+          location_id: activityData.location_id,
+          location_en: activityData.location_en,
+          status_id: activityData.status_id,
+          status_en: activityData.status_en,
+          authorName: activityData.author_name,
+          authorRole_id: activityData.author_role_id,
+          authorRole_en: activityData.author_role_en,
+          image: activityData.image,
+          summary_id: activityData.summary_id,
+          summary_en: activityData.summary_en,
+          intro_id: activityData.intro_id,
+          intro_en: activityData.intro_en,
+          quoteText_id: activityData.quote_text_id,
+          quoteText_en: activityData.quote_text_en,
+          quoteAuthor: activityData.quote_author,
+          outcome_id: activityData.outcome_id,
+          outcome_en: activityData.outcome_en,
+          participantsCount: activityData.participants_count,
+          isPublished: activityData.is_published,
+          sections: {
+            create: sections.map((sec) => ({
+              heading_id: sec.heading_id,
+              heading_en: sec.heading_en,
+              body_id: sec.body_id,
+              body_en: sec.body_en,
+              orderIndex: sec.order_index,
+            })),
+          },
+        },
+      }),
+    ]);
 
-  if (updateError) {
-    return { success: false, message: `Gagal memperbarui aktivitas: ${updateError.message}` };
+    revalidatePath("/");
+    revalidatePath("/news");
+    revalidatePath(`/news/${activityData.slug}`);
+    revalidatePath("/admin/activities");
+
+    return { success: true };
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : "Kesalahan database";
+    return { success: false, message: `Gagal memperbarui aktivitas: ${errorMsg}` };
   }
-
-  // Hapus seksi lama lalu masukkan yang baru
-  await supabase.from("content_sections").delete().eq("activity_id", id);
-
-  if (sections && sections.length > 0) {
-    const formattedSections = sections.map((sec) => ({
-      activity_id: id,
-      heading_id: sec.heading_id,
-      heading_en: sec.heading_en,
-      body_id: sec.body_id,
-      body_en: sec.body_en,
-      order_index: sec.order_index,
-    }));
-
-    await supabase.from("content_sections").insert(formattedSections);
-  }
-
-  revalidatePath("/news");
-  revalidatePath(`/news/${activityData.slug}`);
-  revalidatePath("/admin/activities");
-
-  return { success: true };
 }
 
 // 5. Hapus Aktivitas
@@ -276,54 +368,171 @@ export async function deleteActivityAction(id: string): Promise<{ success: boole
     return { success: false, message: "Akses ditolak. Sesi Anda tidak valid." };
   }
 
-  const supabase = getAdminSupabase();
-  if (!supabase) {
-    return { success: false, message: "Koneksi database belum terkonfigurasi di .env.local." };
+  try {
+    await prisma.activity.delete({ where: { id } });
+    revalidatePath("/news");
+    revalidatePath("/admin/activities");
+    return { success: true };
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : "Kesalahan database";
+    return { success: false, message: `Gagal menghapus: ${errorMsg}` };
+  }
+}
+
+// 5b. Toggle Status Publikasi (Terbit / Draft)
+export async function togglePublishActivityAction(id: string): Promise<{ success: boolean; isPublished?: boolean; message?: string }> {
+  const session = await getSession();
+  if (!session) {
+    return { success: false, message: "Akses ditolak. Sesi Anda tidak valid." };
   }
 
-  const { error } = await supabase.from("activities").delete().eq("id", id);
-  if (error) {
-    return { success: false, message: `Gagal menghapus: ${error.message}` };
+  try {
+    const current = await prisma.activity.findUnique({
+      where: { id },
+      select: { isPublished: true, slug: true },
+    });
+
+    if (!current) {
+      return { success: false, message: "Konten tidak ditemukan." };
+    }
+
+    const updated = await prisma.activity.update({
+      where: { id },
+      data: { isPublished: !current.isPublished },
+      select: { isPublished: true, slug: true },
+    });
+
+    revalidatePath("/");
+    revalidatePath("/news");
+    revalidatePath(`/news/${updated.slug}`);
+    revalidatePath("/admin/activities");
+
+    return { success: true, isPublished: updated.isPublished };
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : "Kesalahan database";
+    return { success: false, message: `Gagal mengubah status: ${errorMsg}` };
+  }
+}
+
+// 5c. Toggle Event / Konten Utama Teratas (Featured di /news)
+export async function toggleFeaturedActivityAction(id: string): Promise<{ success: boolean; featured?: boolean; message?: string }> {
+  const session = await getSession();
+  if (!session) {
+    return { success: false, message: "Akses ditolak. Sesi Anda tidak valid." };
   }
 
-  revalidatePath("/news");
-  revalidatePath("/admin/activities");
+  try {
+    const current = await prisma.activity.findUnique({
+      where: { id },
+      select: { featured: true, slug: true },
+    });
 
-  return { success: true };
+    if (!current) {
+      return { success: false, message: "Konten tidak ditemukan." };
+    }
+
+    const nextFeatured = !current.featured;
+
+    // Jika di-set menjadi TRUE, nonaktifkan featured pada konten lain agar satu yang jadi bintang utama
+    if (nextFeatured) {
+      await prisma.activity.updateMany({
+        where: { id: { not: id } },
+        data: { featured: false },
+      });
+    }
+
+    const updated = await prisma.activity.update({
+      where: { id },
+      data: { featured: nextFeatured },
+      select: { featured: true, slug: true },
+    });
+
+    revalidatePath("/");
+    revalidatePath("/news");
+    revalidatePath(`/news/${updated.slug}`);
+    revalidatePath("/admin/activities");
+
+    return { success: true, featured: updated.featured };
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : "Kesalahan database";
+    return { success: false, message: `Gagal mengubah status utama: ${errorMsg}` };
+  }
+}
+
+// 5d. Toggle Tampil di Landing Page (Maksimal 2 kartu aktif)
+export async function toggleLandingActivityAction(id: string): Promise<{ success: boolean; showOnLanding?: boolean; message?: string }> {
+  const session = await getSession();
+  if (!session) {
+    return { success: false, message: "Akses ditolak. Sesi Anda tidak valid." };
+  }
+
+  try {
+    const current = await prisma.activity.findUnique({
+      where: { id },
+      select: { showOnLanding: true, slug: true },
+    });
+
+    if (!current) {
+      return { success: false, message: "Konten tidak ditemukan." };
+    }
+
+    const nextLanding = !current.showOnLanding;
+
+    // Jika diaktifkan, pastikan hanya ada 2 yang aktif dengan menonaktifkan yang paling lama
+    if (nextLanding) {
+      const activeLanding = await prisma.activity.findMany({
+        where: { showOnLanding: true },
+        orderBy: { updatedAt: "asc" },
+      });
+
+      if (activeLanding.length >= 2) {
+        const oldest = activeLanding[0];
+        await prisma.activity.update({
+          where: { id: oldest.id },
+          data: { showOnLanding: false },
+        });
+      }
+    }
+
+    const updated = await prisma.activity.update({
+      where: { id },
+      data: { showOnLanding: nextLanding },
+      select: { showOnLanding: true, slug: true },
+    });
+
+    revalidatePath("/");
+    revalidatePath("/news");
+    revalidatePath("/admin/activities");
+
+    return { success: true, showOnLanding: updated.showOnLanding };
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : "Kesalahan database";
+    return { success: false, message: `Gagal mengubah status landing page: ${errorMsg}` };
+  }
 }
 
 // 6. Seeding Data Awal
 export async function seedInitialDataAction(adminEmail = "admin@unibox.id", adminPassword = "AdminUnibox2026!"): Promise<{ success: boolean; message: string; count?: number }> {
-  const supabase = getAdminSupabase();
-  if (!supabase) {
-    return { success: false, message: "Konfigurasi Supabase belum terpasang di .env.local." };
-  }
-
   try {
-    const { data: existingUser } = await supabase
-      .from("admin_users")
-      .select("id")
-      .eq("email", adminEmail)
-      .maybeSingle();
+    const existingUser = await prisma.adminUser.findUnique({
+      where: { email: adminEmail },
+    });
 
     if (!existingUser) {
       const passwordHash = await hashPassword(adminPassword);
-      await supabase.from("admin_users").insert([
-        {
+      await prisma.adminUser.create({
+        data: {
           username: "admin",
           email: adminEmail,
-          password_hash: passwordHash,
+          passwordHash,
           name: "Administrator Unibox",
           role: "superadmin",
         },
-      ]);
+      });
     }
 
-    const { count } = await supabase
-      .from("activities")
-      .select("*", { count: "exact", head: true });
-
-    if (count && count > 0) {
+    const count = await prisma.activity.count();
+    if (count > 0) {
       return {
         success: true,
         message: `Database sudah memiliki ${count} aktivitas. Akun admin siap digunakan.`,
@@ -333,62 +542,54 @@ export async function seedInitialDataAction(adminEmail = "admin@unibox.id", admi
 
     let insertedCount = 0;
     for (const act of activitiesData) {
-      const { data: insertedAct, error: actErr } = await supabase
-        .from("activities")
-        .insert([
-          {
-            slug: act.slug,
-            type: act.type,
-            featured: act.featured ?? false,
-            category_id: act.category.id,
-            category_en: act.category.en,
-            title_id: act.title.id,
-            title_en: act.title.en,
-            date_id: act.date.id,
-            date_en: act.date.en,
-            time_id: act.time?.id || null,
-            time_en: act.time?.en || null,
-            location_id: act.location?.id || null,
-            location_en: act.location?.en || null,
-            status_id: act.status?.id || null,
-            status_en: act.status?.en || null,
-            author_name: act.author.name,
-            author_role_id: act.author.role.id,
-            author_role_en: act.author.role.en,
-            image: act.image,
-            summary_id: act.summary.id,
-            summary_en: act.summary.en,
-            intro_id: act.content.introduction.id,
-            intro_en: act.content.introduction.en,
-            quote_text_id: act.content.quote?.text.id || null,
-            quote_text_en: act.content.quote?.text.en || null,
-            quote_author: act.content.quote?.author || null,
-            is_published: true,
+      const created = await prisma.activity.create({
+        data: {
+          slug: act.slug,
+          type: act.type,
+          featured: act.featured ?? false,
+          category_id: act.category.id,
+          category_en: act.category.en,
+          title_id: act.title.id,
+          title_en: act.title.en,
+          date_id: act.date.id,
+          date_en: act.date.en,
+          time_id: act.time?.id || null,
+          time_en: act.time?.en || null,
+          location_id: act.location?.id || null,
+          location_en: act.location?.en || null,
+          status_id: act.status?.id || null,
+          status_en: act.status?.en || null,
+          authorName: act.author.name,
+          authorRole_id: act.author.role.id,
+          authorRole_en: act.author.role.en,
+          image: act.image,
+          summary_id: act.summary.id,
+          summary_en: act.summary.en,
+          intro_id: act.content.introduction.id,
+          intro_en: act.content.introduction.en,
+          quoteText_id: act.content.quote?.text.id || null,
+          quoteText_en: act.content.quote?.text.en || null,
+          quoteAuthor: act.content.quote?.author || null,
+          isPublished: true,
+          sections: {
+            create: (act.content.sections || []).map((s, idx) => ({
+              heading_id: s.heading.id,
+              heading_en: s.heading.en,
+              body_id: s.body.id,
+              body_en: s.body.en,
+              orderIndex: idx,
+            })),
           },
-        ])
-        .select("id")
-        .single();
+        },
+      });
 
-      if (!actErr && insertedAct) {
-        insertedCount++;
-        if (act.content.sections && act.content.sections.length > 0) {
-          const formattedSecs = act.content.sections.map((s, idx) => ({
-            activity_id: insertedAct.id,
-            heading_id: s.heading.id,
-            heading_en: s.heading.en,
-            body_id: s.body.id,
-            body_en: s.body.en,
-            order_index: idx,
-          }));
-          await supabase.from("content_sections").insert(formattedSecs);
-        }
-      }
+      if (created) insertedCount++;
     }
 
     revalidatePath("/news");
     return {
       success: true,
-      message: `Berhasil mengimpor ${insertedCount} aktivitas ke Supabase dan menyiapkan akun admin.`,
+      message: `Berhasil mengimpor ${insertedCount} aktivitas ke database dan menyiapkan akun admin.`,
       count: insertedCount,
     };
   } catch (err: unknown) {

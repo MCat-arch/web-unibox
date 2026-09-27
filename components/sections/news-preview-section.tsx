@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Text } from "@/components/text";
 import { useLanguage } from "@/context/language-context";
 
-const activities = [
+import type { ActivityItem } from "@/lib/activities-data";
+
+const defaultActivities = [
   {
     slug: "demo-coolbox-flywheel-pelabuhan-brondong",
     image: "/images/unibox-port-cold-storage.jpg",
@@ -28,8 +30,9 @@ const activities = [
   },
 ];
 
-export function NewsPreviewSection() {
+export function NewsPreviewSection({ initialActivities }: { initialActivities?: ActivityItem[] }) {
   const { language } = useLanguage();
+  const activities = initialActivities && initialActivities.length > 0 ? initialActivities : defaultActivities;
 
   return (
     <section className="bg-slate-50 pt-8 pb-16 sm:pt-12 sm:pb-24">

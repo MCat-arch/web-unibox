@@ -4,6 +4,7 @@ export interface ActivityItem {
   slug: string;
   type: ContentType;
   featured?: boolean;
+  showOnLanding?: boolean;
   category: { id: string; en: string };
   title: { id: string; en: string };
   date: { id: string; en: string };

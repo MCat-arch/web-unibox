@@ -120,6 +120,7 @@ export default async function AdminActivitiesPage({
                   <th className="px-6 py-3.5">Judul & Slug</th>
                   <th className="px-6 py-3.5">Tipe</th>
                   <th className="px-6 py-3.5">Tanggal</th>
+                  <th className="px-6 py-3.5">Sorotan / Posisi</th>
                   <th className="px-6 py-3.5">Status</th>
                   <th className="px-6 py-3.5 text-right">Aksi</th>
                 </tr>

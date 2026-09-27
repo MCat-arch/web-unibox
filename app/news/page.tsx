@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { NewsContent } from "./news-content";
 import { getPublicActivities } from "@/lib/activities-fetcher";
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Event & Blog Maritim — Unibox",

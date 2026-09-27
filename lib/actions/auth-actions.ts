@@ -1,8 +1,8 @@
 "use server";
 
 import { z } from "zod";
-import { getAdminSupabase } from "@/lib/supabase/server";
-import { comparePassword } from "@/lib/auth/password";
+import { prisma } from "@/lib/prisma";
+import { comparePassword, hashPassword } from "@/lib/auth/password";
 import { createSession, deleteSession } from "@/lib/auth/session";
 import { checkRateLimit, resetRateLimit } from "@/lib/auth/rate-limiter";
 
@@ -45,35 +45,42 @@ export async function loginAdminAction(formData: FormData): Promise<LoginResult>
     };
   }
 
-  // 3. Cek Koneksi Supabase Admin
-  const supabase = getAdminSupabase();
-  if (!supabase) {
-    return {
-      success: false,
-      message: "Konfigurasi Supabase belum terpasang di .env.local. Harap lengkapi NEXT_PUBLIC_SUPABASE_URL dan SUPABASE_SERVICE_ROLE_KEY.",
-    };
-  }
-
   try {
-    // 4. Query Admin User (Parameterized via Supabase SDK)
     const isEmail = identifier.includes("@");
-    const query = supabase
-      .from("admin_users")
-      .select("id, username, email, password_hash, name, role");
+    let user = isEmail
+      ? await prisma.adminUser.findUnique({ where: { email: identifier } })
+      : await prisma.adminUser.findUnique({ where: { username: identifier } });
 
-    const { data: user, error } = isEmail
-      ? await query.eq("email", identifier).single()
-      : await query.eq("username", identifier).single();
+    // Auto-bootstrap master admin jika tabel masih kosong
+    if (!user && (identifier === "admin@unibox.id" || identifier === "admin") && password === "AdminUnibox2026!") {
+      try {
+        const count = await prisma.adminUser.count();
+        if (count === 0) {
+          const passwordHash = await hashPassword(password);
+          user = await prisma.adminUser.create({
+            data: {
+              username: "admin",
+              email: "admin@unibox.id",
+              passwordHash,
+              name: "Administrator Unibox",
+              role: "superadmin",
+            },
+          });
+        }
+      } catch (bootstrapErr) {
+        console.warn("Bootstrap user error:", bootstrapErr);
+      }
+    }
 
-    if (error || !user) {
+    if (!user) {
       return {
         success: false,
         message: "Username atau kata sandi tidak valid.",
       };
     }
 
-    // 5. Verifikasi Hash Password
-    const isValidPassword = await comparePassword(password, user.password_hash);
+    // 3. Verifikasi Hash Password
+    const isValidPassword = await comparePassword(password, user.passwordHash);
     if (!isValidPassword) {
       return {
         success: false,
@@ -81,10 +88,9 @@ export async function loginAdminAction(formData: FormData): Promise<LoginResult>
       };
     }
 
-    // Reset rate limit jika berhasil
     resetRateLimit(rateLimitKey);
 
-    // 6. Buat Sesi Terenkripsi
+    // 4. Buat Sesi Terenkripsi
     await createSession({
       userId: user.id,
       username: user.username,
@@ -94,10 +100,11 @@ export async function loginAdminAction(formData: FormData): Promise<LoginResult>
     });
 
     return { success: true };
-  } catch {
+  } catch (err: unknown) {
+    console.error("Login process error:", err);
     return {
       success: false,
-      message: "Terjadi kesalahan sistem saat memproses login.",
+      message: "Gagal terhubung ke database. Pastikan DATABASE_URL di .env terpasang dengan benar.",
     };
   }
 }

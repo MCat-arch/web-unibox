@@ -4,7 +4,7 @@ import { activitiesData } from "@/lib/activities-data";
 import { getPublicActivityBySlug } from "@/lib/activities-fetcher";
 import { ActivityDetailContent } from "./activity-detail-content";
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 interface PageProps {
   params: Promise<{ slug: string }>;

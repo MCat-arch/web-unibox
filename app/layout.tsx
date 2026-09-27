@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo_Black, Hind } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
+import { ConditionalLayout } from "@/components/layout/conditional-layout";
 import { Providers } from "@/components/providers";
 
 const archivoBlack = Archivo_Black({
@@ -19,7 +18,7 @@ const hind = Hind({
 
 export const metadata: Metadata = {
   title: {
-    default: "Unibox — Solusi Rantai Dingin Perikanan",
+    default: "Unibox",
     template: "%s | Unibox",
   },
   description:
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Unibox — Solusi Rantai Dingin Perikanan",
+    title: "Unibox",
     description:
       "Solusi penyimpanan dingin dan sistem es terintegrasi untuk menjaga mutu hasil laut.",
     type: "website",
@@ -58,9 +57,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-body">
         <Providers>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <ConditionalLayout>{children}</ConditionalLayout>
         </Providers>
       </body>
     </html>

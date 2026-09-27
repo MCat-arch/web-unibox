@@ -108,7 +108,7 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* Sync / Seeding Card */}
-      <DashboardSeedButton />
+      {/* <DashboardSeedButton /> */}
 
       {/* Recent Activities List */}
       <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">

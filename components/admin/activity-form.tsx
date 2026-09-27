@@ -15,10 +15,12 @@ import {
   ArrowLeft,
   AlertCircle,
   CheckCircle2,
+  Clock,
   Languages,
   Sparkles,
 } from "lucide-react";
 import Link from "next/link";
+import { ImageUploader } from "@/components/admin/image-uploader";
 
 interface ActivityFormProps {
   initialData?: DbActivity | null;
@@ -36,6 +38,9 @@ export function ActivityForm({ initialData }: ActivityFormProps) {
   );
   const [featured, setFeatured] = useState<boolean>(
     initialData?.featured ?? false
+  );
+  const [showOnLanding, setShowOnLanding] = useState<boolean>(
+    initialData?.show_on_landing ?? false
   );
   const [isPublished, setIsPublished] = useState<boolean>(
     initialData?.is_published ?? true
@@ -117,6 +122,7 @@ export function ActivityForm({ initialData }: ActivityFormProps) {
       slug,
       type,
       featured,
+      show_on_landing: showOnLanding,
       category_id: categoryId,
       title_id: titleId,
       date_id: dateId,
@@ -476,30 +482,71 @@ export function ActivityForm({ initialData }: ActivityFormProps) {
               </div>
             </div>
 
+            {/* Opsi 1: Event / Konten Utama Teratas di /news */}
             <div className="flex items-center justify-between pt-2">
               <div>
-                <p className="text-xs font-bold text-slate-800">Event Utama Teratas</p>
-                <p className="text-[11px] text-slate-500">Tampilkan di featured top box</p>
+                <p className="text-xs font-bold text-slate-800">
+                  {type === "blog" ? "Artikel Utama Teratas (/news)" : "Event Utama Teratas (/news)"}
+                </p>
+                <p className="text-[11px] text-slate-500">Tampilkan di hero banner paling atas halaman aktivitas</p>
               </div>
               <input
                 type="checkbox"
                 checked={featured}
                 onChange={(e) => setFeatured(e.target.checked)}
-                className="w-5 h-5 accent-[#0070ba] rounded"
+                className="w-5 h-5 accent-[#0070ba] rounded cursor-pointer"
               />
             </div>
 
-            <div className="flex items-center justify-between pt-2">
+            {/* Opsi 2: Tampil di Beranda / Landing Page */}
+            <div className="flex items-center justify-between pt-2 border-t border-slate-100">
               <div>
-                <p className="text-xs font-bold text-slate-800">Status Terbit</p>
-                <p className="text-[11px] text-slate-500">Tampilkan di web publik</p>
+                <p className="text-xs font-bold text-slate-800">Tampil di Beranda (Landing Page)</p>
+                <p className="text-[11px] text-slate-500">Pilih untuk 2 kartu sorotan di halaman utama website</p>
               </div>
               <input
                 type="checkbox"
-                checked={isPublished}
-                onChange={(e) => setIsPublished(e.target.checked)}
-                className="w-5 h-5 accent-emerald-600 rounded"
+                checked={showOnLanding}
+                onChange={(e) => setShowOnLanding(e.target.checked)}
+                className="w-5 h-5 accent-emerald-600 rounded cursor-pointer"
               />
+            </div>
+
+            <div className="pt-2 border-t border-slate-100">
+              <label className="block text-xs font-bold text-slate-700 uppercase mb-2">
+                Status Publikasi Konten *
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setIsPublished(true)}
+                  className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-1.5 ${
+                    isPublished
+                      ? "bg-emerald-600 text-white border-emerald-600 shadow-sm"
+                      : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
+                  }`}
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                  Terbitkan Langsung
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsPublished(false)}
+                  className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-1.5 ${
+                    !isPublished
+                      ? "bg-amber-600 text-white border-amber-600 shadow-sm"
+                      : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
+                  }`}
+                >
+                  <Clock className="w-4 h-4" />
+                  Simpan Draft
+                </button>
+              </div>
+              <p className="text-[11px] text-slate-500 mt-2">
+                {isPublished
+                  ? "Status Terbit: Konten akan langsung tampil di halaman web publik (/news)."
+                  : "Status Draft: Konten hanya tersimpan di admin dan belum terlihat oleh pengunjung publik."}
+              </p>
             </div>
           </div>
 
@@ -510,17 +557,10 @@ export function ActivityForm({ initialData }: ActivityFormProps) {
             </h2>
 
             <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase mb-1">
-                URL Gambar Utama *
+              <label className="block text-xs font-bold text-slate-700 uppercase mb-2">
+                Foto Utama Kegiatan / Artikel *
               </label>
-              <input
-                type="text"
-                required
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-                placeholder="/images/unibox-port-cold-storage.jpg"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs"
-              />
+              <ImageUploader value={image} onChange={setImage} />
             </div>
 
             <div>

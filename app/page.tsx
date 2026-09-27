@@ -5,8 +5,13 @@ import { PartnershipSection } from "@/components/sections/partnership-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { NewsPreviewSection } from "@/components/sections/news-preview-section";
 import { ContactCtaSection } from "@/components/sections/cta-section";
+import { getLandingActivities } from "@/lib/activities-fetcher";
 
-export default function HomePage() {
+export const revalidate = 60;
+
+export default async function HomePage() {
+  const landingActivities = await getLandingActivities();
+
   return (
     <>
       <HeroSection />
@@ -14,8 +19,8 @@ export default function HomePage() {
       <SolutionsSection />
       <PartnershipSection />
       <TestimonialsSection />
-      <NewsPreviewSection />
-      < ContactCtaSection />
+      <NewsPreviewSection initialActivities={landingActivities} />
+      <ContactCtaSection />
     </>
   );
 }

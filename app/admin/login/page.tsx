@@ -1,10 +1,29 @@
 "use client";
 
-import React, { useState, useTransition } from "react";
+import React, { useState, useTransition, Suspense } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { loginAdminAction } from "@/lib/actions/auth-actions";
-import { Lock, User, ShieldCheck, AlertCircle, ArrowRight } from "lucide-react";
+import { Lock, User, ShieldCheck, AlertCircle, ArrowRight, Info } from "lucide-react";
+
+function TabLogoutNotice() {
+  const searchParams = useSearchParams();
+  const reason = searchParams.get("reason");
+
+  if (reason !== "tab_changed") return null;
+
+  return (
+    <div className="mb-6 p-4 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-start gap-3 text-amber-200 text-sm">
+      <Info className="w-5 h-5 flex-shrink-0 mt-0.5 text-amber-400" />
+      <div>
+        <p className="font-semibold text-amber-300">Sesi Diakhiri Otomatis</p>
+        <p className="mt-0.5 text-xs text-amber-200/90 leading-relaxed">
+          Demi keamanan data dan integritas sistem, sesi admin Anda otomatis ditutup saat berpindah tab atau meninggalkan jendela aplikasi. Silakan masuk kembali.
+        </p>
+      </div>
+    </div>
+  );
+}
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -46,17 +65,12 @@ export default function AdminLoginPage() {
               priority
             />
           </div>
-          <h1 className="text-2xl font-black text-white tracking-wide">
-            PORTAL ADMIN <span className="text-cyan-400">UNI</span>BOX
-          </h1>
-          <p className="text-sm text-slate-400 mt-1">
-            Sistem Kelola Konten & Informasi 
-          </p>
-          <div className="inline-flex items-center gap-1.5 mt-3 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            Supabase RLS & Session Encrypted
-          </div>
         </div>
+
+        {/* Security Auto-Logout Notice */}
+        <Suspense fallback={null}>
+          <TabLogoutNotice />
+        </Suspense>
 
         {/* Error Alert */}
         {errorMessage && (

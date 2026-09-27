@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { Text } from "@/components/text";
 
-/* Aruna-style Custom Maritime Vector Line-Art Icons */
-function FishermanIcon() {
+/* Custom Maritime Vector Line-Art Icons for Solutions Section Alignment */
+function CoolboxIcon() {
   return (
     <svg
       viewBox="0 0 64 64"
@@ -13,47 +13,48 @@ function FishermanIcon() {
       className="size-14 sm:size-16 shrink-0"
       aria-hidden="true"
     >
-      {/* Conical Fisherman Hat (Caping) */}
-      <path
-        d="M32 10L14 26H50L32 10Z"
+      {/* Box Body */}
+      <rect
+        x="10"
+        y="24"
+        width="44"
+        height="30"
+        rx="5"
         stroke="#0284c7"
         strokeWidth="3"
-        strokeLinecap="round"
+      />
+      {/* Box Lid */}
+      <path
+        d="M6 20C6 17.7909 7.79086 16 10 16H54C56.2091 16 58 17.7909 58 20V24H6V20Z"
+        stroke="#0284c7"
+        strokeWidth="3"
         strokeLinejoin="round"
       />
-      {/* Hat Strap / Accent */}
+      {/* Side Handles */}
       <path
-        d="M26 26C26 31 38 31 38 26"
-        stroke="#f97316"
+        d="M10 32H6V40H10"
+        stroke="#0284c7"
         strokeWidth="2.5"
         strokeLinecap="round"
       />
-      {/* Body / Shoulders */}
       <path
-        d="M18 48C18 38 24 35 32 35C40 35 46 38 46 48"
+        d="M54 32H58V40H54"
         stroke="#0284c7"
-        strokeWidth="3"
-        strokeLinecap="round"
-      />
-      {/* Fishing Hook */}
-      <path
-        d="M48 36V42C48 45.3137 45.3137 48 42 48"
-        stroke="#f97316"
         strokeWidth="2.5"
         strokeLinecap="round"
       />
-      {/* Base Wave */}
+      {/* Cold / Snowflake Accent (Orange) */}
       <path
-        d="M12 54C16 52 20 52 24 54C28 56 32 56 36 54C40 52 44 52 48 54C50 55 52 55 54 54"
-        stroke="#0284c7"
-        strokeWidth="2"
+        d="M32 30V48M23 39H41M25 32L39 46M25 46L39 32"
+        stroke="#f97316"
+        strokeWidth="2.5"
         strokeLinecap="round"
       />
     </svg>
   );
 }
 
-function HubLocationIcon() {
+function SonarIcon() {
   return (
     <svg
       viewBox="0 0 64 64"
@@ -62,30 +63,20 @@ function HubLocationIcon() {
       className="size-14 sm:size-16 shrink-0"
       aria-hidden="true"
     >
-      {/* Map Pin Outer */}
+      {/* Concentric Radar Rings */}
+      <circle cx="32" cy="32" r="22" stroke="#0284c7" strokeWidth="2.5" />
+      <circle cx="32" cy="32" r="14" stroke="#0284c7" strokeWidth="2.5" />
+      <circle cx="32" cy="32" r="6" stroke="#0284c7" strokeWidth="2.5" />
+      {/* Sonar Beam (Orange) */}
       <path
-        d="M32 10C22.0589 10 14 18.0589 14 28C14 41 32 54 32 54C32 54 50 41 50 28C50 18.0589 41.9411 10 32 10Z"
-        stroke="#0284c7"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Inner Target Center */}
-      <circle
-        cx="32"
-        cy="28"
-        r="7"
+        d="M32 32L46 18"
         stroke="#f97316"
         strokeWidth="3"
-      />
-      {/* Harbor Wave Accents */}
-      <path
-        d="M18 56H46"
-        stroke="#0284c7"
-        strokeWidth="2"
         strokeLinecap="round"
-        strokeDasharray="4 4"
       />
+      {/* Blip Target Dots */}
+      <circle cx="43" cy="21" r="3" fill="#f97316" />
+      <circle cx="23" cy="37" r="2" fill="#0284c7" />
     </svg>
   );
 }
@@ -128,7 +119,7 @@ function FishCommodityIcon() {
   );
 }
 
-function GlobalTradeIcon() {
+function EnergySavedIcon() {
   return (
     <svg
       viewBox="0 0 64 64"
@@ -137,7 +128,7 @@ function GlobalTradeIcon() {
       className="size-14 sm:size-16 shrink-0"
       aria-hidden="true"
     >
-      {/* Globe Circle */}
+      {/* Flywheel / Energy Outer Ring */}
       <circle
         cx="32"
         cy="32"
@@ -145,64 +136,58 @@ function GlobalTradeIcon() {
         stroke="#0284c7"
         strokeWidth="3"
       />
-      {/* Latitude / Longitude lines */}
-      <ellipse
+      {/* Inner Rotating Marks */}
+      <circle
         cx="32"
         cy="32"
-        rx="9"
-        ry="20"
+        r="11"
         stroke="#0284c7"
         strokeWidth="2"
-      />
-      <path
-        d="M12 32H52"
-        stroke="#0284c7"
-        strokeWidth="2"
-      />
-      {/* Route Arrow / Pin (Orange Accent) */}
-      <path
-        d="M24 44C28 40 36 38 42 22"
-        stroke="#f97316"
-        strokeWidth="2.5"
-        strokeLinecap="round"
         strokeDasharray="3 3"
       />
-      <circle cx="42" cy="22" r="3" fill="#f97316" />
+      {/* Power Lightning Bolt in Center (Orange Accent) */}
+      <path
+        d="M34 17L23 34H33L29 47L41 30H32L35 17H34Z"
+        fill="#f97316"
+        stroke="#f97316"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 
 const statistics = [
   {
-    renderIcon: FishermanIcon,
-    value: "3,000 +",
+    renderIcon: CoolboxIcon,
+    value: "100 L",
     label: {
-      id: "Nelayan Terlayani",
-      en: "Fishers Served",
+      id: "Kapasitas Kotak Pendingin",
+      en: "Cooling Box Capacity",
     },
   },
   {
-    renderIcon: HubLocationIcon,
-    value: "8 +",
+    renderIcon: SonarIcon,
+    value: "100 m",
     label: {
-      id: "Hub Pesisir & Proyek",
-      en: "Coastal Hubs & Projects",
+      id: "Jangkauan Radar Sonar",
+      en: "Sonar Radar Range",
     },
   },
   {
     renderIcon: FishCommodityIcon,
-    value: "25 %",
+    value: "0 %",
     label: {
-      id: "Peningkatan Pendapatan",
-      en: "Income Improvement",
+      id: "Risiko Ikan Busuk",
+      en: "Catch Spoilage Risk",
     },
   },
   {
-    renderIcon: GlobalTradeIcon,
-    value: "30 Ton",
+    renderIcon: EnergySavedIcon,
+    value: "30 kWh",
     label: {
-      id: "Limbah Ikan Diselamatkan",
-      en: "Fish Waste Prevented",
+      id: "Energi Terhemat",
+      en: "Energy Saved",
     },
   },
 ];

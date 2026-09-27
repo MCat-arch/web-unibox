@@ -14,6 +14,7 @@ export interface DbActivity {
   slug: string;
   type: "event" | "blog";
   featured: boolean;
+  show_on_landing?: boolean;
   category_id: string;
   category_en: string;
   title_id: string;

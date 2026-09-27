@@ -24,10 +24,10 @@ const slides: SlideItem[] = [
     poster: "/videos/laut_poster.jpg",
     alt: { id: "Video ekosistem laut dan operasional perikanan Unibox", en: "Marine ecosystem and Unibox fisheries video" },
     headline: {
-      id: "Inovasi rantai dingin & elektrifikasi perikanan maritim Indonesia",
-      en: "Cold-chain innovation & maritime fisheries electrification in Indonesia",
+      id: "Inovasi Alat Pendingin Ikan Otomatis di Perahu",
+      en: "Innovation of Automatic Fish Cooling Technology on Boats",
     },
-    cta: { id: "Eksplorasi Teknologi", en: "Explore Technology" },
+    cta: { id: "Tentang Produk", en: "About Products" },
     href: "/product",
   },
   {
@@ -35,21 +35,21 @@ const slides: SlideItem[] = [
     src: "/images/unibox-fishermen.jpg",
     alt: { id: "Nelayan dan perahu perikanan pesisir", en: "Fishers and coastal fishing boat" },
     headline: {
-      id: "Perusahaan perikanan terintegrasi terbesar",
-      en: "The largest integrated fisheries company",
+      id: "Memberdayakan Nelayan Pesisir dengan Teknologi",
+      en: "Empowering Coastal Fishers with Technology",
     },
     cta: { id: "Kegiatan Kami", en: "Our Activities" },
-    href: "/about",
+    href: "/activities",
   },
   {
     type: "image",
     src: "/images/unibox-harbor-aerial.jpg",
     alt: { id: "Pelabuhan dan ekosistem rantai dingin", en: "Harbor and cold-chain ecosystem" },
     headline: {
-      id: "Menghubungkan nelayan dengan rantai dingin modern",
-      en: "Connecting fishers to modern cold-chain infrastructure",
+      id: "Menghasilkan Listrik Mandiri dari Putaran Mesin Perahu",
+      en: "Generating Electricity Independently from Boat Engine Rotation",
     },
-    cta: { id: "Lihat Solusi", en: "Explore Solutions" },
+    cta: { id: "Eksplorasi", en: "Explore" },
     href: "/product",
   },
 ];
@@ -105,9 +105,8 @@ export function HeroSection() {
           return (
             <div
               key={s.src}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                isActive ? "opacity-100 z-0" : "opacity-0 -z-10 pointer-events-none"
-              }`}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${isActive ? "opacity-100 z-0" : "opacity-0 -z-10 pointer-events-none"
+                }`}
             >
               <video
                 ref={videoRef}
@@ -127,9 +126,8 @@ export function HeroSection() {
         return (
           <div
             key={s.src}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              isActive ? "opacity-100 scale-100 z-0" : "opacity-0 scale-105 -z-10 pointer-events-none"
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${isActive ? "opacity-100 scale-100 z-0" : "opacity-0 scale-105 -z-10 pointer-events-none"
+              }`}
             style={{ transitionProperty: "opacity, transform" }}
           >
             <Image
@@ -177,11 +175,10 @@ export function HeroSection() {
             key={idx}
             type="button"
             onClick={() => setActiveSlide(idx)}
-            className={`rounded-full transition-all duration-300 cursor-pointer ${
-              idx === activeSlide
-                ? "size-2 bg-white shadow-sm ring-2 ring-white/30"
-                : "size-1.5 bg-white/40 hover:bg-white/70"
-            }`}
+            className={`rounded-full transition-all duration-300 cursor-pointer ${idx === activeSlide
+              ? "size-2 bg-white shadow-sm ring-2 ring-white/30"
+              : "size-1.5 bg-white/40 hover:bg-white/70"
+              }`}
             aria-label={`Slide ${idx + 1}`}
           />
         ))}

@@ -50,11 +50,13 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
 
   const activities = initialActivities && initialActivities.length > 0 ? initialActivities : activitiesData;
 
-  // Top main event (Featured latest event)
+  // Top main event / featured content (Featured flag first, then fallback to first event, or first item)
   const featuredEvent =
-    activities.find((a) => a.type === "event" && a.featured) ||
+    activities.find((a) => a.featured) ||
     activities.find((a) => a.type === "event") ||
     activities[0];
+
+  const isBlog = featuredEvent?.type === "blog";
 
   // All blog articles
   const blogArticles = activities.filter((a) => a.type === "blog");
@@ -66,7 +68,7 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
     <div className="min-h-screen bg-white">
       {/* ========================================================
           TOP SECTION: WHITE BACKGROUND
-          1. Event Utama Paling Atas (Layout 2-Kolom)
+          1. Event / Artikel Utama Paling Atas (Layout 2-Kolom)
           2. Upcoming Events Lainnya di Bawahnya (Card Memanjang)
       ======================================================== */}
       <section className="relative pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24 bg-white overflow-hidden">
@@ -82,9 +84,9 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
             </span>
           </nav>
 
-          {/* 1. Event Utama 2-Kolom di Atas */}
+          {/* 1. Event / Artikel Utama 2-Kolom di Atas */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-            {/* Kiri: Foto Besar Event */}
+            {/* Kiri: Foto Besar Event / Artikel */}
             <div className="lg:col-span-6 xl:col-span-6">
               <Link href={`/news/${featuredEvent.slug}`} className="group block relative">
                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl bg-slate-100 shadow-xl shadow-slate-200/80 border border-slate-100">
@@ -97,8 +99,16 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
                     sizes="(min-width: 1024px) 50vw, 100vw"
                   />
                   {/* Badge Highlight */}
-                  <div className="absolute top-4 left-4 bg-amber-500 text-slate-950 font-black text-xs px-3.5 py-1.5 rounded-full shadow-md uppercase tracking-wider">
-                    <Text>{{ id: "Kegiatan Mendatang", en: "Upcoming Event" }}</Text>
+                  <div
+                    className={`absolute top-4 left-4 ${
+                      isBlog ? "bg-blue-600 text-white" : "bg-amber-500 text-slate-950"
+                    } font-black text-xs px-3.5 py-1.5 rounded-full shadow-md uppercase tracking-wider`}
+                  >
+                    {isBlog ? (
+                      <Text>{{ id: "Artikel & Wawasan Pilihan", en: "Featured Article" }}</Text>
+                    ) : (
+                      <Text>{{ id: "Kegiatan Mendatang", en: "Upcoming Event" }}</Text>
+                    )}
                   </div>
                   <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-sm">
                     {/* <span className="text-xs font-black tracking-widest text-blue-900 uppercase">
@@ -109,50 +119,59 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
               </Link>
             </div>
 
-            {/* Kanan: Informasi Event Utama */}
+            {/* Kanan: Informasi Event / Artikel Utama */}
             <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center">
 
               {/* Title */}
               <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-[1.2] tracking-tight">
                 <Link
                   href={`/news/${featuredEvent.slug}`}
-                  className="transition-colors"
+                  className="transition-colors hover:text-blue-700"
                 >
                   {featuredEvent.title[language]}
                 </Link>
               </h1>
 
-              {/* Box Info Logistik Event */}
-              <div className="mt-5 rounded-2xl bg-slate-50 border border-slate-200/80 p-4 space-y-2.5">
-                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700 font-semibold">
-                  <Calendar className="size-4 text-blue-600 shrink-0" />
-                  <span>{featuredEvent.date[language]}</span>
-                  {featuredEvent.time && (
-                    <>
-                      <span className="text-slate-300">|</span>
-                      <Clock className="size-3.5 text-slate-500" />
-                      <span className="text-slate-600 font-normal">{featuredEvent.time[language]}</span>
-                    </>
-                  )}
-                </div>
-
-                {featuredEvent.location && (
-                  <div className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                    <MapPin className="size-4 text-red-500 shrink-0 mt-0.5" />
-                    <span className="font-medium text-slate-800">{featuredEvent.location[language]}</span>
+              {/* Box Info Logistik Event - HANYA TAMPIL JIKA BUKAN ARTIKEL BLOG */}
+              {!isBlog ? (
+                <div className="mt-5 rounded-2xl bg-slate-50 border border-slate-200/80 p-4 space-y-2.5">
+                  <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700 font-semibold">
+                    <Calendar className="size-4 text-blue-600 shrink-0" />
+                    <span>{featuredEvent.date[language]}</span>
+                    {featuredEvent.time && (
+                      <>
+                        <span className="text-slate-300">|</span>
+                        <Clock className="size-3.5 text-slate-500" />
+                        <span className="text-slate-600 font-normal">{featuredEvent.time[language]}</span>
+                      </>
+                    )}
                   </div>
-                )}
 
-                <div className="flex items-center gap-2 pt-1 text-[11px] text-slate-500 border-t border-slate-200/60 font-medium">
-                  <Info className="size-3.5 text-blue-600 shrink-0" />
-                  <Text>
-                    {{
-                      id: "Informasi terbuka bagi seluruh nelayan & mitra. Tanpa biaya atau pendaftaran.",
-                      en: "Open public information for fishers & partners. No registration needed.",
-                    }}
-                  </Text>
+                  {featuredEvent.location && (
+                    <div className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
+                      <MapPin className="size-4 text-red-500 shrink-0 mt-0.5" />
+                      <span className="font-medium text-slate-800">{featuredEvent.location[language]}</span>
+                    </div>
+                  )}
+
+                  <div className="flex items-center gap-2 pt-1 text-[11px] text-slate-500 border-t border-slate-200/60 font-medium">
+                    <Info className="size-3.5 text-blue-600 shrink-0" />
+                    <Text>
+                      {{
+                        id: "Informasi terbuka bagi seluruh nelayan & mitra. Tanpa biaya atau pendaftaran.",
+                        en: "Open public information for fishers & partners. No registration needed.",
+                      }}
+                    </Text>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                /* Badge Kategori untuk Blog */
+                <div className="mt-3.5 flex items-center gap-2">
+                  <span className="inline-block text-xs font-semibold px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100">
+                    {featuredEvent.category[language]}
+                  </span>
+                </div>
+              )}
 
               {/* Summary */}
               <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
@@ -162,16 +181,24 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
               {/* Action Link */}
               <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                 <div className="text-xs text-slate-500 font-medium">
-                  <Text>{{ id: "Penyelenggara:", en: "Organized by:" }}</Text>{" "}
+                  {isBlog ? (
+                    <Text>{{ id: "Penulis:", en: "Author:" }}</Text>
+                  ) : (
+                    <Text>{{ id: "Penyelenggara:", en: "Organized by:" }}</Text>
+                  )}{" "}
                   <span className="font-bold text-slate-800">{featuredEvent.author.name}</span>
                 </div>
 
                 <Link
                   href={`/news/${featuredEvent.slug}`}
-                  className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-blue-700"
+                  className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-blue-700 hover:text-blue-800 transition-colors"
                 >
                   <span className="border-b-2 border-blue-700 pb-0.5">
-                    <Text>{{ id: "Lihat Informasi Lengkap", en: "View Event Details" }}</Text>
+                    {isBlog ? (
+                      <Text>{{ id: "Baca Artikel Lengkap", en: "Read Full Article" }}</Text>
+                    ) : (
+                      <Text>{{ id: "Lihat Informasi Lengkap", en: "View Event Details" }}</Text>
+                    )}
                   </span>
                   <ArrowRight className="size-4" />
                 </Link>
@@ -369,14 +396,6 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
                 <Text>{{ id: "Kegiatan yang Telah Dilaksanakan", en: "Completed Field Events" }}</Text>
               </h2>
             </div>
-            <p className="text-sm sm:text-base text-slate-600 max-w-md leading-relaxed">
-              <Text>
-                {{
-                  id: "Dokumentasi uji coba nyata, sosialisasi modul flywheel, dan riset lapangan yang telah sukses diselesaikan bersama kelompok nelayan pesisir.",
-                  en: "Documentation of live sea trials, flywheel workshops, and field research successfully completed with coastal fishing groups.",
-                }}
-              </Text>
-            </p>
           </div>
 
           {/* Grid Kartu Kegiatan yang Telah Dilaksanakan */}

@@ -27,6 +27,7 @@ model Activity {
   slug              String           @unique
   type              String           // "event" | "blog"
   featured          Boolean          @default(false)
+  showOnLanding     Boolean          @default(false) @map("show_on_landing")
   category_id       String
   category_en       String
   title_id          String

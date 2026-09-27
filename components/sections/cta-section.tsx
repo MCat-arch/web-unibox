@@ -34,8 +34,8 @@ export function ContactCtaSection() {
             <h2 className="mt-4 font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-[1.25]">
               <Text>
                 {{
-                  id: "Mari Diskusikan Kebutuhan Rantai Dingin Anda.",
-                  en: "Let's Discuss Your Cold-Chain Requirements.",
+                  id: "Mari Diskusikan Kebutuhan Anda.",
+                  en: "Let's Discuss Your Requirements.",
                 }}
               </Text>
             </h2>
@@ -67,7 +67,7 @@ export function ContactCtaSection() {
                   <Phone className="size-5" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-sky-300">WhatsApp / Layanan Cepat</p>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-sky-300">Layanan Cepat</p>
                   <a href="https://wa.me/6281280921122" target="_blank" rel="noopener noreferrer" className="text-sm sm:text-base font-semibold text-white hover:text-sky-300 transition-colors">
                     +62 812-8092-1122
                   </a>
