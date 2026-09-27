@@ -220,13 +220,13 @@ export function StatsSection() {
         </div>
 
         {/* 4 White Horizontal Floating Cards (Aruna Reference Style) */}
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 pb-20 sm:pb-28">
+        <div className="grid grid-cols-1 gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4 pb-14 sm:pb-24 lg:pb-28">
           {statistics.map((item, idx) => {
             const IconComponent = item.renderIcon;
             return (
               <div
                 key={idx}
-                className="group relative flex items-center gap-4 sm:gap-5 rounded-2xl sm:rounded-3xl bg-white p-5 sm:p-6 shadow-xl shadow-blue-950/20 border border-slate-100/90 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-950/30"
+                className="group relative flex items-center gap-4 sm:gap-5 rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-5 lg:p-6 shadow-xl shadow-blue-950/20 border border-slate-100/90 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-950/30"
               >
                 {/* Left: Custom Maritime Vector Line Art */}
                 <div className="shrink-0 transition-transform duration-300 group-hover:scale-105">
@@ -234,7 +234,7 @@ export function StatsSection() {
                 </div>
 
                 {/* Right: Bold Stat Value & Label */}
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <div className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 leading-tight">
                     {item.value}
                   </div>
@@ -251,7 +251,7 @@ export function StatsSection() {
       {/* Curved Wave Bottom Divider (Transitioning cleanly into slate-50 / light Solutions Section) */}
       <div className="relative z-10 w-full overflow-hidden leading-none text-slate-50">
         <svg
-          className="relative block w-full h-12 sm:h-20 lg:h-24 fill-slate-50"
+          className="relative block w-full h-10 sm:h-20 lg:h-24 fill-slate-50"
           viewBox="0 0 1440 120"
           preserveAspectRatio="none"
         >

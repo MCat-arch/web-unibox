@@ -146,16 +146,16 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/45 z-[1]" />
 
       {/* Main hero content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pb-20 pt-36">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-10 lg:px-12 pb-16 sm:pb-20 pt-28 sm:pt-36">
         <div className="max-w-2xl">
           {/* Responsive headline */}
-          <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.2] drop-shadow-md">
+          <h1 className="font-display text-[1.35rem] sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.2] drop-shadow-md">
             <Text>{slide.headline}</Text>
           </h1>
-          <div className="mt-7 flex items-center gap-4">
+          <div className="mt-6 sm:mt-7 flex items-center gap-4">
             <Button
               asChild
-              className="rounded-full bg-[#0f3d6b] hover:bg-[#0a2847] text-white font-semibold px-8 py-6 text-sm sm:text-base shadow-xl shadow-blue-950/50 border border-blue-400/25 transition-colors"
+              className="w-full sm:w-auto rounded-full bg-[#0f3d6b] hover:bg-[#0a2847] text-white font-semibold px-8 py-6 text-sm sm:text-base shadow-xl shadow-blue-950/50 border border-blue-400/25 transition-colors"
             >
               <Link href={slide.href}>
                 <Text>{slide.cta}</Text>

@@ -114,7 +114,7 @@ export default async function AdminActivitiesPage({
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-slate-600">
+            <table className="w-full min-w-[680px] text-left text-sm text-slate-600">
               <thead className="bg-slate-50 text-xs font-bold uppercase text-slate-500 border-b border-slate-200">
                 <tr>
                   <th className="px-6 py-3.5">Judul & Slug</th>

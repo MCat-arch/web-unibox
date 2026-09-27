@@ -68,7 +68,7 @@ export function TestimonialsSection() {
           {testimonials.map((testimonial) => (
             <article
               key={testimonial.name}
-              className="flex flex-col justify-between rounded-2xl bg-white p-7 text-slate-800 shadow-xl shadow-blue-950/25 border border-white/20 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+              className="flex flex-col justify-between rounded-2xl bg-white p-5 sm:p-7 text-slate-800 shadow-xl shadow-blue-950/25 border border-white/20 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
             >
               <div>
                 <div className="flex items-center justify-between gap-4 mb-4">
@@ -123,7 +123,7 @@ export function TestimonialsSection() {
       {/* Curved Wave Bottom Divider */}
       <div className="relative z-10 w-full overflow-hidden leading-none text-slate-50 mt-14 sm:mt-20">
         <svg
-          className="relative block w-full h-12 sm:h-20 lg:h-24 fill-slate-50"
+          className="relative block w-full h-10 sm:h-20 lg:h-24 fill-slate-50"
           viewBox="0 0 1440 120"
           preserveAspectRatio="none"
         >

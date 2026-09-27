@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { comparePassword, hashPassword } from "@/lib/auth/password";
-import { createSession, deleteSession } from "@/lib/auth/session";
+import { createSession, deleteSession, getSession } from "@/lib/auth/session";
 import { checkRateLimit, resetRateLimit } from "@/lib/auth/rate-limiter";
 
 const loginSchema = z.object({
@@ -111,4 +111,49 @@ export async function loginAdminAction(formData: FormData): Promise<LoginResult>
 
 export async function logoutAdminAction(): Promise<void> {
   await deleteSession();
+}
+
+export async function changePasswordAction(formData: FormData): Promise<{ success: boolean; message?: string }> {
+  const session = await getSession();
+  if (!session) {
+    return { success: false, message: "Akses ditolak. Sesi Anda tidak valid." };
+  }
+
+  const currentPassword = formData.get("currentPassword") as string;
+  const newPassword = formData.get("newPassword") as string;
+  const confirmPassword = formData.get("confirmPassword") as string;
+
+  if (!newPassword || newPassword.length < 6) {
+    return { success: false, message: "Kata sandi baru minimal 6 karakter." };
+  }
+
+  if (newPassword !== confirmPassword) {
+    return { success: false, message: "Konfirmasi kata sandi baru tidak cocok." };
+  }
+
+  try {
+    const user = await prisma.adminUser.findUnique({
+      where: { id: session.userId },
+    });
+
+    if (!user) {
+      return { success: false, message: "Akun admin tidak ditemukan." };
+    }
+
+    const isValid = await comparePassword(currentPassword, user.passwordHash);
+    if (!isValid) {
+      return { success: false, message: "Kata sandi lama yang Anda masukkan tidak tepat." };
+    }
+
+    const passwordHash = await hashPassword(newPassword);
+    await prisma.adminUser.update({
+      where: { id: user.id },
+      data: { passwordHash },
+    });
+
+    return { success: true, message: "Kata sandi akun admin berhasil diperbarui!" };
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : "Kesalahan database";
+    return { success: false, message: `Gagal memperbarui kata sandi: ${errorMsg}` };
+  }
 }

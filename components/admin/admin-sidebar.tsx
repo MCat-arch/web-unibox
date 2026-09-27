@@ -11,6 +11,7 @@ import {
   PlusCircle,
   ExternalLink,
   ShieldCheck,
+  Settings,
   Menu,
   X,
 } from "lucide-react";
@@ -42,6 +43,12 @@ export function AdminSidebar({ userName, userRole }: AdminSidebarProps) {
       href: "/admin/activities/new",
       exact: false,
       icon: PlusCircle,
+    },
+    {
+      label: "Pengaturan Akun",
+      href: "/admin/settings",
+      exact: true,
+      icon: Settings,
     },
   ];
 

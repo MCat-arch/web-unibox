@@ -235,16 +235,16 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
                   {/* Horizontal Card Box */}
                   <Link
                     href={`/news/${item.slug || featuredEvent.slug}`}
-                    className="flex min-h-36 items-center gap-5 rounded-2xl bg-[#092644] p-4 text-white sm:p-5 shadow-md shadow-blue-950/15 border border-blue-900/40 group cursor-pointer"
+                    className="flex min-h-28 sm:min-h-36 items-center gap-3.5 sm:gap-5 rounded-2xl bg-[#092644] p-3.5 sm:p-5 text-white shadow-md shadow-blue-950/15 border border-blue-900/40 group cursor-pointer"
                   >
-                    <div className="relative aspect-[4/3] w-32 shrink-0 sm:w-40 overflow-hidden rounded-xl bg-slate-800">
+                    <div className="relative aspect-[4/3] w-24 sm:w-36 md:w-40 shrink-0 overflow-hidden rounded-xl bg-slate-800">
                       <Image
                         src={item.image}
                         alt={item.title[language]}
                         fill
                         loading="lazy"
                         className="object-cover"
-                        sizes="160px"
+                        sizes="(min-width: 640px) 160px, 96px"
                       />
                     </div>
                     <div className="min-w-0 flex-1">
@@ -254,7 +254,7 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
                           <span>{item.time[language]}</span>
                         </div>
                       )}
-                      <h4 className="font-display text-sm sm:text-base font-bold leading-snug text-white line-clamp-2">
+                      <h4 className="font-display text-xs sm:text-base font-bold leading-snug text-white line-clamp-2">
                         {item.title[language]}
                       </h4>
                       <p className="mt-2 text-xs text-slate-300 flex items-center gap-1.5 truncate">
@@ -299,7 +299,7 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
           </div>
 
           {/* Grid 3 Card per Row untuk Blog */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {visibleBlogs.map((blog) => (
               <article
                 key={blog.slug}
@@ -399,7 +399,7 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
           </div>
 
           {/* Grid Kartu Kegiatan yang Telah Dilaksanakan */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
             {pastEventsData.map((item) => (
               <article
                 key={item.id}

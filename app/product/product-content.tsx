@@ -11,9 +11,9 @@ function SonarRadarVisual() {
   return (
     <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-[#081827] flex items-center justify-center border border-sky-900/60 shadow-xl shadow-blue-950/40">
       {/* Radar grid circles */}
-      <div className="absolute size-64 rounded-full border border-sky-500/25" />
-      <div className="absolute size-44 rounded-full border border-sky-500/35" />
-      <div className="absolute size-24 rounded-full border border-sky-500/45" />
+      <div className="absolute size-40 sm:size-64 rounded-full border border-sky-500/25" />
+      <div className="absolute size-28 sm:size-44 rounded-full border border-sky-500/35" />
+      <div className="absolute size-16 sm:size-24 rounded-full border border-sky-500/45" />
       <div className="absolute h-full w-px bg-sky-500/25" />
       <div className="absolute w-full h-px bg-sky-500/25" />
 
@@ -29,15 +29,15 @@ function SonarRadarVisual() {
 
       {/* Fish blips */}
       <div className="absolute top-1/4 left-1/3 flex items-center gap-1.5 animate-pulse">
-        <span className="size-2.5 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400" />
-        <span className="text-[11px] font-mono text-emerald-300 font-bold">Target 45m</span>
+        <span className="size-2 sm:size-2.5 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400" />
+        <span className="text-[10px] sm:text-[11px] font-mono text-emerald-300 font-bold">Target 45m</span>
       </div>
       <div className="absolute bottom-1/3 right-1/4 flex items-center gap-1.5 animate-pulse">
-        <span className="size-2.5 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400" />
-        <span className="text-[11px] font-mono text-emerald-300 font-bold">Cluster 82m</span>
+        <span className="size-2 sm:size-2.5 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400" />
+        <span className="text-[10px] sm:text-[11px] font-mono text-emerald-300 font-bold">Cluster 82m</span>
       </div>
 
-      <div className="absolute bottom-4 left-5 rounded-md bg-black/70 px-3 py-1 text-xs font-mono text-sky-300 backdrop-blur-sm border border-sky-500/30">
+      <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-5 rounded-md bg-black/70 px-2.5 py-1 text-[10px] sm:text-xs font-mono text-sky-300 backdrop-blur-sm border border-sky-500/30">
         Sonar Ultrasonik Range: 100m Active
       </div>
     </div>
@@ -289,16 +289,16 @@ export function ProductContent() {
                 </p>
 
                 {/* 3 Metric Cards (No icon clutter) */}
-                <div className="mt-8 grid grid-cols-3 gap-3 border-t border-slate-200 pt-6">
+                <div className="mt-8 grid grid-cols-3 gap-2 sm:gap-3 border-t border-slate-200 pt-6">
                   {item.metrics.map((m, idx) => (
                     <div
                       key={idx}
-                      className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4 shadow-xs"
+                      className="rounded-xl border border-slate-200 bg-white p-2.5 sm:p-4 shadow-xs min-w-0"
                     >
-                      <span className="block font-display text-base sm:text-xl font-extrabold text-blue-700">
+                      <span className="block font-display text-sm sm:text-xl font-extrabold text-blue-700 truncate">
                         {m.value}
                       </span>
-                      <span className="block text-[11px] font-semibold text-slate-500 mt-1">
+                      <span className="block text-[10px] sm:text-[11px] font-semibold text-slate-500 mt-0.5 sm:mt-1 truncate">
                         <Text>{m.label}</Text>
                       </span>
                     </div>

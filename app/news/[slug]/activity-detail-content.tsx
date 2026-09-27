@@ -72,7 +72,7 @@ export function ActivityDetailContent({ activity }: { activity: ActivityItem }) 
 
           {/* If EVENT: Show prominent Event Logistics Card (Date, Time, Location) */}
           {isEvent ? (
-            <div className="rounded-2xl bg-slate-50 border border-slate-200/90 p-5 space-y-3 mb-6">
+            <div className="rounded-2xl bg-slate-50 border border-slate-200/90 p-4 sm:p-5 space-y-3 mb-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="flex items-center gap-2.5 text-sm text-slate-700 font-semibold">
                   <Calendar className="size-4.5 text-blue-600 shrink-0" />
@@ -110,7 +110,7 @@ export function ActivityDetailContent({ activity }: { activity: ActivityItem }) 
               )}
 
               {/* Explicit Notice: Pure Information, No Registration */}
-              <div className="pt-2 border-t border-slate-200/60 flex items-center gap-2 text-xs text-emerald-800 bg-emerald-50/80 -mx-5 -mb-5 px-5 py-3 rounded-b-2xl border-t border-emerald-100 font-medium">
+              <div className="pt-2 border-t border-slate-200/60 flex items-center gap-2 text-xs text-emerald-800 bg-emerald-50/80 -mx-4 -mb-4 px-4 sm:-mx-5 sm:-mb-5 sm:px-5 py-3 rounded-b-2xl border-t border-emerald-100 font-medium">
                 <Info className="size-4 text-emerald-600 shrink-0" />
                 <Text>
                   {{

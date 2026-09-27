@@ -81,20 +81,20 @@ export function NewsPreviewSection({ initialActivities }: { initialActivities?: 
               {/* Card statis tanpa animasi/hover */}
               <Link
                 href={`/news/${item.slug}`}
-                className="flex min-h-36 items-center gap-5 rounded-2xl bg-[#092644] p-4 text-white sm:p-5 shadow-lg shadow-blue-950/15 border border-blue-900/40 cursor-pointer"
+                className="flex min-h-28 sm:min-h-36 items-center gap-3.5 sm:gap-5 rounded-2xl bg-[#092644] p-3.5 sm:p-5 text-white shadow-lg shadow-blue-950/15 border border-blue-900/40 cursor-pointer"
               >
-                <div className="relative aspect-[4/3] w-32 shrink-0 sm:w-40 overflow-hidden rounded-xl bg-slate-800">
+                <div className="relative aspect-[4/3] w-24 sm:w-36 md:w-40 shrink-0 overflow-hidden rounded-xl bg-slate-800">
                   <Image
                     src={item.image}
                     alt={item.title[language]}
                     fill
                     loading="lazy"
                     className="object-cover"
-                    sizes="160px"
+                    sizes="(min-width: 640px) 160px, 96px"
                   />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <h3 className="font-display text-sm sm:text-base font-bold leading-snug text-white line-clamp-3">
+                  <h3 className="font-display text-xs sm:text-base font-bold leading-snug text-white line-clamp-3">
                     {item.title[language]}
                   </h3>
                 </div>

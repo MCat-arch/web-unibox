@@ -68,7 +68,7 @@ export function PartnershipSection() {
         </div>
 
         {/* 3 Step Cards: White Cards on Medium Ocean Blue */}
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {partnershipSteps.map((step) => (
             <article
               key={step.number}
@@ -81,7 +81,7 @@ export function PartnershipSection() {
                   alt={step.title[language]}
                   fill
                   className="size-full object-cover transition-transform duration-500"
-                  sizes="(min-width: 768px) 33vw, 100vw"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 />
                 {/* Step Pill */}
                 <span className="absolute left-4 top-4 grid size-9 place-items-center rounded-xl bg-blue-600 font-display text-xs font-extrabold text-white shadow-md shadow-blue-900/40">
@@ -90,7 +90,7 @@ export function PartnershipSection() {
               </div>
 
               {/* Card Body */}
-              <div className="p-6">
+              <div className="p-5 sm:p-6">
                 <h3 className="font-display text-lg sm:text-xl font-bold text-slate-900 leading-snug">
                   {step.title[language]}
                 </h3>
@@ -103,19 +103,8 @@ export function PartnershipSection() {
           ))}
         </div>
 
-        {/* <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-          <p className="text-sm sm:text-base leading-relaxed text-sky-100/90 font-normal">
-            <Text>
-              {{
-                id: "Kami bermitra dengan nelayan mandiri, pemilik armada kapal, hingga koperasi pesisir untuk menghadirkan teknologi pendingin ikan yang tangguh dan efisien.",
-                en: "Partnership and orders are open for traditional fishers, vessel fleet owners, coastal cooperatives, and seafood facility operators modernizing the fish cold chain.",
-              }}
-            </Text>
-          </p>
-        </div> */}
-
         {/* Bottom CTA Bar */}
-        <div className="mt-12 flex flex-col items-start justify-between gap-6 rounded-2xl bg-white/10 p-6 sm:p-8 backdrop-blur-sm border border-white/15 sm:flex-row sm:items-center">
+        <div className="mt-12 flex flex-col items-start justify-between gap-6 rounded-2xl bg-white/10 p-5 sm:p-8 backdrop-blur-sm border border-white/15 sm:flex-row sm:items-center">
           <p className="max-w-2xl font-display text-lg sm:text-xl font-bold leading-snug text-white">
             <Text>
               {{
@@ -127,9 +116,9 @@ export function PartnershipSection() {
           <Button
             asChild
             size="lg"
-            className="shrink-0 bg-white text-blue-900 hover:bg-sky-50 font-bold shadow-xl shadow-blue-950/30"
+            className="w-full sm:w-auto shrink-0 bg-white text-blue-900 hover:bg-sky-50 font-bold shadow-xl shadow-blue-950/30"
           >
-            <Link href="/contact">
+            <Link href="/contact" className="justify-center">
               <Text>{{ id: "Konsultasi Gratis Sekarang", en: "Get Free Consultation" }}</Text>
               <ArrowRight className="size-4 ml-1" />
             </Link>

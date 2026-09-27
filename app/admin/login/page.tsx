@@ -53,7 +53,7 @@ export default function AdminLoginPage() {
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#0070ba]/20 rounded-full blur-3xl" />
       </div>
 
-      <div className="w-full max-w-md bg-slate-800/90 border border-slate-700/80 rounded-2xl shadow-2xl p-8 backdrop-blur-xl relative z-10">
+      <div className="w-full max-w-md bg-slate-800/90 border border-slate-700/80 rounded-2xl shadow-2xl p-6 sm:p-8 backdrop-blur-xl relative z-10">
         {/* Header Brand */}
         <div className="text-center mb-8">
           <div className="relative w-20 h-20 mx-auto mb-3">

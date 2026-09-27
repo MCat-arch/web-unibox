@@ -135,7 +135,7 @@ export function Footer() {
         </nav> */}
 
         {/* Social Media Icons (Dipindahkan ke Footer) */}
-        <div className="mt-8 flex items-center justify-center gap-3.5">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5">
           {socialMediaLinks.map((item) => {
             const Icon = item.icon;
             return (

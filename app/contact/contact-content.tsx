@@ -221,26 +221,19 @@ export function ContactContent() {
             </div>
 
             {/* Kartu Kontak 1: WhatsApp Resmi */}
-            <div className="rounded-2xl bg-emerald-50/80 border border-emerald-200/90 p-5 sm:p-6 shadow-xs">
-              <div className="flex items-start gap-4">
-                <div className="size-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-emerald-600/20">
-                  <MessageCircle className="size-6" />
+            <div className="rounded-2xl bg-emerald-50/80 border border-emerald-200/90 p-4 sm:p-6 shadow-xs">
+              <div className="flex items-start gap-3.5 sm:gap-4">
+                <div className="size-11 sm:size-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-emerald-600/20">
+                  <MessageCircle className="size-5 sm:size-6" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  {/* <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-800">
-                    <Text>{{ id: "WhatsApp Chat Cepat", en: "Fast WhatsApp Chat" }}</Text>
-                  </span>
-                  <h3 className="font-display text-lg font-bold text-slate-900 mt-0.5">
-                    +62 812-8092-1122
-                  </h3> */}
                   <div className="mt-1">
                     <a
                       href="https://wa.me/6281280921122"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full bg-emerald-600 text-white text-xs sm:text-sm font-bold px-5 py-2.5 shadow-sm"
+                      className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-emerald-600 text-white text-xs sm:text-sm font-bold px-5 py-2.5 shadow-sm"
                     >
-                      {/* <MessageCircle className="size-4" /> */}
                       <span>
                         <Text>{{ id: "Chat WhatsApp Sekarang", en: "Chat on WhatsApp" }}</Text>
                       </span>
@@ -259,7 +252,7 @@ export function ContactContent() {
             </div>
 
             {/* Kartu Kontak 2: Telepon Kantor & Email */}
-            <div className="rounded-2xl bg-slate-50/90 border border-slate-200/90 p-5 sm:p-6 space-y-4 shadow-xs">
+            <div className="rounded-2xl bg-slate-50/90 border border-slate-200/90 p-4 sm:p-6 space-y-4 shadow-xs">
               {/* Telepon */}
               <div className="flex items-start gap-4">
                 <div className="size-10 rounded-xl bg-blue-100 text-blue-800 flex items-center justify-center shrink-0">
@@ -447,7 +440,7 @@ export function ContactContent() {
                   <button
                     type="button"
                     onClick={() => toggleFaq(index)}
-                    className="flex w-full items-center justify-between gap-4 p-5 sm:p-6 text-left"
+                    className="flex w-full items-center justify-between gap-4 p-4 sm:p-6 text-left cursor-pointer"
                   >
                     <span className="font-display text-base sm:text-lg font-bold text-slate-900 leading-snug">
                       {faq.question[language]}
@@ -463,7 +456,7 @@ export function ContactContent() {
                   </button>
 
                   {isOpen && (
-                    <div className="px-5 pb-6 sm:px-6 text-sm sm:text-base leading-relaxed text-slate-600 border-t border-slate-100 pt-4">
+                    <div className="px-4 pb-5 sm:px-6 sm:pb-6 text-sm sm:text-base leading-relaxed text-slate-600 border-t border-slate-100 pt-4">
                       <p>{faq.answer[language]}</p>
                     </div>
                   )}
@@ -473,7 +466,7 @@ export function ContactContent() {
           </div>
 
           {/* Bottom FAQ Help Card */}
-          <div className="mt-12 rounded-2xl bg-gradient-to-r from-[#092644] to-[#0d3b68] p-6 sm:p-8 text-white shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+          <div className="mt-12 rounded-2xl bg-gradient-to-r from-[#092644] to-[#0d3b68] p-5 sm:p-8 text-white shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
             <div>
               <h3 className="font-display text-lg sm:text-xl font-bold">
                 <Text>{{ id: "Masih Memiliki Pertanyaan Lain?", en: "Still Have Questions?" }}</Text>

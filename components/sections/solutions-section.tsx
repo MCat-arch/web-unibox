@@ -8,17 +8,17 @@ import { useLanguage } from "@/context/language-context";
 
 function SonarRadarVisual() {
   return (
-    <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-[#081827] flex items-center justify-center border border-sky-900/60 shadow-inner">
+    <div className="relative aspect-[16/10] sm:aspect-[16/9] min-h-[160px] w-full max-w-full overflow-hidden rounded-xl bg-[#081827] flex items-center justify-center border border-sky-900/60 shadow-inner">
       {/* Radar grid circles */}
-      <div className="absolute size-52 rounded-full border border-sky-500/25" />
-      <div className="absolute size-36 rounded-full border border-sky-500/35" />
-      <div className="absolute size-20 rounded-full border border-sky-500/45" />
-      <div className="absolute h-full w-px bg-sky-500/25" />
-      <div className="absolute w-full h-px bg-sky-500/25" />
+      <div className="absolute size-36 sm:size-52 rounded-full border border-sky-500/25 pointer-events-none" />
+      <div className="absolute size-24 sm:size-36 rounded-full border border-sky-500/35 pointer-events-none" />
+      <div className="absolute size-14 sm:size-20 rounded-full border border-sky-500/45 pointer-events-none" />
+      <div className="absolute h-full w-px bg-sky-500/25 pointer-events-none" />
+      <div className="absolute w-full h-px bg-sky-500/25 pointer-events-none" />
 
       {/* Rotating scanner beam */}
       <div
-        className="absolute inset-0 origin-center animate-spin"
+        className="absolute inset-0 origin-center animate-spin pointer-events-none"
         style={{
           animationDuration: "6s",
           background:
@@ -36,7 +36,7 @@ function SonarRadarVisual() {
         <span className="text-[10px] font-mono text-emerald-300">Cluster 82m</span>
       </div>
 
-      <div className="absolute bottom-3 left-4 rounded-md bg-black/60 px-2.5 py-1 text-[11px] font-mono text-sky-300 backdrop-blur-sm border border-sky-500/20">
+      <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-4 max-w-[calc(100%-1rem)] rounded-md bg-black/60 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-[11px] font-mono text-sky-300 backdrop-blur-sm border border-sky-500/20 truncate">
         Sonar Ultrasonik Range: 100m Active
       </div>
     </div>
@@ -120,11 +120,11 @@ export function SolutionsSection() {
   };
 
   return (
-    <section className="bg-slate-50 py-16 sm:py-24 border-b border-slate-200/80">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
+    <section className="relative w-full overflow-hidden bg-slate-50 py-16 sm:py-24 border-b border-slate-200/80">
+      <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
+        <div className="grid grid-cols-1 gap-10 lg:gap-12 lg:grid-cols-12 lg:items-start w-full min-w-0">
           {/* Left Column: Authentic Unibox Value Proposition */}
-          <div className="lg:col-span-5 flex flex-col justify-between">
+          <div className="lg:col-span-5 flex flex-col justify-between w-full min-w-0">
             <div>
               {/* Header: Vertical Blue Accent Bar + Breadcrumb */}
               <div className="flex items-center gap-3 mb-6 sm:mb-8">
@@ -165,43 +165,43 @@ export function SolutionsSection() {
             </div>
 
             {/* 4 Clean Typographic Spec Callouts (No cluttered icons) */}
-            <div className="mt-8 pt-6 border-t border-slate-200/80 grid grid-cols-2 gap-4">
-              <div className="rounded-xl border border-slate-200/90 bg-white p-4 shadow-xs">
-                <span className="block text-xl sm:text-2xl font-extrabold text-blue-700">100 L</span>
-                <span className="block text-xs font-bold text-slate-800 mt-1">
+            <div className="mt-8 pt-6 border-t border-slate-200/80 grid grid-cols-2 gap-3 sm:gap-4 w-full min-w-0">
+              <div className="rounded-xl border border-slate-200/90 bg-white p-3 sm:p-4 shadow-xs min-w-0">
+                <span className="block text-xl sm:text-2xl font-extrabold text-blue-700 truncate">100 L</span>
+                <span className="block text-xs font-bold text-slate-800 mt-1 truncate">
                   <Text>{{ id: "Kapasitas Pendingin", en: "Cooling Capacity" }}</Text>
                 </span>
-                <span className="block text-[11px] text-slate-500 mt-0.5">
+                <span className="block text-[11px] text-slate-500 mt-0.5 truncate">
                   <Text>{{ id: "Insulasi rapat ganda", en: "Dual tight insulation" }}</Text>
                 </span>
               </div>
 
-              <div className="rounded-xl border border-slate-200/90 bg-white p-4 shadow-xs">
-                <span className="block text-xl sm:text-2xl font-extrabold text-blue-700">R32</span>
-                <span className="block text-xs font-bold text-slate-800 mt-1">
+              <div className="rounded-xl border border-slate-200/90 bg-white p-3 sm:p-4 shadow-xs min-w-0">
+                <span className="block text-xl sm:text-2xl font-extrabold text-blue-700 truncate">R32</span>
+                <span className="block text-xs font-bold text-slate-800 mt-1 truncate">
                   <Text>{{ id: "Refrigerant Ramah", en: "Eco Refrigerant" }}</Text>
                 </span>
-                <span className="block text-[11px] text-slate-500 mt-0.5">
+                <span className="block text-[11px] text-slate-500 mt-0.5 truncate">
                   <Text>{{ id: "Bebas es batu balok", en: "Ice-block free" }}</Text>
                 </span>
               </div>
 
-              <div className="rounded-xl border border-slate-200/90 bg-white p-4 shadow-xs">
-                <span className="block text-xl sm:text-2xl font-extrabold text-blue-700">100 m</span>
-                <span className="block text-xs font-bold text-slate-800 mt-1">
+              <div className="rounded-xl border border-slate-200/90 bg-white p-3 sm:p-4 shadow-xs min-w-0">
+                <span className="block text-xl sm:text-2xl font-extrabold text-blue-700 truncate">100 m</span>
+                <span className="block text-xs font-bold text-slate-800 mt-1 truncate">
                   <Text>{{ id: "Jangkauan Sonar", en: "Sonar Range" }}</Text>
                 </span>
-                <span className="block text-[11px] text-slate-500 mt-0.5">
+                <span className="block text-[11px] text-slate-500 mt-0.5 truncate">
                   <Text>{{ id: "Radar sebaran ikan", en: "Fish school radar" }}</Text>
                 </span>
               </div>
 
-              <div className="rounded-xl border border-slate-200/90 bg-white p-4 shadow-xs">
-                <span className="block text-xl sm:text-2xl font-extrabold text-blue-700">Flywheel</span>
-                <span className="block text-xs font-bold text-slate-800 mt-1">
+              <div className="rounded-xl border border-slate-200/90 bg-white p-3 sm:p-4 shadow-xs min-w-0">
+                <span className="block text-xl sm:text-2xl font-extrabold text-blue-700 truncate">Flywheel</span>
+                <span className="block text-xs font-bold text-slate-800 mt-1 truncate">
                   <Text>{{ id: "Energi Mandiri", en: "Self-Sufficient Power" }}</Text>
                 </span>
-                <span className="block text-[11px] text-slate-500 mt-0.5">
+                <span className="block text-[11px] text-slate-500 mt-0.5 truncate">
                   <Text>{{ id: "Putaran mesin perahu", en: "Boat engine conversion" }}</Text>
                 </span>
               </div>
@@ -209,8 +209,8 @@ export function SolutionsSection() {
           </div>
 
           {/* Right Column: 5 Interactive Unibox Features (Accordion Style) */}
-          <div className="lg:col-span-7">
-            <div className="rounded-3xl border border-slate-200/80 bg-slate-100/60 p-4 sm:p-6">
+          <div className="lg:col-span-7 w-full min-w-0">
+            <div className="rounded-2xl sm:rounded-3xl border border-slate-200/80 bg-slate-100/60 p-3.5 sm:p-6 w-full min-w-0">
               <div className="space-y-3">
                 {features.map((item, idx) => {
                   const isOpen = openIndex === idx;
@@ -226,13 +226,13 @@ export function SolutionsSection() {
                       <button
                         type="button"
                         onClick={() => toggleStep(idx)}
-                        className={`w-full flex items-center justify-between gap-4 px-5 py-4 sm:px-6 sm:py-4.5 text-left transition-colors duration-200 cursor-pointer ${isOpen
+                        className={`w-full flex items-center justify-between gap-3 sm:gap-4 px-4 py-3.5 sm:px-6 sm:py-4.5 text-left transition-colors duration-200 cursor-pointer ${isOpen
                           ? "bg-white"
                           : "hover:bg-slate-100/90 hover:border-slate-300"
                           }`}
                         aria-expanded={isOpen}
                       >
-                        <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+                        <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
                           {/* Number badge */}
                           <span
                             className={`shrink-0 grid size-8 place-items-center rounded-full text-xs font-extrabold transition-colors ${isOpen
@@ -243,7 +243,7 @@ export function SolutionsSection() {
                             {item.number}
                           </span>
                           <span
-                            className={`font-display text-sm sm:text-base font-bold truncate ${isOpen ? "text-blue-700" : "text-slate-800"
+                            className={`font-display text-xs sm:text-sm md:text-base font-bold truncate ${isOpen ? "text-blue-700" : "text-slate-800"
                               }`}
                           >
                             {item.title[language]}
@@ -267,7 +267,7 @@ export function SolutionsSection() {
 
                       {/* Expandable Explanation + Photo/Visual (Hidden until clicked) */}
                       {isOpen && (
-                        <div className="px-5 pb-6 sm:px-6 sm:pb-6 pt-2 border-t border-slate-100">
+                        <div className="px-4 pb-5 sm:px-6 sm:pb-6 pt-2 border-t border-slate-100 w-full min-w-0">
                           <p className="text-xs sm:text-sm leading-relaxed text-slate-600 mb-5">
                             {item.description[language]}
                           </p>
@@ -276,7 +276,7 @@ export function SolutionsSection() {
                           {item.customVisual ? (
                             <SonarRadarVisual />
                           ) : (
-                            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-slate-200 shadow-sm bg-slate-100">
+                            <div className="relative aspect-[16/9] w-full max-w-full overflow-hidden rounded-xl border border-slate-200 shadow-sm bg-slate-100">
                               <Image
                                 src={item.image}
                                 alt={item.title[language]}

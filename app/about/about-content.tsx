@@ -279,16 +279,16 @@ export function AboutContent() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             {keySpecs.map((spec, idx) => (
               <div
                 key={idx}
-                className="rounded-2xl border border-slate-200/90 bg-slate-50/80 p-5 sm:p-6 shadow-xs text-center"
+                className="rounded-2xl border border-slate-200/90 bg-slate-50/80 p-4 sm:p-6 shadow-xs text-center"
               >
-                <span className="block font-display text-3xl sm:text-4xl font-extrabold text-blue-700">
+                <span className="block font-display text-2xl sm:text-4xl font-extrabold text-blue-700">
                   {spec.value}
                 </span>
-                <span className="block text-xs sm:text-sm font-bold text-slate-900 mt-2">
+                <span className="block text-xs sm:text-sm font-bold text-slate-900 mt-1.5 sm:mt-2">
                   <Text>{spec.label}</Text>
                 </span>
                 <span className="block text-[11px] sm:text-xs text-slate-500 mt-1 leading-snug">
@@ -513,7 +513,7 @@ export function AboutContent() {
           <Button
             asChild
             size="lg"
-            className="shrink-0 rounded-full bg-white text-blue-900 font-bold px-8 py-6 text-sm sm:text-base shadow-xl"
+            className="w-full sm:w-auto shrink-0 rounded-full bg-white text-blue-900 font-bold px-8 py-6 text-sm sm:text-base shadow-xl justify-center"
           >
             <Link href="/contact">
               <Text>{{ id: "Hubungi Tim Kami", en: "Contact Our Team" }}</Text>

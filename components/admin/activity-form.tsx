@@ -190,7 +190,7 @@ export function ActivityForm({ initialData }: ActivityFormProps) {
         <button
           type="submit"
           disabled={isPending}
-          className="px-6 py-2.5 bg-[#0070ba] hover:bg-[#005a96] text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-md transition-all disabled:opacity-50"
+          className="w-full sm:w-auto px-6 py-2.5 bg-[#0070ba] hover:bg-[#005a96] text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-md transition-all disabled:opacity-50 cursor-pointer"
         >
           <Save className="w-4 h-4" />
           {isPending ? "Menerjemahkan & Menyimpan..." : "Simpan Konten"}

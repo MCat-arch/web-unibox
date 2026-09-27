@@ -135,7 +135,7 @@ export function ImageUploader({ value, onChange }: ImageUploaderProps) {
           </div>
 
           {/* Overlay info & Actions */}
-          <div className="p-3 bg-white border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
+          <div className="p-3 bg-white border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
                 <CheckCircle className="w-3.5 h-3.5" />

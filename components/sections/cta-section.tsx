@@ -79,7 +79,7 @@ export function ContactCtaSection() {
 
         {/* Right Column: Single Office (Surabaya Marine Hub) + Google Maps Interactive Embed */}
         <div className="lg:col-span-7">
-          <div className="rounded-2xl bg-white p-6 sm:p-8 text-slate-900 shadow-2xl shadow-blue-950/40 border border-slate-100">
+          <div className="rounded-2xl bg-white p-5 sm:p-8 text-slate-900 shadow-2xl shadow-blue-950/40 border border-slate-100">
             {/* Header: Badge & Title (Tanpa Tab Switcher) */}
             <div className="flex items-center justify-between gap-4 border-b border-slate-100 pb-5">
               {/* <div>
@@ -125,7 +125,7 @@ export function ContactCtaSection() {
             </div>
 
             {/* Google Maps Interactive Embed for Surabaya */}
-            <div className="relative mt-5 aspect-[16/9] w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-inner">
+            <div className="relative mt-5 aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-inner">
               <iframe
                 title="Peta Lokasi Surabaya Marine Hub"
                 src={`https://maps.google.com/maps?q=${encodeURIComponent(surabayaOffice.mapQuery)}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
