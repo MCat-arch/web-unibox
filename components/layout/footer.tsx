@@ -90,10 +90,23 @@ export function Footer() {
   const { language } = useLanguage();
 
   return (
-    <footer className="relative overflow-hidden bg-slate-100 pt-16 pb-12 text-slate-800 border-t-2 border-slate-200">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8 text-center">
+    <footer className="relative overflow-hidden bg-[#071c30] pt-16 pb-12 text-white border-t border-sky-900/60">
+      {/* Atmospheric Marine Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <Image
+          src="/images/footer-marine-bg.jpg"
+          alt="Marine background"
+          fill
+          className="object-cover object-bottom opacity-20 filter blur-[2px] scale-105"
+          sizes="100vw"
+        />
+        {/* Oceanic gradient overlay ensuring main text and buttons are crisp & readable */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#06182a]/95 via-[#071e35]/85 to-[#0a2644]/90 backdrop-blur-xs" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl px-5 lg:px-8 text-center">
         {/* Logo Unibox */}
-        <Link href="/" className="inline-flex items-center gap-2.5">
+        <Link href="/" className="inline-flex items-center gap-2.5 group">
           <div className="relative size-11 shrink-0">
             <Image
               src="/images/unibox-emblem.png"
@@ -102,14 +115,14 @@ export function Footer() {
               className="object-contain"
             />
           </div>
-          <span className="font-display text-2xl font-black tracking-wider text-slate-900 select-none">
-            <span className="text-cyan-600">UNI</span>
-            <span className="text-slate-900">BOX</span>
+          <span className="font-display text-2xl font-black tracking-wider text-white select-none">
+            <span className="text-cyan-400">UNI</span>
+            <span className="text-white">BOX</span>
           </span>
         </Link>
 
         {/* Tagline */}
-        <p className="mx-auto mt-4 max-w-2xl text-xs sm:text-sm leading-relaxed text-slate-600">
+        <p className="mx-auto mt-4 max-w-2xl text-xs sm:text-sm leading-relaxed text-sky-100/90 font-normal">
           <Text>
             {{
               id: "Teknologi pendingin dan elektrifikasi perahu nelayan untuk menjaga mutu hasil laut serta meningkatkan kesejahteraan maritim Indonesia.",
@@ -118,23 +131,7 @@ export function Footer() {
           </Text>
         </p>
 
-        {/* Nav Links */}
-        {/* <nav
-          className="mt-7 flex flex-wrap justify-center gap-x-8 gap-y-3 text-xs sm:text-sm font-semibold text-slate-700"
-          aria-label="Footer navigation"
-        >
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="hover:text-blue-700 transition-colors"
-            >
-              {item[language as Language]}
-            </Link>
-          ))}
-        </nav> */}
-
-        {/* Social Media Icons (Dipindahkan ke Footer) */}
+        {/* Social Media Icons */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5">
           {socialMediaLinks.map((item) => {
             const Icon = item.icon;
@@ -145,7 +142,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={item.label}
-                className="grid size-10 place-items-center rounded-xl bg-white text-slate-700 border border-slate-200 shadow-xs transition-all duration-200 hover:scale-105 hover:text-blue-600 hover:border-blue-400 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="grid size-10 place-items-center rounded-xl bg-white/10 text-sky-200 border border-white/15 backdrop-blur-md shadow-xs transition-all duration-200 hover:scale-105 hover:text-white hover:border-cyan-400/50 hover:bg-sky-500/20 focus:outline-none focus:ring-2 focus:ring-sky-400"
               >
                 <Icon className="size-4.5" />
               </a>
@@ -154,7 +151,7 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-10 border-t border-slate-200/80 pt-6 text-center text-xs text-slate-500">
+        <div className="mt-10 border-t border-white/10 pt-6 text-center text-xs text-sky-200/70">
           <p>© {new Date().getFullYear()} Unibox Indonesia. All rights reserved.</p>
         </div>
       </div>

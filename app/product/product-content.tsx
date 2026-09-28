@@ -6,6 +6,13 @@ import { ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/text";
 import { useLanguage } from "@/context/language-context";
+import {
+  WavePattern,
+  ScalePattern,
+  WaveTilePattern,
+  DotGridPattern,
+  WaveDivider,
+} from "@/components/ui/marine-patterns";
 
 function SonarRadarVisual() {
   return (
@@ -65,7 +72,7 @@ const productModules = [
       { label: { id: "Tegangan Output", en: "Output Voltage" }, value: "12V / 24V" },
       { label: { id: "Penghematan Aki", en: "Battery Savings" }, value: "100%" },
     ],
-    image: "/images/unibox-fishermen.jpg",
+    image: "/images/assets_kapal.jpeg",
     customVisual: false,
     imageLeft: false,
   },
@@ -89,7 +96,7 @@ const productModules = [
       { label: { id: "Suhu Stabil", en: "Stable Temp" }, value: "0°C – 4°C" },
       { label: { id: "Kualitas Mutu", en: "Quality Standard" }, value: "Grade-A" },
     ],
-    image: "/images/unibox-product-detail.jpg",
+    image: "/images/unibox-fishermen.jpg",
     customVisual: false,
     imageLeft: true,
   },
@@ -113,7 +120,7 @@ const productModules = [
       { label: { id: "Muatan Ikan", en: "Fish Capacity" }, value: "~60-75 kg" },
       { label: { id: "Material Bodi", en: "Body Material" }, value: "Food-Grade" },
     ],
-    image: "/images/unibox-port-cold-storage.jpg",
+    image: "/images/unibox-deck-closeup.jpg",
     customVisual: false,
     imageLeft: false,
   },
@@ -161,7 +168,7 @@ const productModules = [
       { label: { id: "Konsumsi Daya", en: "Power Draw" }, value: "< 15 Watt" },
       { label: { id: "Daya Tembus", en: "Light Penetration" }, value: "Anti Kabut" },
     ],
-    image: "/images/unibox-harbor-aerial.jpg",
+    image: "/images/unibox-night-lighting.jpg",
     customVisual: false,
     imageLeft: false,
   },
@@ -208,29 +215,59 @@ export function ProductContent() {
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* ========================================================
-          TOP SECTION: WHITE BACKGROUND with Breadcrumb and Friendly Header
+          TOP SECTION: RICH OCEAN BLUE HEADER — Multi-layer ornaments
       ======================================================== */}
-      <section className="relative pt-28 pb-14 sm:pt-32 sm:pb-18 bg-white border-b border-slate-200/80">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+      <section className="relative pt-28 pb-0 sm:pt-32 overflow-hidden"
+        style={{
+          background: "linear-gradient(160deg, #003d7a 0%, #0070ba 45%, #0096e0 100%)",
+        }}
+      >
+        {/* === Layer 1: Radial glow center === */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 60% at 60% 30%, rgba(56,182,255,0.25) 0%, transparent 70%)",
+          }}
+        />
+        {/* === Layer 2: Dot grid texture === */}
+        <div className="absolute top-10 right-10 opacity-20 pointer-events-none hidden lg:block">
+          <DotGridPattern className="text-sky-200" />
+        </div>
+        {/* === Layer 3: Wave tile texture === */}
+        <div className="absolute left-0 bottom-12 opacity-[0.08] pointer-events-none w-full overflow-hidden">
+          <WaveTilePattern className="text-white w-full" />
+        </div>
+        {/* === Layer 4: Scale ornament left === */}
+        <div className="absolute -left-1 top-20 opacity-20 pointer-events-none hidden lg:block scale-[2] origin-top-left">
+          <ScalePattern className="text-sky-300" />
+        </div>
+        {/* === Layer 5: Wave stroke ornament right === */}
+        <div className="absolute right-6 top-28 opacity-30 pointer-events-none hidden md:block scale-[3] origin-top-right">
+          <WavePattern className="text-sky-200" />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pb-20 sm:pb-28">
           {/* Breadcrumb Navigation */}
-          <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-500 mb-6 sm:mb-8">
-            <Link href="/" className="hover:text-blue-600 transition-colors">
+          <nav className="flex items-center gap-2 text-xs sm:text-sm text-sky-100/80 mb-6 sm:mb-8">
+            <Link href="/" className="hover:text-white transition-colors">
               <Text>{{ id: "Beranda", en: "Home" }}</Text>
             </Link>
-            <ChevronRight className="size-3.5 text-slate-400" />
-            <span className="font-semibold text-blue-900">
-              <Text>{{ id: "Produk ", en: "Products " }}</Text>
+            <ChevronRight className="size-3.5 text-sky-300" />
+            <span className="font-semibold text-white">
+              <Text>{{ id: "Produk", en: "Products" }}</Text>
             </span>
           </nav>
 
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 mb-3">
-              <span className="h-5 w-1 rounded-full bg-blue-600 shadow-sm shadow-blue-600/40" />
-              <span className="text-xs font-bold tracking-wider uppercase text-blue-700">
-                <Text>{{ id: "Produk ", en: "Products" }}</Text>
+            <div className="inline-flex items-center gap-2 mb-4">
+              <span className="h-5 w-1 rounded-full bg-amber-400 shadow-sm shadow-amber-400/50" />
+              <span className="text-xs font-bold tracking-widest uppercase text-amber-300">
+                <Text>{{ id: "Produk", en: "Products" }}</Text>
               </span>
             </div>
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
               <Text>
                 {{
                   id: "Ekosistem Pendingin & Elektrifikasi Terpadu untuk Perahu Nelayan",
@@ -238,7 +275,7 @@ export function ProductContent() {
                 }}
               </Text>
             </h1>
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+            <p className="mt-5 text-base sm:text-lg text-sky-100/90 leading-relaxed font-normal max-w-2xl">
               <Text>
                 {{
                   id: "Unibox dirancang dengan sistem pendingin efisien, insulasi rapat, serta sensor suhu presisi. Hasilnya, ikan lebih awet, kualitas mutu terjaga, dan potensi kehilangan hasil tangkapan dapat ditekan secara optimal.",
@@ -247,6 +284,11 @@ export function ProductContent() {
               </Text>
             </p>
           </div>
+        </div>
+
+        {/* === Wave divider === */}
+        <div className="relative w-full -mb-px">
+          <WaveDivider className="w-full h-12 sm:h-16 text-slate-50" />
         </div>
       </section>
 

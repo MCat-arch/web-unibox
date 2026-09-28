@@ -81,7 +81,7 @@ export const activitiesData: ActivityItem[] = [
       name: "Tim Operasional Lapangan Unibox",
       role: { id: "Divisi Kemitraan Pelabuhan", en: "Port Partnership Division" },
     },
-    image: "/images/unibox-port-cold-storage.jpg",
+    image: "/images/unibox-deck-closeup.jpg",
     summary: {
       id: "Demonstrasi terbuka perakitan unit Unibox di atas kapal nelayan 5 GT, pengujian kompresor suhu -10°C, serta temu wicara operasional bersama komunitas nelayan lokal.",
       en: "Open field demonstration of Unibox mounting on 5 GT boats, -10°C compressor live testing, and operational discussion with the local fishing community.",
@@ -152,7 +152,7 @@ export const activitiesData: ActivityItem[] = [
       name: "Divisi Edukasi Maritim",
       role: { id: "Pelatihan & Litbang", en: "Training & R&D" },
     },
-    image: "/images/unibox-fishermen.jpg",
+    image: "/images/assets_kapal.jpeg",
     summary: {
       id: "Pelatihan pembacaan layar LCD digital, perawatan bodi stainless steel, dan teknik pemetaan gerombolan ikan dengan sensor sonar ultrasonik 100 meter.",
       en: "Hands-on training on digital LCD reading, stainless steel body sanitation, and fish school tracking using 100m ultrasonic sensors.",
@@ -213,7 +213,7 @@ export const activitiesData: ActivityItem[] = [
       name: "Tim Riset & Humas Unibox",
       role: { id: "Divisi Komunikasi Publik", en: "Public Communications" },
     },
-    image: "/images/unibox-harbor-aerial.jpg",
+    image: "/images/unibox-boat-hero.jpg",
     summary: {
       id: "Pameran teknologi perkapalan rakyat terintegrasi Unibox All-in-One dan forum dialog kemitraan bersama dinas perikanan serta koperasi nelayan se-Jawa Timur.",
       en: "Showcasing Unibox All-in-One integrated small-boat tech and a partnership forum with fisheries agencies and cooperatives across East Java.",
@@ -267,7 +267,7 @@ export const activitiesData: ActivityItem[] = [
       name: "Tim Pengujian Lapangan",
       role: { id: "Divisi Konservasi Termal", en: "Thermal Conservation Division" },
     },
-    image: "/images/unibox-port-cold-storage.jpg",
+    image: "/images/unibox-harbor-action.jpg",
     summary: {
       id: "Uji pelayaran nyata bersama kapal motor 5 GT berhasil membuktikan stabilitas pendinginan -10°C selama 48 jam pelayaran penuh tanpa membeli es batu balok.",
       en: "A real sea trial with 5 GT motorboats successfully verified -10°C refrigeration stability across a 48-hour continuous voyage without ice blocks.",
@@ -317,7 +317,7 @@ export const activitiesData: ActivityItem[] = [
       name: "Tim Mekanik Unibox",
       role: { id: "Divisi Manufaktur & Modul", en: "Manufacturing & Modular Division" },
     },
-    image: "/images/unibox-harbor-aerial.jpg",
+    image: "/images/unibox-deck-closeup.jpg",
     summary: {
       id: "Pemasangan langsung braket modular flywheel pada mesin Dongfeng dan Yanmar milik nelayan setempat dengan durasi perakitan kurang dari 45 menit per kapal.",
       en: "Direct modular flywheel bracket installation on local Dongfeng and Yanmar diesel engines, completed in under 45 minutes per vessel.",
@@ -416,7 +416,7 @@ export const activitiesData: ActivityItem[] = [
       name: "Tim Riset & Rekayasa Unibox",
       role: { id: "Divisi Konservasi Termal", en: "Thermal Conservation Division" },
     },
-    image: "/images/unibox-product-detail.jpg",
+    image: "/images/unibox-deck-closeup.jpg",
     summary: {
       id: "Pengujian operasional pelayaran 48 jam membuktikan kestabilan suhu kompresi R32 pada rentang 0°C hingga -10°C, menjaga kualitas ikan tetap segar tanpa es batu balok.",
       en: "A 48-hour operational voyage trial verified R32 compression temperature stability between 0°C and -10°C, preserving fish freshness without block ice.",
@@ -481,7 +481,7 @@ export const activitiesData: ActivityItem[] = [
       name: "Tim Lapangan Unibox",
       role: { id: "Pemberdayaan Nelayan", en: "Fisher Empowerment" },
     },
-    image: "/images/unibox-harbor-aerial.jpg",
+    image: "/images/unibox-boat-hero.jpg",
     summary: {
       id: "Tim teknis Unibox mendemonstrasikan perakitan modul flywheel generator dan dudukan bodi stainless steel 100L di hadapan puluhan pemilik armada perahu.",
       en: "Unibox technical engineers demonstrated flywheel generator installation and 100L stainless cool box mounting for dozens of boat owners.",
@@ -591,7 +591,7 @@ export const activitiesData: ActivityItem[] = [
       name: "Tim Rekayasa Material Unibox",
       role: { id: "Divisi Manufaktur", en: "Manufacturing Division" },
     },
-    image: "/images/unibox-port-cold-storage.jpg",
+    image: "/images/unibox-deck-closeup.jpg",
     summary: {
       id: "Pengujian ketahanan material stainless steel food-grade pada paparan salinitas tinggi membuktikan masa pakai unit yang tahan bertahun-tahun di lingkungan maritim.",
       en: "High-salinity testing of food-grade marine stainless steel confirmed multi-year durability in harsh maritime environments.",
@@ -636,7 +636,7 @@ export const activitiesData: ActivityItem[] = [
       name: "Tim Desain & Keselamatan",
       role: { id: "Divisi Rekayasa Dek", en: "Deck Engineering Division" },
     },
-    image: "/images/unibox-harbor-aerial.jpg",
+    image: "/images/unibox-night-lighting.jpg",
     summary: {
       id: "Sistem penerangan LED terintegrasi dari tenaga flywheel memberikan visibilitas dek yang aman di tengah gelombang malam hari tanpa boros daya.",
       en: "Integrated waterproof LED lighting powered by flywheel conversion delivers safe deck illumination during nighttime voyages without heavy energy draw.",
@@ -719,7 +719,7 @@ export const upcomingEventsData: UpcomingEventItem[] = [
   {
     id: "event-2",
     slug: "workshop-konservasi-termal-radar-sonar",
-    image: "/images/unibox-fishermen.jpg",
+    image: "/images/assets_kapal.jpeg",
     day: "28",
     monthYear: "Apr 2026",
     tag: { id: "Workshop Nelayan", en: "Fisher Workshop" },
@@ -741,7 +741,7 @@ export const upcomingEventsData: UpcomingEventItem[] = [
   {
     id: "event-3",
     slug: "pameran-inovasi-kemaritiman-surabaya",
-    image: "/images/unibox-harbor-aerial.jpg",
+    image: "/images/unibox-boat-hero.jpg",
     day: "10",
     monthYear: "Mei 2026",
     tag: { id: "Pameran Inovasi", en: "Innovation Expo" },
@@ -780,7 +780,7 @@ export const pastEventsData: PastEventItem[] = [
       id: "Pengujian pelayaran nyata di laut terbuka membuktikan suhu konstan -10°C tetap stabil sepanjang perjalanan pelayaran 2 hari tanpa ketergantungan es balok.",
       en: "Live open sea trial proved continuous -10°C temperature stability across a 2-day voyage without dependency on melting block ice.",
     },
-    image: "/images/unibox-port-cold-storage.jpg",
+    image: "/images/unibox-harbor-action.jpg",
     tag: { id: "Uji Pelayaran", en: "Sea Trial" },
     outcome: {
       id: "Kualitas kesegaran ikan Grade-A dan peningkatan nilai jual 25% di pelelangan.",
@@ -804,7 +804,7 @@ export const pastEventsData: PastEventItem[] = [
       id: "Demonstrasi pemasangan modul generator flywheel pada 6 perahu nelayan tipe Dongfeng & Yanmar dengan durasi perakitan cepat di bawah 45 menit.",
       en: "Flywheel generator module installation demonstrated on 6 Dongfeng & Yanmar boats, completed in under 45 minutes each.",
     },
-    image: "/images/unibox-harbor-aerial.jpg",
+    image: "/images/unibox-deck-closeup.jpg",
     tag: { id: "Workshop Teknis", en: "Technical Workshop" },
     outcome: {
       id: "100% kompatibel tanpa perlu memodifikasi struktur rangka kayu kapal.",

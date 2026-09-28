@@ -10,19 +10,19 @@ import { useLanguage } from "@/context/language-context";
 const partnershipSteps = [
   {
     number: "01",
-    image: "/images/unibox-fishermen.jpg",
+    image: "/images/partnership1.jpg",
     title: { id: "Konsultasi dan Pemetaan Kebutuhan", en: "Consultation and Needs Assessment" },
     description: { id: "Diskusikan tipe perahu, rute berlayar, dan target kapasitas muat ikan yang ingin dijaga kesegarannya.", en: "Provide your boat type, sailing duration, and the target catch volume you need kept fresh." }
   },
   {
     number: "02",
-    image: "/images/unibox-harbor-aerial.jpg",
+    image: "/images/unibox-boat-hero.jpg",
     title: { id: "Survei & Perancangan", en: "Survey & Configuration" },
     description: { id: "Tim teknis Unibox menganalisis kelistrikan flywheel perahu dan mengonfigurasi unit pendingin 100L agar terpasang presisi.", en: "Our technical team inspects flywheel electrical output and configures the 100L cooling unit for a precision fit." }
   },
   {
     number: "03",
-    image: "/images/unibox-port-cold-storage.jpg",
+    image: "/images/assets_kapal.jpeg",
     title: { id: "Implementasi & Pendampingan", en: "Deployment & Training" },
     description: { id: "Pemasangan unit langsung di perahu, pengujian performa refrigeran R32, serta pendampingan hingga perahu siap berlayar.", en: "Direct harbor installation, R32 refrigerant performance testing, and full on-site training until your vessel is voyage-ready." }
   },

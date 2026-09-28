@@ -114,9 +114,12 @@ export function ImageUploader({ value, onChange }: ImageUploaderProps) {
   };
 
   const defaultPresets = [
-    { label: "Pelabuhan & Cold Storage", path: "/images/unibox-port-cold-storage.jpg" },
-    { label: "Nelayan & Hasil Tangkap", path: "/images/unibox-nelayan-brondong.jpg" },
-    { label: "Inspeksi Teknisi Kapal", path: "/images/unibox-hero-2.png" },
+    { label: "Kapal Armada Unibox", path: "/images/assets_kapal.jpeg" },
+    { label: "Unibox di Perahu (Hero)", path: "/images/unibox-boat-hero.jpg" },
+    { label: "Detail Cool Box Dek", path: "/images/unibox-deck-closeup.jpg" },
+    { label: "Perahu & Pelabuhan", path: "/images/unibox-harbor-action.jpg" },
+    { label: "Tangkapan Segar Nelayan", path: "/images/unibox-fishermen.jpg" },
+    { label: "Penerangan LED Malam", path: "/images/unibox-night-lighting.jpg" },
   ];
 
   return (

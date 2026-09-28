@@ -16,7 +16,7 @@ interface SlideItem {
   href: string;
 }
 
-// 3 Slides di Hero (termasuk video)
+// 3 Slides di Hero (Slide 1 & Slide 3 video tanpa suara, Slide 2 foto otentik perahu)
 const slides: SlideItem[] = [
   {
     type: "video",
@@ -32,8 +32,8 @@ const slides: SlideItem[] = [
   },
   {
     type: "image",
-    src: "/images/unibox-fishermen.jpg",
-    alt: { id: "Nelayan dan perahu perikanan pesisir", en: "Fishers and coastal fishing boat" },
+    src: "/images/assets_kapal.jpeg",
+    alt: { id: "Kapal armada nelayan terintegrasi teknologi pendingin Unibox", en: "Fishermen vessel fleet integrated with Unibox cooling technology" },
     headline: {
       id: "Memberdayakan Nelayan Pesisir dengan Teknologi",
       en: "Empowering Coastal Fishers with Technology",
@@ -42,9 +42,10 @@ const slides: SlideItem[] = [
     href: "/activities",
   },
   {
-    type: "image",
-    src: "/images/unibox-harbor-aerial.jpg",
-    alt: { id: "Pelabuhan dan ekosistem rantai dingin", en: "Harbor and cold-chain ecosystem" },
+    type: "video",
+    src: "/videos/C7614.MP4",
+    poster: "/videos/c7614_poster.jpg",
+    alt: { id: "Video operasional unit pendingin Unibox di atas perahu nelayan", en: "Operational video of Unibox cooling unit aboard fishing boat" },
     headline: {
       id: "Menghasilkan Listrik Mandiri dari Putaran Mesin Perahu",
       en: "Generating Electricity Independently from Boat Engine Rotation",
@@ -56,28 +57,31 @@ const slides: SlideItem[] = [
 
 export function HeroSection() {
   const [activeSlide, setActiveSlide] = useState(0);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
-  // Auto-play, durasi video 10 detik, dan slide looping
+  // Auto-play, sinkronisasi video tanpa suara (muted), dan perputaran slide
   useEffect(() => {
-    // Slide 0: Video diputar selama 10 detik
-    if (activeSlide === 0) {
-      if (videoRef.current) {
-        videoRef.current.currentTime = 0;
-        videoRef.current.play().catch(() => {
-          // Gracefully handle jika browser membatasi autoplay
+    const currentSlide = slides[activeSlide];
+
+    if (currentSlide.type === "video") {
+      const vid = videoRefs.current[activeSlide];
+      if (vid) {
+        vid.currentTime = 0;
+        vid.play().catch(() => {
+          // Browser autoplay restriction fallback
         });
       }
 
-      // Durasi video diset tepat 10 detik
+      // Durasi pemutaran video per slide
+      const duration = activeSlide === 2 ? 8000 : 10000;
       const videoTimer = window.setTimeout(() => {
-        setActiveSlide(1);
-      }, 10000);
+        setActiveSlide((current) => (current + 1) % slides.length);
+      }, duration);
 
       return () => window.clearTimeout(videoTimer);
     }
 
-    // Slide 1 & 2: Foto berdurasi 7 detik
+    // Slide gambar berdurasi 7 detik
     const imageTimer = window.setTimeout(() => {
       setActiveSlide((current) => (current + 1) % slides.length);
     }, 7000);
@@ -85,9 +89,10 @@ export function HeroSection() {
     return () => window.clearTimeout(imageTimer);
   }, [activeSlide]);
 
-  const handleVideoEnded = () => {
-    // Jika video selesai sebelum 10 detik, langsung pindah ke slide berikutnya
-    setActiveSlide(1);
+  const handleVideoEnded = (index: number) => {
+    if (index === activeSlide) {
+      setActiveSlide((current) => (current + 1) % slides.length);
+    }
   };
 
   const slide = slides[activeSlide] ?? slides[0];
@@ -109,14 +114,16 @@ export function HeroSection() {
                 }`}
             >
               <video
-                ref={videoRef}
+                ref={(el) => {
+                  videoRefs.current[index] = el;
+                }}
                 src={s.src}
                 poster={s.poster}
                 autoPlay
                 muted
                 playsInline
                 preload="auto"
-                onEnded={handleVideoEnded}
+                onEnded={() => handleVideoEnded(index)}
                 className="absolute inset-0 size-full min-w-full min-h-full object-cover object-center pointer-events-none"
               />
             </div>

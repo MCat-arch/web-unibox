@@ -54,7 +54,7 @@ const features = [
       id: "Unibox bisa menghasilkan listrik sendiri dengan mengubah putaran flywheel mesin perahu menjadi energi listrik. Nelayan tidak lagi bergantung pada accu motor yang boros biaya dan mudah rusak.",
       en: "Unibox generates its own electricity by converting the rotation of the boat engine's flywheel into electrical power. Fishers no longer depend on expensive and fragile motorcycle batteries.",
     },
-    image: "/images/unibox-fishermen.jpg",
+    image: "/images/assets_kapal.jpeg",
     customVisual: false,
   },
   {
@@ -80,7 +80,7 @@ const features = [
       id: "Dirancang dengan kotak berinsulasi rapat ganda bervolume hingga 100 liter. Menjaga suhu stabil selama hari-hari melaut, bodi kokoh tahan ombak, dan sangat praktis ditempatkan di perahu nelayan.",
       en: "Engineered with a dual high-density insulated box holding up to 100 liters. Maintains thermal stability during long fishing trips, rugged against ocean conditions, and easily fits aboard fishing boats.",
     },
-    image: "/images/unibox-port-cold-storage.jpg",
+    image: "/images/unibox-deck-closeup.jpg",
     customVisual: false,
   },
   {
@@ -106,7 +106,7 @@ const features = [
       id: "Menggunakan teknologi Light Emitting Diode (LED) yang rendah daya, terang, dan tahan lama, serta pemberian pelindung tahan air membuat proses penerangan pada perahu menjadi lebih optimal, murah, tahan lama, dan efisien.",
       en: "Utilizing low-power, high-brightness, and long-lasting Light Emitting Diode (LED) technology with waterproof marine enclosures, making nighttime boat illumination optimal, affordable, and durable.",
     },
-    image: "/images/unibox-harbor-aerial.jpg",
+    image: "/images/unibox-night-lighting.jpg",
     customVisual: false,
   },
 ];

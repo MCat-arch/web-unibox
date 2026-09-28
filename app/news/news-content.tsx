@@ -75,7 +75,7 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           {/* Breadcrumb Navigation */}
           <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-500 mb-8 sm:mb-12">
-            <Link href="/" className="hover:text-blue-600 transition-colors">
+            <Link href="/" className=" transition-colors">
               <Text>{{ id: "Beranda", en: "Home" }}</Text>
             </Link>
             <ChevronRight className="size-3.5 text-slate-400" />
@@ -126,7 +126,7 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
               <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-[1.2] tracking-tight">
                 <Link
                   href={`/news/${featuredEvent.slug}`}
-                  className="transition-colors hover:text-blue-700"
+                  className="transition-colors"
                 >
                   {featuredEvent.title[language]}
                 </Link>
@@ -191,7 +191,7 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
 
                 <Link
                   href={`/news/${featuredEvent.slug}`}
-                  className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-blue-700 hover:text-blue-800 transition-colors"
+                  className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-blue-700 transition-colors"
                 >
                   <span className="border-b-2 border-blue-700 pb-0.5">
                     {isBlog ? (

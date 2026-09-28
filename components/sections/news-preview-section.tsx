@@ -12,7 +12,7 @@ import type { ActivityItem } from "@/lib/activities-data";
 const defaultActivities = [
   {
     slug: "demo-coolbox-flywheel-pelabuhan-brondong",
-    image: "/images/unibox-port-cold-storage.jpg",
+    image: "/images/unibox-deck-closeup.jpg",
     date: { id: "15 April 2026", en: "April 15, 2026" },
     title: {
       id: "Demo Pemasangan Modular Cool Box 100L & Flywheel di Pelabuhan Brondong",
@@ -21,7 +21,7 @@ const defaultActivities = [
   },
   {
     slug: "uji-coba-pendingin-r32-perahu-nelayan",
-    image: "/images/unibox-product-detail.jpg",
+    image: "/images/assets_kapal.jpeg",
     date: { id: "25 Maret 2026", en: "March 25, 2026" },
     title: {
       id: "Uji Coba Pendingin R32 & Kestabilan Suhu Ikan di Perahu Nelayan",

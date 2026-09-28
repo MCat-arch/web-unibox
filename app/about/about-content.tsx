@@ -16,6 +16,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/text";
 import { useLanguage } from "@/context/language-context";
+import {
+  WavePattern,
+  ScalePattern,
+  WaveTilePattern,
+  DotGridPattern,
+  WaveDivider,
+} from "@/components/ui/marine-patterns";
 
 const keySpecs = [
   {
@@ -156,29 +163,68 @@ export function AboutContent() {
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* ========================================================
-          TOP SECTION: WHITE BACKGROUND with Breadcrumb and Friendly Header
+          TOP SECTION: RICH OCEAN BLUE HEADER — Multi-layer ornaments
       ======================================================== */}
-      <section className="relative pt-28 pb-14 sm:pt-32 sm:pb-18 bg-white border-b border-slate-200/80">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+      <section className="relative pt-28 pb-0 sm:pt-32 overflow-hidden"
+        style={{
+          background: "linear-gradient(160deg, #003d7a 0%, #0070ba 45%, #0096e0 100%)",
+        }}
+      >
+        {/* === Layer 1: Radial glow center === */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 60% at 60% 30%, rgba(56,182,255,0.25) 0%, transparent 70%)",
+          }}
+        />
+
+        {/* === Layer 2: Dot grid texture top-right === */}
+        <div className="absolute top-10 right-10 opacity-20 pointer-events-none hidden lg:block">
+          <DotGridPattern className="text-sky-200" />
+        </div>
+
+        {/* === Layer 3: Large wave tile background texture === */}
+        <div className="absolute left-0 bottom-12 opacity-[0.08] pointer-events-none w-full overflow-hidden">
+          <WaveTilePattern className="text-white w-full" />
+        </div>
+        <div className="absolute left-0 top-8 opacity-[0.06] pointer-events-none w-full overflow-hidden hidden md:block">
+          <WaveTilePattern className="text-sky-200 w-full" />
+        </div>
+
+        {/* === Layer 4: Scale ornament left === */}
+        <div className="absolute -left-1 top-20 opacity-20 pointer-events-none hidden lg:block scale-[2] origin-top-left">
+          <ScalePattern className="text-sky-300" />
+        </div>
+
+        {/* === Layer 5: Wave stroke ornament right === */}
+        <div className="absolute right-6 top-28 opacity-30 pointer-events-none hidden md:block scale-[3] origin-top-right">
+          <WavePattern className="text-sky-200" />
+        </div>
+
+
+        {/* === Content === */}
+        <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pb-20 sm:pb-28">
           {/* Breadcrumb Navigation */}
-          <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-500 mb-6 sm:mb-8">
-            <Link href="/" className="hover:text-blue-600 transition-colors">
+          <nav className="flex items-center gap-2 text-xs sm:text-sm text-sky-100/80 mb-6 sm:mb-8">
+            <Link href="/" className="hover:text-white transition-colors">
               <Text>{{ id: "Beranda", en: "Home" }}</Text>
             </Link>
-            <ChevronRight className="size-3.5 text-slate-400" />
-            <span className="font-semibold text-blue-900">
+            <ChevronRight className="size-3.5 text-sky-300" />
+            <span className="font-semibold text-white">
               <Text>{{ id: "Tentang Kami", en: "About Us" }}</Text>
             </span>
           </nav>
 
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 mb-3">
-              <span className="h-5 w-1 rounded-full bg-blue-600 shadow-sm shadow-blue-600/40" />
-              <span className="text-xs font-bold tracking-wider uppercase text-blue-700">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <span className="h-5 w-1 rounded-full bg-amber-400 shadow-sm shadow-amber-400/50" />
+              <span className="text-xs font-bold tracking-widest uppercase text-amber-300">
                 <Text>{{ id: "Tentang Unibox", en: "About Unibox" }}</Text>
               </span>
             </div>
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
               <Text>
                 {{
                   id: "Inovasi Teknologi Kemaritiman untuk Nelayan Indonesia",
@@ -186,7 +232,7 @@ export function AboutContent() {
                 }}
               </Text>
             </h1>
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+            <p className="mt-5 text-base sm:text-lg text-sky-100/90 leading-relaxed font-normal max-w-2xl">
               <Text>
                 {{
                   id: "Unibox adalah inovasi teknologi kemaritiman yang dirancang untuk meningkatkan efektivitas dan produktivitas nelayan dalam mencari ikan serta menjaga kesegaran hasil tangkapan di laut.",
@@ -194,18 +240,37 @@ export function AboutContent() {
                 }}
               </Text>
             </p>
+            {/* Stat pills */}
+            <div className="mt-8 flex flex-wrap gap-3">
+              {[
+                { val: "-10°C", label: { id: "Pendinginan", en: "Cooling" } },
+                { val: "100 L", label: { id: "Kapasitas", en: "Capacity" } },
+                { val: "100 m", label: { id: "Sonar Radar", en: "Sonar Radar" } },
+                { val: "30%", label: { id: "Hemat Solar", en: "Fuel Saved" } },
+              ].map((s) => (
+                <div key={s.val} className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-2">
+                  <span className="font-display text-lg font-bold text-amber-300">{s.val}</span>
+                  <span className="text-xs text-sky-100 font-medium"><Text>{s.label}</Text></span>
+                </div>
+              ))}
+            </div>
           </div>
+        </div>
+
+        {/* === Wave divider transitioning to white/slate body === */}
+        <div className="relative w-full -mb-px">
+          <WaveDivider className="w-full h-12 sm:h-16 text-slate-50" />
         </div>
       </section>
 
       {/* Engineering Philosophy: Konversi Energi & Konservasi Termal */}
-      <section className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 py-16 sm:py-24">
+      <section className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 py-14 sm:py-20 lg:py-28">
         <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
           {/* Photo / Visual */}
           <div className="lg:col-span-6 relative aspect-[16/11] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-blue-950/10">
             <Image
-              src="/images/unibox-fishermen.jpg"
-              alt="Nelayan mitra Unibox di atas perahu"
+              src="/images/unibox-boat-hero.jpg"
+              alt="Unit pendingin Unibox di atas perahu nelayan"
               fill
               className="object-cover"
               sizes="(min-width: 1024px) 50vw, 100vw"
@@ -262,90 +327,8 @@ export function AboutContent() {
         </div>
       </section>
 
-      {/* 4 Key Physical & Electrical Specifications */}
-      <section className="bg-white py-16 sm:py-20 border-y border-slate-200/80">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
-              <Text>{{ id: "Spesifikasi Teknis Resmi Unibox", en: "Official Unibox Technical Specifications" }}</Text>
-            </h2>
-            <p className="mt-2.5 text-xs sm:text-sm text-slate-600">
-              <Text>
-                {{
-                  id: "Konfigurasi teruji laboratorium dan uji coba lapangan di perahu nelayan pesisir.",
-                  en: "Laboratory-verified and field-tested configuration aboard coastal fishing boats.",
-                }}
-              </Text>
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-            {keySpecs.map((spec, idx) => (
-              <div
-                key={idx}
-                className="rounded-2xl border border-slate-200/90 bg-slate-50/80 p-4 sm:p-6 shadow-xs text-center"
-              >
-                <span className="block font-display text-2xl sm:text-4xl font-extrabold text-blue-700">
-                  {spec.value}
-                </span>
-                <span className="block text-xs sm:text-sm font-bold text-slate-900 mt-1.5 sm:mt-2">
-                  <Text>{spec.label}</Text>
-                </span>
-                <span className="block text-[11px] sm:text-xs text-slate-500 mt-1 leading-snug">
-                  <Text>{spec.desc}</Text>
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4 Core Integrated Advantages */}
-      <section className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 py-16 sm:py-24">
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 mb-3">
-            <span className="h-5 w-1 rounded-full bg-blue-600 shadow-sm shadow-blue-600/40" />
-            <span className="text-xs font-bold tracking-wider uppercase text-blue-700">
-              <Text>{{ id: "Fitur Unggulan", en: "Core Advantages" }}</Text>
-            </span>
-          </div>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 leading-tight">
-            <Text>{{ id: "Keunggulan Sistem Rekayasa Unibox", en: "Unibox Engineering System Advantages" }}</Text>
-          </h2>
-          <p className="mt-3 text-sm sm:text-base text-slate-600">
-            <Text>
-              {{
-                id: "Empat pilar keunggulan teknologi yang mengubah perahu tradisional menjadi armada modern.",
-                en: "Four technological pillars turning traditional boats into modern fishing fleets.",
-              }}
-            </Text>
-          </p>
-        </div>
-
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {coreAdvantages.map((adv) => (
-            <div
-              key={adv.number}
-              className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-xs flex flex-col justify-between"
-            >
-              <div>
-                <span className="grid size-10 place-items-center rounded-xl bg-blue-600 font-display text-sm font-bold text-white shadow-md shadow-blue-600/30">
-                  {adv.number}
-                </span>
-                <h3 className="mt-4 font-display text-lg font-bold text-slate-900 leading-snug">
-                  <Text>{adv.title}</Text>
-                </h3>
-                <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600">
-                  <Text>{adv.description}</Text>
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Head-to-Head Comparison: Conventional vs Unibox */}
-      <section className="bg-white py-16 sm:py-24 border-t border-slate-200">
+      <section className="bg-white py-14 sm:py-20 lg:py-28 border-t border-slate-200">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <div className="inline-flex items-center gap-2 mb-3">
@@ -488,8 +471,90 @@ export function AboutContent() {
         </div>
       </section>
 
+      {/* 4 Core Integrated Advantages */}
+      <section className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 py-14 sm:py-20 lg:py-28">
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 mb-3">
+            <span className="h-5 w-1 rounded-full bg-blue-600 shadow-sm shadow-blue-600/40" />
+            <span className="text-xs font-bold tracking-wider uppercase text-blue-700">
+              <Text>{{ id: "Fitur Unggulan", en: "Core Advantages" }}</Text>
+            </span>
+          </div>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 leading-tight">
+            <Text>{{ id: "Keunggulan Sistem Rekayasa Unibox", en: "Unibox Engineering System Advantages" }}</Text>
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-slate-600">
+            <Text>
+              {{
+                id: "Empat pilar keunggulan teknologi yang mengubah perahu tradisional menjadi armada modern.",
+                en: "Four technological pillars turning traditional boats into modern fishing fleets.",
+              }}
+            </Text>
+          </p>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {coreAdvantages.map((adv) => (
+            <div
+              key={adv.number}
+              className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-xs flex flex-col justify-between"
+            >
+              <div>
+                <span className="grid size-10 place-items-center rounded-xl bg-blue-600 font-display text-sm font-bold text-white shadow-md shadow-blue-600/30">
+                  {adv.number}
+                </span>
+                <h3 className="mt-4 font-display text-lg font-bold text-slate-900 leading-snug">
+                  <Text>{adv.title}</Text>
+                </h3>
+                <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600">
+                  <Text>{adv.description}</Text>
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 4 Key Physical & Electrical Specifications */}
+      <section className="bg-white py-14 sm:py-20 border-y border-slate-200/80">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+              <Text>{{ id: "Spesifikasi Teknis Resmi Unibox", en: "Official Unibox Technical Specifications" }}</Text>
+            </h2>
+            <p className="mt-2.5 text-xs sm:text-sm text-slate-600">
+              <Text>
+                {{
+                  id: "Konfigurasi teruji laboratorium dan uji coba lapangan di perahu nelayan pesisir.",
+                  en: "Laboratory-verified and field-tested configuration aboard coastal fishing boats.",
+                }}
+              </Text>
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+            {keySpecs.map((spec, idx) => (
+              <div
+                key={idx}
+                className="rounded-2xl border border-slate-200/90 bg-slate-50/80 p-4 sm:p-6 shadow-xs text-center"
+              >
+                <span className="block font-display text-2xl sm:text-4xl font-extrabold text-blue-700">
+                  {spec.value}
+                </span>
+                <span className="block text-xs sm:text-sm font-bold text-slate-900 mt-1.5 sm:mt-2">
+                  <Text>{spec.label}</Text>
+                </span>
+                <span className="block text-[11px] sm:text-xs text-slate-500 mt-1 leading-snug">
+                  <Text>{spec.desc}</Text>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA Collaboration Banner */}
-      <section className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 py-16 sm:py-20">
+      <section className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 py-14 sm:py-20 lg:py-24">
         <div className="flex flex-col justify-between gap-6 rounded-3xl bg-gradient-to-r from-[#092644] to-[#0d3b68] p-8 sm:p-12 text-white shadow-2xl shadow-blue-950/30 sm:flex-row sm:items-center">
           <div className="max-w-xl">
             <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-white">
