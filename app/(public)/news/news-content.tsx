@@ -49,205 +49,213 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
           1. Event / Artikel Utama Paling Atas (Layout 2-Kolom)
           2. Upcoming Events Lainnya di Bawahnya (Card Memanjang)
       ======================================================== */}
-      <section className="relative pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24 bg-white overflow-hidden">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-          {/* Breadcrumb Navigation */}
-          <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-500 mb-8 sm:mb-12">
-            <Link href="/" className=" transition-colors">
-              <Text>{{ id: "Beranda", en: "Home" }}</Text>
-            </Link>
-            <ChevronRight className="size-3.5 text-slate-400" />
-            <span className="font-semibold text-blue-900">
-              <Text>{{ id: "Aktivitas", en: "Events" }}</Text>
-            </span>
-          </nav>
+     // ========================================================
+<section className="relative pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24 bg-white overflow-hidden">
+  <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 w-full max-w-full">
+    {/* Breadcrumb Navigation */}
+    <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-500 mb-8 sm:mb-12 overflow-x-auto">
+      <Link href="/" className="transition-colors shrink-0">
+        <Text>{{ id: "Beranda", en: "Home" }}</Text>
+      </Link>
+      <ChevronRight className="size-3.5 text-slate-400 shrink-0" />
+      <span className="font-semibold text-blue-900 shrink-0">
+        <Text>{{ id: "Aktivitas", en: "Events" }}</Text>
+      </span>
+    </nav>
 
-          {/* 1. Event / Artikel Utama 2-Kolom di Atas */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-            {/* Kiri: Foto Besar Event / Artikel */}
-            <div className="lg:col-span-6 xl:col-span-6">
-              <Link href={`/news/${featuredEvent.slug}`} className="group block relative">
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl bg-slate-100 shadow-xl shadow-slate-200/80 border border-slate-100">
-                  <Image
-                    src={featuredEvent.image}
-                    alt={featuredEvent.title[language]}
-                    fill
-                    priority
-                    className="object-cover"
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                  />
-                  {/* Badge Highlight */}
-                  <div
-                    className={`absolute top-4 left-4 ${
-                      isBlog ? "bg-blue-600 text-white" : "bg-amber-500 text-slate-950"
-                    } font-black text-xs px-3.5 py-1.5 rounded-full shadow-md uppercase tracking-wider`}
-                  >
-                    {isBlog ? (
-                      <Text>{{ id: "Artikel & Wawasan Pilihan", en: "Featured Article" }}</Text>
-                    ) : (
-                      <Text>{{ id: "Kegiatan Mendatang", en: "Upcoming Event" }}</Text>
-                    )}
-                  </div>
-                  <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-sm">
-                    {/* <span className="text-xs font-black tracking-widest text-blue-900 uppercase">
-                      UNIBOX
-                    </span> */}
-                  </div>
-                </div>
-              </Link>
-            </div>
-
-            {/* Kanan: Informasi Event / Artikel Utama */}
-            <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center">
-
-              {/* Title */}
-              <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-[1.2] tracking-tight">
-                <Link
-                  href={`/news/${featuredEvent.slug}`}
-                  className="transition-colors"
-                >
-                  {featuredEvent.title[language]}
-                </Link>
-              </h1>
-
-              {/* Box Info Logistik Event - HANYA TAMPIL JIKA BUKAN ARTIKEL BLOG */}
-              {!isBlog ? (
-                <div className="mt-5 rounded-2xl bg-slate-50 border border-slate-200/80 p-4 space-y-2.5">
-                  <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700 font-semibold">
-                    <Calendar className="size-4 text-blue-600 shrink-0" />
-                    <span>{featuredEvent.date[language]}</span>
-                    {featuredEvent.time && (
-                      <>
-                        <span className="text-slate-300">|</span>
-                        <Clock className="size-3.5 text-slate-500" />
-                        <span className="text-slate-600 font-normal">{featuredEvent.time[language]}</span>
-                      </>
-                    )}
-                  </div>
-
-                  {featuredEvent.location && (
-                    <div className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                      <MapPin className="size-4 text-red-500 shrink-0 mt-0.5" />
-                      <span className="font-medium text-slate-800">{featuredEvent.location[language]}</span>
-                    </div>
-                  )}
-
-                  <div className="flex items-center gap-2 pt-1 text-[11px] text-slate-500 border-t border-slate-200/60 font-medium">
-                    <Info className="size-3.5 text-blue-600 shrink-0" />
-                    <Text>
-                      {{
-                        id: "Informasi terbuka bagi seluruh nelayan & mitra. Tanpa biaya atau pendaftaran.",
-                        en: "Open public information for fishers & partners. No registration needed.",
-                      }}
-                    </Text>
-                  </div>
-                </div>
+    {/* 1. Event / Artikel Utama 2-Kolom di Atas */}
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+      {/* Kiri: Foto Besar Event / Artikel */}
+      <div className="lg:col-span-6 xl:col-span-6">
+        <Link href={`/news/${featuredEvent.slug}`} className="group block relative">
+          <div className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl bg-slate-100 shadow-xl shadow-slate-200/80 border border-slate-100">
+            <Image
+              src={featuredEvent.image}
+              alt={featuredEvent.title[language]}
+              fill
+              priority
+              className="object-cover"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+            />
+            {/* Badge Highlight */}
+            <div
+              className={`absolute top-4 left-4 ${
+                isBlog ? "bg-blue-600 text-white" : "bg-amber-500 text-slate-950"
+              } font-black text-xs px-3.5 py-1.5 rounded-full shadow-md uppercase tracking-wider`}
+            >
+              {isBlog ? (
+                <Text>{{ id: "Artikel & Wawasan Pilihan", en: "Featured Article" }}</Text>
               ) : (
-                /* Badge Kategori untuk Blog */
-                <div className="mt-3.5 flex items-center gap-2">
-                  <span className="inline-block text-xs font-semibold px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100">
-                    {featuredEvent.category[language]}
-                  </span>
-                </div>
+                <Text>{{ id: "Kegiatan Mendatang", en: "Upcoming Event" }}</Text>
               )}
-
-              {/* Summary */}
-              <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
-                {featuredEvent.summary[language]}
-              </p>
-
-              {/* Action Link */}
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                <div className="text-xs text-slate-500 font-medium">
-                  {isBlog ? (
-                    <Text>{{ id: "Penulis:", en: "Author:" }}</Text>
-                  ) : (
-                    <Text>{{ id: "Penyelenggara:", en: "Organized by:" }}</Text>
-                  )}{" "}
-                  <span className="font-bold text-slate-800">{featuredEvent.author.name}</span>
-                </div>
-
-                <Link
-                  href={`/news/${featuredEvent.slug}`}
-                  className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-blue-700 transition-colors"
-                >
-                  <span className="border-b-2 border-blue-700 pb-0.5">
-                    {isBlog ? (
-                      <Text>{{ id: "Baca Artikel Lengkap", en: "Read Full Article" }}</Text>
-                    ) : (
-                      <Text>{{ id: "Lihat Informasi Lengkap", en: "View Event Details" }}</Text>
-                    )}
-                  </span>
-                  <ArrowRight className="size-4" />
-                </Link>
-              </div>
+            </div>
+            <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-sm">
+              {/* <span className="text-xs font-black tracking-widest text-blue-900 uppercase">
+                UNIBOX
+              </span> */}
             </div>
           </div>
+        </Link>
+      </div>
 
-          {/* 2. Upcoming Events Lainnya di Bawah Event Utama (Card Memanjang Horizontal - Gaya Landing Page) */}
-          <div className="mt-16 sm:mt-20 pt-12 border-t border-slate-200/80">
-            <div className="flex items-center justify-between mb-8">
-              <div className="inline-flex items-center gap-2.5">
-                <span className="h-5 w-1 rounded-full bg-blue-600 shadow-sm shadow-blue-600/40" />
-                <h3 className="font-display text-lg sm:text-xl font-bold text-slate-900">
-                  <Text>{{ id: "Agenda & Kegiatan Mendatang Lainnya", en: "Other Upcoming Events & Agenda" }}</Text>
-                </h3>
+      {/* Kanan: Informasi Event / Artikel Utama */}
+      <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center min-w-0">
+
+        {/* Title */}
+        <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-[1.2] tracking-tight break-words">
+          <Link
+            href={`/news/${featuredEvent.slug}`}
+            className="transition-colors"
+          >
+            {featuredEvent.title[language]}
+          </Link>
+        </h1>
+
+        {/* Box Info Logistik Event - HANYA TAMPIL JIKA BUKAN ARTIKEL BLOG */}
+        {!isBlog ? (
+          <div className="mt-5 rounded-2xl bg-slate-50 border border-slate-200/80 p-4 space-y-2.5">
+            <div className="flex flex-wrap items-center gap-2.5 text-xs sm:text-sm text-slate-700 font-semibold">
+              <Calendar className="size-4 text-blue-600 shrink-0" />
+              <span>{featuredEvent.date[language]}</span>
+              {featuredEvent.time && (
+                <>
+                  <span className="text-slate-300">|</span>
+                  <Clock className="size-3.5 text-slate-500 shrink-0" />
+                  <span className="text-slate-600 font-normal">{featuredEvent.time[language]}</span>
+                </>
+              )}
+            </div>
+
+            {featuredEvent.location && (
+              <div className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
+                <MapPin className="size-4 text-red-500 shrink-0 mt-0.5" />
+                <span className="font-medium text-slate-800 break-words">{featuredEvent.location[language]}</span>
               </div>
-              <span className="text-xs text-slate-500 font-medium hidden sm:inline-block">
-                <Text>{{ id: "Informasi Terbuka", en: "Open Information" }}</Text>
+            )}
+
+            <div className="flex items-center gap-2 pt-1 text-[11px] text-slate-500 border-t border-slate-200/60 font-medium">
+              <Info className="size-3.5 text-blue-600 shrink-0" />
+              <Text>
+                {{
+                  id: "Informasi terbuka bagi seluruh nelayan & mitra. Tanpa biaya atau pendaftaran.",
+                  en: "Open public information for fishers & partners. No registration needed.",
+                }}
+              </Text>
+            </div>
+          </div>
+        ) : (
+          /* Badge Kategori untuk Blog */
+          <div className="mt-3.5 flex items-center gap-2">
+            <span className="inline-block text-xs font-semibold px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100">
+              {featuredEvent.category[language]}
+            </span>
+          </div>
+        )}
+
+        {/* Summary */}
+        <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed break-words">
+          {featuredEvent.summary[language]}
+        </p>
+
+        {/* Action Link */}
+        <div className="mt-6 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+          <div className="text-xs text-slate-500 font-medium">
+            {isBlog ? (
+              <Text>{{ id: "Penulis:", en: "Author:" }}</Text>
+            ) : (
+              <Text>{{ id: "Penyelenggara:", en: "Organized by:" }}</Text>
+            )}{" "}
+            <span className="font-bold text-slate-800">{featuredEvent.author.name}</span>
+          </div>
+
+          <Link
+            href={`/news/${featuredEvent.slug}`}
+            className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-blue-700 transition-colors"
+          >
+            <span className="border-b-2 border-blue-700 pb-0.5">
+              {isBlog ? (
+                <Text>{{ id: "Baca Artikel Lengkap", en: "Read Full Article" }}</Text>
+              ) : (
+                <Text>{{ id: "Lihat Informasi Lengkap", en: "View Event Details" }}</Text>
+              )}
+            </span>
+            <ArrowRight className="size-4 shrink-0" />
+          </Link>
+        </div>
+      </div>
+    </div>
+
+    {/* 2. Upcoming Events Lainnya di Bawah Event Utama */}
+    <div className="mt-16 sm:mt-20 pt-12 border-t border-slate-200/80">
+      <div className="flex items-center justify-between mb-8">
+        <div className="inline-flex items-center gap-2.5">
+          <span className="h-5 w-1 rounded-full bg-blue-600 shadow-sm shadow-blue-600/40 shrink-0" />
+          <h3 className="font-display text-lg sm:text-xl font-bold text-slate-900">
+            <Text>{{ id: "Agenda & Kegiatan Mendatang Lainnya", en: "Other Upcoming Events & Agenda" }}</Text>
+          </h3>
+        </div>
+        <span className="text-xs text-slate-500 font-medium hidden sm:inline-block">
+          <Text>{{ id: "Informasi Terbuka", en: "Open Information" }}</Text>
+        </span>
+      </div>
+
+      {/* Grid Kartu Horizontal */}
+      <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
+        {upcomingEventsData.map((item) => (
+          <article key={item.id} className="flex flex-col min-w-0 w-full">
+            {/* Date Header */}
+            <div className="flex items-center gap-2 mb-2.5 px-1">
+              <Calendar className="size-3.5 text-blue-600 shrink-0" />
+              <span className="text-xs sm:text-sm font-bold text-slate-700">
+                {item.day} {item.monthYear}
               </span>
             </div>
 
-            {/* Grid Kartu Memanjang Horizontal */}
-            <div className="grid gap-6 md:grid-cols-2">
-              {upcomingEventsData.map((item) => (
-                <article key={item.id} className="flex flex-col">
-                  {/* Date Header (Hanya Tanggal, Tanpa Kategori) */}
-                  <div className="flex items-center gap-2 mb-2.5 px-1">
-                    <Calendar className="size-3.5 text-blue-600" />
-                    <span className="text-xs sm:text-sm font-bold text-slate-700">
-                      {item.day} {item.monthYear}
-                    </span>
-                  </div>
+            {/* Horizontal Card Box - Dibuat Responsive untuk Layar HP Sangat Sempit */}
+            <Link
+              href={`/news/${item.slug || featuredEvent.slug}`}
+              prefetch={false}
+              className="group min-w-0 w-full flex items-center gap-3 sm:gap-5 rounded-2xl bg-[#092644] p-3 sm:p-5 text-white shadow-md shadow-blue-950/15 border border-blue-900/40 cursor-pointer overflow-hidden"
+            >
+              {/* Gambar / Aspect Ratio Container */}
+              <div className="relative aspect-[4/3] w-20 min-w-[80px] sm:w-36 md:w-40 shrink-0 overflow-hidden rounded-xl bg-slate-800">
+                <Image
+                  src={item.image}
+                  alt={item.title[language]}
+                  fill
+                  loading="lazy"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  sizes="(min-width: 640px) 160px, 80px"
+                />
+              </div>
 
-                  {/* Horizontal Card Box */}
-                  <Link
-                    href={`/news/${item.slug || featuredEvent.slug}`}
-                    prefetch={false}
-                    className="min-w-0 flex min-h-28 w-full sm:min-h-36 items-center gap-3.5 sm:gap-5 rounded-2xl bg-[#092644] p-3.5 sm:p-5 text-white shadow-md shadow-blue-950/15 border border-blue-900/40 group cursor-pointer"
-                  >
-                    <div className="relative aspect-[4/3] w-24 sm:w-36 md:w-40 shrink-0 overflow-hidden rounded-xl bg-slate-800">
-                      <Image
-                        src={item.image}
-                        alt={item.title[language]}
-                        fill
-                        loading="lazy"
-                        className="object-cover"
-                        sizes="(min-width: 640px) 160px, 96px"
-                      />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      {item.time && (
-                        <div className="flex items-center gap-1.5 text-[11px] text-sky-300 font-medium mb-1.5">
-                          <Clock className="size-3 text-sky-400" />
-                          <span>{item.time[language]}</span>
-                        </div>
-                      )}
-                      <h4 className="font-display text-xs sm:text-base font-bold leading-snug text-white line-clamp-2">
-                        {item.title[language]}
-                      </h4>
-                      <p className="mt-2 text-xs text-slate-300 flex items-center gap-1.5 truncate">
-                        <MapPin className="size-3 text-red-400 shrink-0" />
-                        <span className="truncate">{item.location[language]}</span>
-                      </p>
-                    </div>
-                  </Link>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+              {/* Teks Informasi */}
+              <div className="min-w-0 flex-1">
+                {item.time && (
+                  <div className="flex items-center gap-1.5 text-[11px] text-sky-300 font-medium mb-1">
+                    <Clock className="size-3 text-sky-400 shrink-0" />
+                    <span className="truncate">{item.time[language]}</span>
+                  </div>
+                )}
+                
+                <h4 className="font-display text-xs sm:text-base font-bold leading-tight text-white line-clamp-2 break-words">
+                  {item.title[language]}
+                </h4>
+
+                <div className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-300 min-w-0">
+                  <MapPin className="size-3 text-red-400 shrink-0" />
+                  <span className="truncate min-w-0 text-[11px] sm:text-xs">
+                    {item.location[language]}
+                  </span>
+                </div>
+              </div>
+            </Link>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* ========================================================
           SEKSI BLOG: LATAR BIRU LAUT (3 Card per Row + Arrow Down)
