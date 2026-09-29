@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Archivo_Black, Hind } from "next/font/google";
 import "./globals.css";
-import { ConditionalLayout } from "@/components/layout/conditional-layout";
-import { Providers } from "@/components/providers";
 
 const archivoBlack = Archivo_Black({
   weight: "400",
@@ -55,11 +53,7 @@ export default function RootLayout({
       lang="id"
       className={`${archivoBlack.variable} ${hind.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground font-body">
-        <Providers>
-          <ConditionalLayout>{children}</ConditionalLayout>
-        </Providers>
-      </body>
+      <body className="min-h-full flex flex-col bg-background text-foreground font-body">{children}</body>
     </html>
   );
 }

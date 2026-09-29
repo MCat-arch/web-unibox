@@ -1,12 +1,12 @@
 "use server";
 
 import { z } from "zod";
+import type { Activity, ContentSection } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth/session";
 import { DbActivity } from "@/lib/supabase/types";
 import { activitiesData } from "@/lib/activities-data";
-import { hashPassword } from "@/lib/auth/password";
 import { translateIdToEn } from "@/lib/utils/translate";
 
 const sectionSchema = z.object({
@@ -17,6 +17,23 @@ const sectionSchema = z.object({
   body_en: z.string().optional(),
   order_index: z.number().default(0),
 });
+
+const imageReferenceSchema = z
+  .string()
+  .min(1, "Gambar URL wajib diisi")
+  .max(2_000_000, "Ukuran referensi gambar terlalu besar")
+  .refine((value) => {
+    if (value.startsWith("/images/") || value.startsWith("/videos/")) return true;
+    if (value.startsWith("data:image/")) {
+      return /^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(value);
+    }
+
+    try {
+      return new URL(value).protocol === "https:";
+    } catch {
+      return false;
+    }
+  }, "Referensi gambar harus berupa path lokal, URL HTTPS, atau data image yang valid");
 
 const activitySchema = z.object({
   slug: z.string().min(3).regex(/^[a-z0-9-]+$/, "Slug hanya boleh huruf kecil, angka, dan strip (-)"),
@@ -38,7 +55,7 @@ const activitySchema = z.object({
   author_name: z.string().min(1, "Nama penulis wajib diisi"),
   author_role_id: z.string().min(1, "Peran penulis ID wajib diisi"),
   author_role_en: z.string().optional(),
-  image: z.string().min(1, "Gambar URL wajib diisi"),
+  image: imageReferenceSchema,
   summary_id: z.string().min(1, "Ringkasan ID wajib diisi"),
   summary_en: z.string().optional(),
   intro_id: z.string().min(1, "Pengantar ID wajib diisi"),
@@ -55,7 +72,9 @@ const activitySchema = z.object({
 
 export type ActivityFormInput = z.infer<typeof activitySchema>;
 
-function mapToDbActivity(act: any): DbActivity {
+type ActivityWithSections = Activity & { sections: ContentSection[] };
+
+function mapToDbActivity(act: ActivityWithSections): DbActivity {
   return {
     id: act.id,
     slug: act.slug,
@@ -91,7 +110,7 @@ function mapToDbActivity(act: any): DbActivity {
     is_published: act.isPublished,
     created_at: act.createdAt instanceof Date ? act.createdAt.toISOString() : String(act.createdAt),
     updated_at: act.updatedAt instanceof Date ? act.updatedAt.toISOString() : String(act.updatedAt),
-    sections: (act.sections || []).map((s: any) => ({
+    sections: act.sections.map((s) => ({
       id: s.id,
       activity_id: s.activityId,
       heading_id: s.heading_id,
@@ -180,6 +199,11 @@ async function fillTranslations(input: ActivityFormInput) {
   };
 }
 
+async function requireSuperAdmin() {
+  const session = await getSession();
+  return session?.role === "superadmin" ? session : null;
+}
+
 // 1. Fetch seluruh aktivitas untuk Admin
 export async function getAdminActivities(): Promise<DbActivity[]> {
   const session = await getSession();
@@ -216,7 +240,7 @@ export async function getAdminActivityById(id: string): Promise<DbActivity | nul
 
 // 3. Simpan Aktivitas Baru
 export async function createActivityAction(payload: ActivityFormInput): Promise<{ success: boolean; message?: string; id?: string }> {
-  const session = await getSession();
+  const session = await requireSuperAdmin();
   if (!session) {
     return { success: false, message: "Akses ditolak. Sesi Anda tidak valid." };
   }
@@ -287,7 +311,7 @@ export async function createActivityAction(payload: ActivityFormInput): Promise<
 
 // 4. Update Aktivitas Eksisting
 export async function updateActivityAction(id: string, payload: ActivityFormInput): Promise<{ success: boolean; message?: string }> {
-  const session = await getSession();
+  const session = await requireSuperAdmin();
   if (!session) {
     return { success: false, message: "Akses ditolak. Sesi Anda tidak valid." };
   }
@@ -363,7 +387,7 @@ export async function updateActivityAction(id: string, payload: ActivityFormInpu
 
 // 5. Hapus Aktivitas
 export async function deleteActivityAction(id: string): Promise<{ success: boolean; message?: string }> {
-  const session = await getSession();
+  const session = await requireSuperAdmin();
   if (!session) {
     return { success: false, message: "Akses ditolak. Sesi Anda tidak valid." };
   }
@@ -381,7 +405,7 @@ export async function deleteActivityAction(id: string): Promise<{ success: boole
 
 // 5b. Toggle Status Publikasi (Terbit / Draft)
 export async function togglePublishActivityAction(id: string): Promise<{ success: boolean; isPublished?: boolean; message?: string }> {
-  const session = await getSession();
+  const session = await requireSuperAdmin();
   if (!session) {
     return { success: false, message: "Akses ditolak. Sesi Anda tidak valid." };
   }
@@ -416,7 +440,7 @@ export async function togglePublishActivityAction(id: string): Promise<{ success
 
 // 5c. Toggle Event / Konten Utama Teratas (Featured di /news)
 export async function toggleFeaturedActivityAction(id: string): Promise<{ success: boolean; featured?: boolean; message?: string }> {
-  const session = await getSession();
+  const session = await requireSuperAdmin();
   if (!session) {
     return { success: false, message: "Akses ditolak. Sesi Anda tidak valid." };
   }
@@ -461,7 +485,7 @@ export async function toggleFeaturedActivityAction(id: string): Promise<{ succes
 
 // 5d. Toggle Tampil di Landing Page (Maksimal 2 kartu aktif)
 export async function toggleLandingActivityAction(id: string): Promise<{ success: boolean; showOnLanding?: boolean; message?: string }> {
-  const session = await getSession();
+  const session = await requireSuperAdmin();
   if (!session) {
     return { success: false, message: "Akses ditolak. Sesi Anda tidak valid." };
   }
@@ -512,30 +536,18 @@ export async function toggleLandingActivityAction(id: string): Promise<{ success
 }
 
 // 6. Seeding Data Awal
-export async function seedInitialDataAction(adminEmail = "admin@unibox.id", adminPassword = "AdminUnibox2026!"): Promise<{ success: boolean; message: string; count?: number }> {
+export async function seedInitialDataAction(): Promise<{ success: boolean; message: string; count?: number }> {
+  const session = await requireSuperAdmin();
+  if (!session) {
+    return { success: false, message: "Akses ditolak. Sesi superadmin diperlukan." };
+  }
+
   try {
-    const existingUser = await prisma.adminUser.findUnique({
-      where: { email: adminEmail },
-    });
-
-    if (!existingUser) {
-      const passwordHash = await hashPassword(adminPassword);
-      await prisma.adminUser.create({
-        data: {
-          username: "admin",
-          email: adminEmail,
-          passwordHash,
-          name: "Administrator Unibox",
-          role: "superadmin",
-        },
-      });
-    }
-
     const count = await prisma.activity.count();
     if (count > 0) {
       return {
         success: true,
-        message: `Database sudah memiliki ${count} aktivitas. Akun admin siap digunakan.`,
+        message: `Database sudah memiliki ${count} aktivitas.`,
         count,
       };
     }

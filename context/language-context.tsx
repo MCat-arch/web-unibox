@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, startTransition, useContext, useEffect, useState } from "react";
 
 export type Language = "id" | "en";
 
@@ -12,19 +12,33 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("id");
+export function LanguageProvider({
+  children,
+  initialLanguage = "id",
+}: {
+  children: React.ReactNode;
+  initialLanguage?: Language;
+}) {
+  const [language, setLanguageState] = useState<Language>(initialLanguage);
 
   useEffect(() => {
     const saved = localStorage.getItem("unibox_lang") as Language | null;
     if (saved === "id" || saved === "en") {
-      setLanguageState(saved);
+      if (saved !== initialLanguage) {
+        startTransition(() => setLanguageState(saved));
+      }
     }
-  }, []);
+    document.documentElement.lang = saved === "en" ? "en" : initialLanguage;
+  }, [initialLanguage]);
 
   const setLanguage = (lang: Language) => {
+    if (lang === language) {
+      return;
+    }
+
     setLanguageState(lang);
     localStorage.setItem("unibox_lang", lang);
+    document.cookie = `unibox_lang=${lang}; Path=/; Max-Age=31536000; SameSite=Lax`;
     document.documentElement.lang = lang;
   };
 

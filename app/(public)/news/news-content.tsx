@@ -19,30 +19,8 @@ import {
 import { Text } from "@/components/text";
 import { useLanguage } from "@/context/language-context";
 import { activitiesData, upcomingEventsData, pastEventsData } from "@/lib/activities-data";
-
-function WavePattern({ className = "text-sky-300" }: { className?: string }) {
-  return (
-    <svg className={className} width="48" height="64" viewBox="0 0 48 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M4 8C8 4 12 4 16 8C20 12 24 12 28 8C32 4 36 4 40 8C44 12 48 12 52 8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-      <path d="M4 22C8 18 12 18 16 22C20 26 24 26 28 22C32 18 36 18 40 22C44 26 48 26 52 22" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-      <path d="M4 36C8 32 12 32 16 36C20 40 24 40 28 36C32 32 36 32 40 36C44 40 48 40 52 36" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-      <path d="M4 50C8 46 12 46 16 50C20 54 24 54 28 50C32 46 36 46 40 50C44 54 48 54 52 50" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function ScalePattern({ className = "text-orange-400" }: { className?: string }) {
-  return (
-    <svg className={className} width="42" height="96" viewBox="0 0 42 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M4 14C4 22 17 22 17 14M17 14C17 22 30 22 30 14M30 14C30 22 43 22 43 14" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M4 34C4 42 17 42 17 34M17 34C17 42 30 42 30 34M30 34C30 42 43 42 43 34" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M4 54C4 62 17 62 17 54M17 54C17 62 30 62 30 54M30 54C30 62 43 62 43 54" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M4 74C4 82 17 82 17 74M17 74C17 82 30 82 30 74M30 74C30 82 43 82 43 74" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 import type { ActivityItem } from "@/lib/activities-data";
+import { ScalePattern, WavePattern } from "@/components/ui/marine-patterns";
 
 export function NewsContent({ initialActivities }: { initialActivities?: ActivityItem[] }) {
   const { language } = useLanguage();
@@ -235,7 +213,8 @@ export function NewsContent({ initialActivities }: { initialActivities?: Activit
                   {/* Horizontal Card Box */}
                   <Link
                     href={`/news/${item.slug || featuredEvent.slug}`}
-                    className="flex min-h-28 sm:min-h-36 items-center gap-3.5 sm:gap-5 rounded-2xl bg-[#092644] p-3.5 sm:p-5 text-white shadow-md shadow-blue-950/15 border border-blue-900/40 group cursor-pointer"
+                    prefetch={false}
+                    className="min-w-0 flex min-h-28 w-full sm:min-h-36 items-center gap-3.5 sm:gap-5 rounded-2xl bg-[#092644] p-3.5 sm:p-5 text-white shadow-md shadow-blue-950/15 border border-blue-900/40 group cursor-pointer"
                   >
                     <div className="relative aspect-[4/3] w-24 sm:w-36 md:w-40 shrink-0 overflow-hidden rounded-xl bg-slate-800">
                       <Image

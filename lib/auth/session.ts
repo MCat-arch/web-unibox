@@ -1,9 +1,6 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
-
-const SESSION_COOKIE_NAME = "unibox_admin_session";
-const JWT_SECRET = process.env.ADMIN_JWT_SECRET || "unibox-fallback-maritime-jwt-secret-key-32-chars";
-const encodedKey = new TextEncoder().encode(JWT_SECRET);
+import { encodedJwtKey, SESSION_COOKIE_NAME } from "@/lib/auth/config";
 
 export interface AdminSessionPayload {
   userId: string;
@@ -20,7 +17,7 @@ export async function createSession(payload: AdminSessionPayload): Promise<strin
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("8h")
-    .sign(encodedKey);
+    .sign(encodedJwtKey);
 
   const cookieStore = await cookies();
   cookieStore.set(SESSION_COOKIE_NAME, token, {
@@ -36,7 +33,7 @@ export async function createSession(payload: AdminSessionPayload): Promise<strin
 
 export async function verifySessionToken(token: string): Promise<AdminSessionPayload | null> {
   try {
-    const { payload } = await jwtVerify(token, encodedKey, {
+    const { payload } = await jwtVerify(token, encodedJwtKey, {
       algorithms: ["HS256"],
     });
     return payload as unknown as AdminSessionPayload;

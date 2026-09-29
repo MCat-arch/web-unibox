@@ -51,16 +51,25 @@ export async function loginAdminAction(formData: FormData): Promise<LoginResult>
       ? await prisma.adminUser.findUnique({ where: { email: identifier } })
       : await prisma.adminUser.findUnique({ where: { username: identifier } });
 
-    // Auto-bootstrap master admin jika tabel masih kosong
-    if (!user && (identifier === "admin@unibox.id" || identifier === "admin") && password === "AdminUnibox2026!") {
+    // Optional bootstrap is enabled only when explicit deployment secrets are configured.
+    const bootstrapEmail = process.env.ADMIN_BOOTSTRAP_EMAIL;
+    const bootstrapUsername = process.env.ADMIN_BOOTSTRAP_USERNAME || "admin";
+    const bootstrapPassword = process.env.ADMIN_BOOTSTRAP_PASSWORD;
+    const matchesBootstrap =
+      bootstrapEmail &&
+      bootstrapPassword &&
+      (identifier.toLowerCase() === bootstrapEmail.toLowerCase() || identifier === bootstrapUsername) &&
+      password === bootstrapPassword;
+
+    if (!user && matchesBootstrap) {
       try {
         const count = await prisma.adminUser.count();
         if (count === 0) {
           const passwordHash = await hashPassword(password);
           user = await prisma.adminUser.create({
             data: {
-              username: "admin",
-              email: "admin@unibox.id",
+              username: bootstrapUsername,
+              email: bootstrapEmail,
               passwordHash,
               name: "Administrator Unibox",
               role: "superadmin",

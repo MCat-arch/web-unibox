@@ -3,10 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle } from "lucide-react";
-import { useLanguage } from "@/context/language-context";
 import { Text } from "@/components/text";
-
-type Language = "id" | "en";
 
 function LinkedinIcon({ className }: { className?: string }) {
   return (
@@ -45,14 +42,6 @@ function FacebookIcon({ className }: { className?: string }) {
   );
 }
 
-const navItems = [
-  { href: "/", id: "Beranda", en: "Home" },
-  { href: "/about", id: "Tentang", en: "About" },
-  { href: "/product", id: "Produk", en: "Products" },
-  { href: "/news", id: "Aktivitas", en: "Activities" },
-  { href: "/contact", id: "Kontak", en: "Contact" },
-];
-
 const socialMediaLinks = [
   {
     name: "LinkedIn",
@@ -87,8 +76,6 @@ const socialMediaLinks = [
 ];
 
 export function Footer() {
-  const { language } = useLanguage();
-
   return (
     <footer className="relative overflow-hidden bg-[#071c30] pt-16 pb-12 text-white border-t border-sky-900/60">
       {/* Atmospheric Marine Background */}
@@ -106,7 +93,7 @@ export function Footer() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-5 lg:px-8 text-center">
         {/* Logo Unibox */}
-        <Link href="/" className="inline-flex items-center gap-2.5 group">
+        <Link href="/" prefetch={false} className="inline-flex items-center gap-2.5 group">
           <div className="relative size-11 shrink-0">
             <Image
               src="/images/unibox-emblem.png"

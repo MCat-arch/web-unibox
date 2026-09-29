@@ -118,7 +118,7 @@ export function PartnershipSection() {
             size="lg"
             className="w-full sm:w-auto shrink-0 bg-white text-blue-900 hover:bg-sky-50 font-bold shadow-xl shadow-blue-950/30"
           >
-            <Link href="/contact" className="justify-center">
+            <Link href="/contact" prefetch={false} className="justify-center">
               <Text>{{ id: "Konsultasi Gratis Sekarang", en: "Get Free Consultation" }}</Text>
               <ArrowRight className="size-4 ml-1" />
             </Link>

@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
-
-const SESSION_COOKIE_NAME = "unibox_admin_session";
-const JWT_SECRET = process.env.ADMIN_JWT_SECRET || "unibox-fallback-maritime-jwt-secret-key-32-chars";
-const encodedKey = new TextEncoder().encode(JWT_SECRET);
+import { encodedJwtKey, SESSION_COOKIE_NAME } from "@/lib/auth/config";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -16,7 +13,7 @@ export async function middleware(request: NextRequest) {
 
     if (sessionToken) {
       try {
-        await jwtVerify(sessionToken, encodedKey, {
+        await jwtVerify(sessionToken, encodedJwtKey, {
           algorithms: ["HS256"],
         });
         isAuthenticated = true;

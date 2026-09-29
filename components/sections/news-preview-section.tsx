@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/text";
 import { useLanguage } from "@/context/language-context";
 
-import type { ActivityItem } from "@/lib/activities-data";
+import type { LandingActivity } from "@/lib/activities-fetcher";
 
 const defaultActivities = [
   {
@@ -30,7 +30,7 @@ const defaultActivities = [
   },
 ];
 
-export function NewsPreviewSection({ initialActivities }: { initialActivities?: ActivityItem[] }) {
+export function NewsPreviewSection({ initialActivities }: { initialActivities?: LandingActivity[] }) {
   const { language } = useLanguage();
   const activities = initialActivities && initialActivities.length > 0 ? initialActivities : defaultActivities;
 
@@ -81,6 +81,7 @@ export function NewsPreviewSection({ initialActivities }: { initialActivities?: 
               {/* Card statis tanpa animasi/hover */}
               <Link
                 href={`/news/${item.slug}`}
+                prefetch={false}
                 className="flex min-h-28 sm:min-h-36 items-center gap-3.5 sm:gap-5 rounded-2xl bg-[#092644] p-3.5 sm:p-5 text-white shadow-lg shadow-blue-950/15 border border-blue-900/40 cursor-pointer"
               >
                 <div className="relative aspect-[4/3] w-24 sm:w-36 md:w-40 shrink-0 overflow-hidden rounded-xl bg-slate-800">
@@ -109,7 +110,7 @@ export function NewsPreviewSection({ initialActivities }: { initialActivities?: 
             asChild
             className="rounded-full bg-slate-950 hover:bg-slate-800 text-white font-semibold px-7 py-2.5 shadow-md"
           >
-            <Link href="/news" className="flex items-center gap-2">
+            <Link href="/news" prefetch={false} className="flex items-center gap-2">
               <Text>{{ id: "Lihat Semua Aktivitas", en: "View All Activities" }}</Text>
               <ArrowRight className="size-4" />
             </Link>

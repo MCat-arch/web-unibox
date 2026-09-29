@@ -57,17 +57,17 @@ const slides: SlideItem[] = [
 
 export function HeroSection() {
   const [activeSlide, setActiveSlide] = useState(0);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const activeVideoRef = useRef<HTMLVideoElement | null>(null);
 
   // Auto-play, sinkronisasi video tanpa suara (muted), dan perputaran slide
   useEffect(() => {
     const currentSlide = slides[activeSlide];
 
     if (currentSlide.type === "video") {
-      const vid = videoRefs.current[activeSlide];
-      if (vid) {
-        vid.currentTime = 0;
-        vid.play().catch(() => {
+      const video = activeVideoRef.current;
+      if (video) {
+        video.currentTime = 0;
+        video.play().catch(() => {
           // Browser autoplay restriction fallback
         });
       }
@@ -78,7 +78,10 @@ export function HeroSection() {
         setActiveSlide((current) => (current + 1) % slides.length);
       }, duration);
 
-      return () => window.clearTimeout(videoTimer);
+      return () => {
+        window.clearTimeout(videoTimer);
+        video?.pause();
+      };
     }
 
     // Slide gambar berdurasi 7 detik
@@ -102,28 +105,22 @@ export function HeroSection() {
       id="hero-section"
       className="relative min-h-screen w-full overflow-hidden flex flex-col justify-end"
     >
-      {/* Background Slides: Video or Image */}
-      {slides.map((s, index) => {
-        const isActive = index === activeSlide;
+      {/* Render only the active media so hidden slides do not preload. */}
+      {(() => {
+        const slide = slides[activeSlide];
 
-        if (s.type === "video") {
+        if (slide.type === "video") {
           return (
-            <div
-              key={s.src}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${isActive ? "opacity-100 z-0" : "opacity-0 -z-10 pointer-events-none"
-                }`}
-            >
+            <div className="absolute inset-0 z-0">
               <video
-                ref={(el) => {
-                  videoRefs.current[index] = el;
-                }}
-                src={s.src}
-                poster={s.poster}
+                ref={activeVideoRef}
+                src={slide.src}
+                poster={slide.poster}
                 autoPlay
                 muted
                 playsInline
-                preload="auto"
-                onEnded={() => handleVideoEnded(index)}
+                preload="metadata"
+                onEnded={() => handleVideoEnded(activeSlide)}
                 className="absolute inset-0 size-full min-w-full min-h-full object-cover object-center pointer-events-none"
               />
             </div>
@@ -131,23 +128,17 @@ export function HeroSection() {
         }
 
         return (
-          <div
-            key={s.src}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${isActive ? "opacity-100 scale-100 z-0" : "opacity-0 scale-105 -z-10 pointer-events-none"
-              }`}
-            style={{ transitionProperty: "opacity, transform" }}
-          >
+          <div className="absolute inset-0 z-0">
             <Image
-              src={s.src}
-              alt={s.alt.id}
+              src={slide.src}
+              alt={slide.alt.id}
               fill
-              priority={index === 1}
               className="object-cover object-center"
               sizes="100vw"
             />
           </div>
         );
-      })}
+      })()}
 
       {/* Atmospheric overlay: kontras konsisten untuk navbar putih & teks headline */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/45 z-[1]" />
@@ -164,7 +155,7 @@ export function HeroSection() {
               asChild
               className="w-full sm:w-auto rounded-full bg-[#0f3d6b] hover:bg-[#0a2847] text-white font-semibold px-8 py-6 text-sm sm:text-base shadow-xl shadow-blue-950/50 border border-blue-400/25 transition-colors"
             >
-              <Link href={slide.href}>
+              <Link href={slide.href} prefetch={false}>
                 <Text>{slide.cta}</Text>
               </Link>
             </Button>

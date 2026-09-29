@@ -1,10 +1,29 @@
+import type { Activity, ContentSection } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { ActivityItem, activitiesData } from "@/lib/activities-data";
 
-function mapPrismaActivityToItem(act: any): ActivityItem {
-  const sections = (act.sections || [])
-    .sort((a: any, b: any) => a.orderIndex - b.orderIndex)
-    .map((s: any) => ({
+export type LandingActivity = Pick<ActivityItem, "slug" | "image" | "date" | "title">;
+
+type LandingActivityRecord = Pick<
+  Activity,
+  "slug" | "image" | "date_id" | "date_en" | "title_id" | "title_en"
+>;
+
+type ActivityWithSections = Activity & { sections: ContentSection[] };
+
+function mapPrismaLandingActivityToItem(act: LandingActivityRecord): LandingActivity {
+  return {
+    slug: act.slug,
+    image: act.image,
+    date: { id: act.date_id, en: act.date_en },
+    title: { id: act.title_id, en: act.title_en },
+  };
+}
+
+function mapPrismaActivityToItem(act: ActivityWithSections): ActivityItem {
+  const sections = [...act.sections]
+    .sort((a, b) => a.orderIndex - b.orderIndex)
+    .map((s) => ({
       heading: { id: s.heading_id, en: s.heading_en },
       body: { id: s.body_id, en: s.body_en },
     }));
@@ -60,37 +79,27 @@ export async function getPublicActivities(): Promise<ActivityItem[]> {
 }
 
 // 2. Ambil 2 aktivitas untuk halaman Landing Page (prioritas: showOnLanding = true)
-export async function getLandingActivities(): Promise<ActivityItem[]> {
+export async function getLandingActivities(): Promise<LandingActivity[]> {
   try {
-    // Cari yang ditandai showOnLanding terlebih dahulu
-    const landingMarked = await prisma.activity.findMany({
-      where: { isPublished: true, showOnLanding: true },
-      include: { sections: { orderBy: { orderIndex: "asc" } } },
-      orderBy: { updatedAt: "desc" },
+    const landingActivities = await prisma.activity.findMany({
+      where: { isPublished: true },
+      select: {
+        slug: true,
+        image: true,
+        date_id: true,
+        date_en: true,
+        title_id: true,
+        title_en: true,
+      },
+      orderBy: [
+        { showOnLanding: "desc" },
+        { updatedAt: "desc" },
+      ],
       take: 2,
     });
 
-    if (landingMarked.length === 2) {
-      return landingMarked.map(mapPrismaActivityToItem);
-    }
-
-    // Jika kurang dari 2, lengkapi dengan aktivitas terbaru lainnya
-    const needed = 2 - landingMarked.length;
-    const excludeIds = landingMarked.map((a) => a.id);
-
-    const additional = await prisma.activity.findMany({
-      where: {
-        isPublished: true,
-        id: { notIn: excludeIds },
-      },
-      include: { sections: { orderBy: { orderIndex: "asc" } } },
-      orderBy: { createdAt: "desc" },
-      take: needed,
-    });
-
-    const combined = [...landingMarked, ...additional];
-    if (combined.length > 0) {
-      return combined.map(mapPrismaActivityToItem);
+    if (landingActivities.length > 0) {
+      return landingActivities.map(mapPrismaLandingActivityToItem);
     }
 
     return activitiesData.slice(0, 2);
@@ -108,7 +117,7 @@ export async function getPublicActivityBySlug(slug: string): Promise<ActivityIte
     });
 
     if (!data || !data.isPublished) {
-      return activitiesData.find((a) => a.slug === slug) || null;
+      return null;
     }
 
     return mapPrismaActivityToItem(data);
